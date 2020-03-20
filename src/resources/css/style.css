@@ -2,9 +2,14 @@
 * List
 * ----------------------------------------------------------------------------- */
 
-.tribe-ext-events-control-list .tribe-ext-events-control-list--canceled {
-	color: #DA394D;
+.tribe-ext-events-control-list-status.tribe-ext-events-control-list-status--canceled,
+.tribe-ext-events-control-list-status.tribe-ext-events-control-list-status--postponed {
 	float: left;
-	font-weight: 700;
 	margin-right: 8px;
+}
+
+.tribe-ext-events-control-list-status.tribe-ext-events-control-list-status--canceled .tribe-ext-events-control-list__red-text,
+.tribe-ext-events-control-list-status.tribe-ext-events-control-list-status--postponed .tribe-ext-events-control-list__red-text {
+	color: #DA394D;
+	font-weight: 700;
 }

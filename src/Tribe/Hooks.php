@@ -48,7 +48,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'init', [ $this, 'action_register_metabox_fields' ] );
 		add_action( 'save_post', [ $this, 'action_save_metabox' ], 15, 3 );
 
-		add_action( 'tribe_template_before_include:events/list/event/date', [ $this, 'action_add_archive_control_status' ], 15, 3 );
+		add_action( 'tribe_template_before_include:events/list/event/date/meta', [ $this, 'action_add_archive_control_status' ], 15, 3 );
 		add_action( 'tribe_template_after_include:events/list/event/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
 	}
 

@@ -28,6 +28,8 @@ if ( 'postponed' !== $status ) {
 }
 
 ?>
-<div class="tribe-common-b2">
+<div class="tribe-ext-events-control-list-status tribe-ext-events-control-list-status--postponed">
+	<span class="tribe-common-b2 tribe-ext-events-control-list__red-text">
 	<?php echo esc_html_x( 'Postponed', 'Text next to the date to display postponed', 'tribe-ext-events-control' ); ?>
+	</span>
 </div>
