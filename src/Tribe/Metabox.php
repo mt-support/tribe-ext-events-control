@@ -4,6 +4,7 @@ namespace Tribe\Extensions\EventsControl;
 use Tribe__Events__Main as Events_Plugin;
 use Tribe__Template as Template;
 use WP_Post;
+use Tribe__Utils__Array as Arr;
 
 /**
  * Class Metabox
@@ -22,6 +23,15 @@ class Metabox {
 	 * @var string
 	 */
 	public static $id = 'tribe-events-control';
+
+	/**
+	 * Action name used for the nonce on saving the metabox.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	public static $nonce_action = 'tribe-event-control-nonce';
 
 	/**
 	 * Stores the template class used.
@@ -81,6 +91,7 @@ class Metabox {
 	 */
 	public function render( $post ) {
 		$args = [
+			'metabox' => $this,
 			'post' => $post,
 		];
 
@@ -110,12 +121,39 @@ class Metabox {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @todo Requires impleementation of any saving.
+	 * @todo Requires implementation of any saving.
+	 *
+	 * @param int     $post_id Which post ID we are dealing with when saving.
+	 * @param WP_Post $post    WP Post instance we are saving.
 	 *
 	 * @return void Just saving requires no return.
 	 */
-	public function save() {
+	public function save( $post_id, $post ) {
+		// All fields will be stored in the same array for simplicity.
+		$data = tribe_get_request_var( static::$id, [] );
 
+		// Add nonce for security and authentication.
+		$nonce_name = Arr::get( $data, 'nonce', false );
+
+		// Check if nonce is valid.
+		if ( ! wp_verify_nonce( $nonce_name, static::$nonce_action ) ) {
+			return;
+		}
+
+		// Check if user has permissions to save data.
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+
+		// Check if not an autosave.
+		if ( wp_is_post_autosave( $post_id ) ) {
+			return;
+		}
+
+		// Check if not a revision.
+		if ( wp_is_post_revision( $post_id ) ) {
+			return;
+		}
 	}
 
 }
