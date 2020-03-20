@@ -22,10 +22,16 @@ use Tribe__Template as Template;
             name="<?php echo esc_attr( "{$metabox::$id}[status]" ); ?>"
         >
             <option value=""></option>
-            <option value="canceled">
+            <option
+                value="canceled"
+                <?php selected( 'canceled' === $fields['online-url'] ) ?>
+            >
                 <?php echo esc_html_x( 'Canceled', 'Event status of being canceled in the select field', 'tribe-ext-events-control' ); ?>
             </option>
-            <option value="postponed">
+            <option
+                value="postponed"
+	            <?php selected( 'postponed' === $fields['online-url'] ) ?>
+            >
                 <?php echo esc_html_x( 'Postponed', 'Event status of being postponed in the select field', 'tribe-ext-events-control' ); ?>
             </option>
         </select>
@@ -67,6 +73,7 @@ use Tribe__Template as Template;
 				name="<?php echo esc_attr( "{$metabox::$id}[online]" ); ?>"
 				type="checkbox"
 				value="yes"
+                <?php checked( $fields['online-url'] ); ?>
 			>
 			<?php echo esc_html_x( 'Mark as an online event', 'Event State of being Online only checkbox label', 'tribe-ext-events-control' ); ?>
 		</label>
@@ -83,7 +90,7 @@ use Tribe__Template as Template;
             <input
                 id="<?php echo esc_attr( "{$metabox::$id}-online-url" ); ?>"
                 name="<?php echo esc_attr( "{$metabox::$id}[online-url]" ); ?>"
-                value="<?php echo esc_attr( $fields['online-url'] ) ?>"
+                value="<?php echo esc_url( $fields['online-url'] ) ?>"
             >
         </p>
 	</div>

@@ -139,11 +139,11 @@ class Metabox {
 	 */
 	public function render( $post ) {
 		$fields = [
-			'status' => null,
-			'status-canceled-reason' => null,
-			'status-postponed-reason' => null,
-			'online' => null,
-			'online-url' => null,
+			'status' => get_post_meta( $post->ID, static::$meta_status, true ),
+			'status-canceled-reason' => get_post_meta( $post->ID, static::$meta_status_canceled_reason, true ),
+			'status-postponed-reason' => get_post_meta( $post->ID, static::$meta_status_postponed_reason, true ),
+			'online' => tribe_is_truthy( get_post_meta( $post->ID, static::$meta_online, true ) ),
+			'online-url' => get_post_meta( $post->ID, static::$meta_online_url, true ),
 		];
 		$args = [
 			'metabox' => $this,
@@ -182,7 +182,7 @@ class Metabox {
 	public function register_fields() {
 		register_post_meta(
 			'post',
-			'_tribe_events_control_status',
+			static::$meta_status,
 			[
 				'show_in_rest' => true,
 				'single' => true,
@@ -194,7 +194,7 @@ class Metabox {
 		);
 		register_post_meta(
 			'post',
-			'_tribe_events_control_status_canceled_reason',
+			static::$meta_status_canceled_reason,
 			[
 				'show_in_rest' => true,
 				'single' => true,
@@ -206,7 +206,7 @@ class Metabox {
 		);
 		register_post_meta(
 			'post',
-			'_tribe_events_control_status_postponed_reason',
+			static::$meta_status_postponed_reason,
 			[
 				'show_in_rest' => true,
 				'single' => true,
@@ -218,7 +218,7 @@ class Metabox {
 		);
 		register_post_meta(
 			'post',
-			'_tribe_events_control_online',
+			static::$meta_online,
 			[
 				'show_in_rest' => true,
 				'single' => true,
@@ -230,7 +230,7 @@ class Metabox {
 		);
 		register_post_meta(
 			'post',
-			'_tribe_events_control_online_url',
+			static::$meta_online_url,
 			[
 				'show_in_rest' => true,
 				'single' => true,
