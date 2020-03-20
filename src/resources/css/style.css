@@ -1,0 +1,10 @@
+/* -----------------------------------------------------------------------------
+* List
+* ----------------------------------------------------------------------------- */
+
+.tribe-ext-events-control-list .tribe-ext-events-control-list--canceled {
+	color: #DA394D;
+	float: left;
+	font-weight: 700;
+	margin-right: 8px;
+}
