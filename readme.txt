@@ -1,4 +1,4 @@
-=== [Base Plugin Name] Extension: [Extension Name] ===
+=== The Events Calendar Extension: Events Control ===
 Contributors: ModernTribe
 Donate link: http://m.tri.be/29
 Tags: events, calendar

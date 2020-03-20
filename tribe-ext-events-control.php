@@ -1,16 +1,16 @@
 <?php
 /**
- * Plugin Name:       [Base Plugin Name] Extension: [Extension Name]
- * Plugin URI:        https://theeventscalendar.com/extensions/---the-extension-article-url---/
- * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-extension-template
- * Description:       [Extension Description]
+ * Plugin Name:       The Events Calendar Extension: Events Control
+ * Plugin URI:        https://theeventscalendar.com/extensions/events-control/
+ * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-events-control
+ * Description:
  * Version:           1.0.0
- * Extension Class:   Tribe\Extensions\Example\Main
+ * Extension Class:   Tribe\Extensions\EventsControl\Main
  * Author:            Modern Tribe, Inc.
  * Author URI:        http://m.tri.be/1971
  * License:           GPL version 3 or any later version
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
- * Text Domain:       tribe-ext-extension-template
+ * Text Domain:       tribe-ext-events-control
  *
  *     This plugin is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -22,11 +22,9 @@
  *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *     GNU General Public License for more details.
  */
-
-namespace Tribe\Extensions\Example;
+namespace Tribe\Extensions\EventsControl;
 
 use Tribe__Autoloader;
-use Tribe__Dependency;
 use Tribe__Extension;
 
 /**
@@ -38,8 +36,8 @@ if ( ! defined( __NAMESPACE__ . '\NS' ) ) {
 }
 
 if ( ! defined( NS . 'PLUGIN_TEXT_DOMAIN' ) ) {
-	// `Tribe\Extensions\Example\PLUGIN_TEXT_DOMAIN` is defined
-	define( NS . 'PLUGIN_TEXT_DOMAIN', 'tribe-ext-extension-template' );
+	// `Tribe\Extensions\EventsHappeningNow\PLUGIN_TEXT_DOMAIN` is defined
+	define( NS . 'PLUGIN_TEXT_DOMAIN', 'tribe-ext-events-control' );
 }
 
 // Do not load unless Tribe Common is fully loaded and our class does not yet exist.
@@ -51,6 +49,32 @@ if (
 	 * Extension main class, class begins loading on init() function.
 	 */
 	class Main extends Tribe__Extension {
+		/**
+		 * Stores the base slug for the extension.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @var string
+		 */
+		const VERSION = '1.0.0';
+
+		/**
+		 * Stores the base slug for the extension.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @var string
+		 */
+		const PATH = __DIR__;
+
+		/**
+		 * Stores the base slug for the extension.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @var string
+		 */
+		const SLUG = 'events-control';
 
 		/**
 		 * @var Tribe__Autoloader
@@ -58,16 +82,19 @@ if (
 		private $class_loader;
 
 		/**
-		 * @var Settings
+		 * @var string Plugin Directory
 		 */
-		private $settings;
+		public $plugin_dir;
 
 		/**
-		 * Is Events Calendar PRO active. If yes, we will add some extra functionality.
-		 *
-		 * @return bool
+		 * @var string Plugin path
 		 */
-		public $ecp_active = false;
+		public $plugin_path;
+
+		/**
+		 * @var string Plugin URL
+		 */
+		public $plugin_url;
 
 		/**
 		 * Setup the Extension's properties.
@@ -75,7 +102,9 @@ if (
 		 * This always executes even if the required plugins are not present.
 		 */
 		public function construct() {
-			// Dependency requirements and class properties can be defined here.
+			$this->plugin_dir  = trailingslashit( basename( self::PATH ) );
+			$this->plugin_path = trailingslashit( self::PATH );
+			$this->plugin_url  = plugins_url( $this->plugin_dir, self::PATH );
 
 			/**
 			 * Examples:
@@ -86,62 +115,7 @@ if (
 			 *
 			 * If using `tribe()`, such as with `Tribe__Dependency`, require TEC/ET version 4.4+ (January 9, 2017).
 			 */
-			// $this->add_required_plugin( 'Tribe__Tickets__Main', '4.4' );
-			// $this->add_required_plugin( 'Tribe__Tickets_Plus__Main', '4.3.3' );
-			// $this->add_required_plugin( 'Tribe__Events__Main', '4.4' );
-			// $this->add_required_plugin( 'Tribe__Events__Pro__Main', '4.3.3' );
-			// $this->add_required_plugin( 'Tribe__Events__Community__Main', '4.3.2' );
-			// $this->add_required_plugin( 'Tribe__Events__Community__Tickets__Main', '4.3.2' );
-			// $this->add_required_plugin( 'Tribe__Events__Filterbar__View', '4.3.3' );
-			// $this->add_required_plugin( 'Tribe__Events__Tickets__Eventbrite__Main', '4.3.2' );
-			// $this->add_required_plugin( 'Tribe_APM', '4.4' );
-
-			// Conditionally-require Events Calendar PRO. If it is active, run an extra bit of code.
-			add_action( 'tribe_plugins_loaded', [ $this, 'detect_tec_pro' ], 0 );
-		}
-
-		/**
-		 * Check required plugins after all Tribe plugins have loaded.
-		 *
-		 * Useful for conditionally-requiring a Tribe plugin, whether to add extra functionality
-		 * or require a certain version but only if it is active.
-		 */
-		public function detect_tec_pro() {
-			/** @var Tribe__Dependency $dep */
-			$dep = tribe( Tribe__Dependency::class );
-
-			if ( $dep->is_plugin_active( 'Tribe__Events__Pro__Main' ) ) {
-				$this->add_required_plugin( 'Tribe__Events__Pro__Main' );
-				$this->ecp_active = true;
-			}
-		}
-
-		/**
-		 * Get this plugin's options prefix.
-		 *
-		 * Settings_Helper will append a trailing underscore before each option.
-		 *
-		 * TODO: Remove if not using Settings.
-		 *
-		 * @see \Tribe\Extensions\Example\Settings::set_options_prefix()
-		 *
-		 * @return string
-		 */
-		private function get_options_prefix() {
-			return (string) str_replace( '-', '_', PLUGIN_TEXT_DOMAIN );
-		}
-
-		/**
-		 * Get Settings instance.
-		 *
-		 * @return Settings
-		 */
-		private function get_settings() {
-			if ( empty( $this->settings ) ) {
-				$this->settings = new Settings( $this->get_options_prefix() );
-			}
-
-			return $this->settings;
+			$this->add_required_plugin( 'Tribe__Events__Main', '5.0.2' );
 		}
 
 		/**
@@ -149,7 +123,7 @@ if (
 		 */
 		public function init() {
 			// Load plugin textdomain
-			// Don't forget to generate the 'languages/tribe-ext-extension-template.pot' file
+			// Don't forget to generate the 'languages/tribe-ext-events-happening-now.pot' file
 			load_plugin_textdomain( PLUGIN_TEXT_DOMAIN, false, basename( dirname( __FILE__ ) ) . '/languages/' );
 
 			if ( ! $this->php_version_check() ) {
@@ -158,13 +132,8 @@ if (
 
 			$this->class_loader();
 
-			$this->get_settings();
-
-			// TODO: Just a test. Remove this.
-			$this->testing_hello_world();
-
-			// Insert filter and action hooks here
-			add_filter( 'thing_we_are_filtering', [ $this, 'my_custom_function' ] );
+			tribe_singleton( static::class, $this );
+			tribe_register_provider( Service_Provider::class );
 		}
 
 		/**
@@ -220,8 +189,6 @@ if (
 		/**
 		 * Use Tribe Autoloader for all class files within this namespace in the 'src' directory.
 		 *
-		 * TODO: Delete this method and its usage throughout this file if there is no `src` directory, such as if there are no settings being added to the admin UI.
-		 *
 		 * @return Tribe__Autoloader
 		 */
 		public function class_loader() {
@@ -230,7 +197,7 @@ if (
 				$this->class_loader->set_dir_separator( '\\' );
 				$this->class_loader->register_prefix(
 					NS,
-					__DIR__ . DIRECTORY_SEPARATOR . 'src'
+					__DIR__ . DIRECTORY_SEPARATOR . 'src/Tribe'
 				);
 			}
 
@@ -238,48 +205,5 @@ if (
 
 			return $this->class_loader;
 		}
-
-		/**
-		 * TODO: Testing Hello World. Delete this for your new extension.
-		 */
-		public function testing_hello_world() {
-			$message = sprintf( '<p>Hello World from %s. Make sure to remove this in your own new extension.</p>', '<strong>' . $this->get_name() . '</strong>' );
-
-			$message .= sprintf( '<p><strong>Bonus!</strong> Get one of our own custom option values: %s</p><p><em>See the code to learn more.</em></p>', $this->get_one_custom_option() );
-
-			tribe_notice( PLUGIN_TEXT_DOMAIN . '-hello-world', $message, [ 'type' => 'info' ] );
-		}
-
-		/**
-		 * Demonstration of getting this extension's `a_setting` option value.
-		 *
-		 * TODO: Rework or remove this.
-		 *
-		 * @return mixed
-		 */
-		public function get_one_custom_option() {
-			$settings = $this->get_settings();
-
-			return $settings->get_option( 'a_setting', 'https://theeventscalendar.com/' );
-		}
-
-		/**
-		 * Get all of this extension's options.
-		 *
-		 * @return array
-		 */
-		public function get_all_options() {
-			$settings = $this->get_settings();
-
-			return $settings->get_all_options();
-		}
-
-		/**
-		 * Include a docblock for every class method and property.
-		 */
-		public function my_custom_function() {
-			// do your custom stuff
-		}
-
-	} // end class
-} // end if class_exists check
+	}
+}
