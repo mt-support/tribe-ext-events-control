@@ -76,14 +76,15 @@ use Tribe__Template as Template;
 		data-depends="#<?php echo esc_attr( "{$metabox::$id}-online" ); ?>"
 		data-condition-checked
 	>
-		<p>
-			<label for="<?php echo esc_attr( "{$metabox::$id}-online-url" ); ?>">
+        <p>
+            <label for="<?php echo esc_attr( "{$metabox::$id}-online-url" ); ?>">
 				<?php echo esc_html_x( 'Live Stream URL', 'Label for live stream URL field', 'tribe-ext-events-control' ); ?>
-			</label>
-			<textarea
-				id="<?php echo esc_attr( "{$metabox::$id}-online-url" ); ?>"
-				name="<?php echo esc_attr( "{$metabox::$id}[online-url]" ); ?>"
-			><?php echo esc_textarea( $fields['online-url'] ) ?></textarea>
-		</p>
+            </label>
+            <input
+                id="<?php echo esc_attr( "{$metabox::$id}-online-url" ); ?>"
+                name="<?php echo esc_attr( "{$metabox::$id}[online-url]" ); ?>"
+                value="<?php echo esc_attr( $fields['online-url'] ) ?>"
+            >
+        </p>
 	</div>
 </div>

@@ -36,6 +36,52 @@ class Metabox {
 	public static $nonce_action = 'tribe-event-control-nonce';
 
 	/**
+	 * Meta Key for Status field.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	public static $meta_status = '_tribe_events_control_status';
+
+	/**
+	 * Meta Key for Canceled reason field.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	public static $meta_status_canceled_reason = '_tribe_events_control_status_canceled_reason';
+
+	/**
+	 * Meta Key for Postponed reason field.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	public static $meta_status_postponed_reason = '_tribe_events_control_status_postponed_reason';
+
+	/**
+	 * Meta Key for Online field.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	public static $meta_online = '_tribe_events_control_online';
+
+	/**
+	 * Meta Key for Online URL field.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var string
+	 */
+	public static $meta_online_url = '_tribe_events_control_online_url';
+
+
+	/**
 	 * Stores the template class used.
 	 *
 	 * @since 1.0.0
@@ -276,34 +322,36 @@ class Metabox {
 		$status = Arr::get( $data, 'status', false );
 
 		if ( $status ) {
-			update_post_meta( $post_id, '_tribe_events_control_status', $status );
+			update_post_meta( $post_id, static::$meta_status, $status );
 
 			$status_canceled_reason = Arr::get( $data, 'status-canceled-reason', false );
 			if ( $status_canceled_reason ) {
-				update_post_meta( $post_id, '_tribe_events_control_status_canceled_reason', $status_canceled_reason );
+				$status_canceled_reason = wp_kses_post( $status_canceled_reason );
+				update_post_meta( $post_id, static::$meta_status_canceled_reason, $status_canceled_reason );
 			} else {
-				delete_post_meta( $post_id, '_tribe_events_control_status_canceled_reason' );
+				delete_post_meta( $post_id, static::$meta_status_canceled_reason );
 			}
 
 			$status_postponed_reason = Arr::get( $data, 'status-postponed-reason', false );
 			if ( $status_postponed_reason ) {
-				update_post_meta( $post_id, '_tribe_events_control_status_postponed_reason', $status_postponed_reason );
+				$status_postponed_reason = wp_kses_post( $status_canceled_reason );
+				update_post_meta( $post_id, static::$meta_status_postponed_reason, $status_postponed_reason );
 			} else {
-				delete_post_meta( $post_id, '_tribe_events_control_status_postponed_reason' );
+				delete_post_meta( $post_id, static::$meta_status_postponed_reason );
 			}
 		} else {
-			delete_post_meta( $post_id, '_tribe_events_control_status' );
-			delete_post_meta( $post_id, '_tribe_events_control_status_canceled_reason' );
-			delete_post_meta( $post_id, '_tribe_events_control_status_postponed_reason' );
+			delete_post_meta( $post_id, static::$meta_status );
+			delete_post_meta( $post_id, static::$meta_status_canceled_reason );
+			delete_post_meta( $post_id, static::$meta_status_postponed_reason );
 		}
 
 		$online = Arr::get( $data, 'online', false );
 		if ( $online ) {
-			update_post_meta( $post_id, '_tribe_events_control_online', $online );
-			update_post_meta( $post_id, '_tribe_events_control_online_url', Arr::get( $data, 'online-url', false ) );
+			update_post_meta( $post_id, static::$meta_online, $online );
+			update_post_meta( $post_id, static::$meta_online_url, Arr::get( $data, 'online-url', false ) );
 		} else {
-			delete_post_meta( $post_id, '_tribe_events_control_online' );
-			delete_post_meta( $post_id, '_tribe_events_control_online_url' );
+			delete_post_meta( $post_id, static::$meta_online );
+			delete_post_meta( $post_id, static::$meta_online_url );
 		}
 	}
 
