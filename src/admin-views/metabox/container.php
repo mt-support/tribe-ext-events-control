@@ -8,37 +8,57 @@ use Tribe__Template as Template;
  * @var Template $this     Template instance we are using.
  * @var WP_Post  $post     Post we are dealing with.
  * @var Metabox  $metabox  The metabox instance.
+ * @var array    $fields   Array of Field values.
  */
 ?>
-<div class="tribe-events-control-metabox-container">
+<div class="tribe-events-control-metabox-container" style="margin-top: 24px;">
 	<?php wp_nonce_field( $metabox::$nonce_action, "{$metabox::$id}[nonce]" ); ?>
 	<p>
-		<label for="<?php echo esc_attr( "{$metabox::$id}-status-postponed" ); ?>">
-			<input
-				id="<?php echo esc_attr( "{$metabox::$id}-status-postponed" ); ?>"
-				name="<?php echo esc_attr( "{$metabox::$id}[status]" ); ?>"
-				type="checkbox"
-				value="postponed"
-			>
-			<?php echo esc_html_x( 'Mark event as Postponed', 'Event State of being postponed in the select field', 'tribe-ext-events-control' ); ?>
-		</label>
+		<label for="<?php echo esc_attr( "{$metabox::$id}-status" ); ?>">
+			<?php echo esc_html_x( 'Event Status:', 'Event status label the select field', 'tribe-ext-events-control' ); ?>
+        </label>
+        <select
+            id="<?php echo esc_attr( "{$metabox::$id}-status" ); ?>"
+            name="<?php echo esc_attr( "{$metabox::$id}[status]" ); ?>"
+        >
+            <option value=""></option>
+            <option value="canceled">
+                <?php echo esc_html_x( 'Canceled', 'Event status of being canceled in the select field', 'tribe-ext-events-control' ); ?>
+            </option>
+            <option value="postponed">
+                <?php echo esc_html_x( 'Postponed', 'Event status of being postponed in the select field', 'tribe-ext-events-control' ); ?>
+            </option>
+        </select>
 	</p>
-	<div>
-
+	<div
+		class="tribe-dependent"
+        data-depends="#<?php echo esc_attr( "{$metabox::$id}-status" ); ?>"
+        data-condition="postponed"
+	>
+		<p>
+			<label for="<?php echo esc_attr( "{$metabox::$id}-status-postponed-reason" ); ?>">
+				<?php echo esc_html_x( 'Postponed Reason', 'Label for postponed reason field', 'tribe-ext-events-control' ); ?>
+			</label>
+			<textarea
+				id="<?php echo esc_attr( "{$metabox::$id}-status-postponed-reason" ); ?>"
+				name="<?php echo esc_attr( "{$metabox::$id}[status-postponed-reason]" ); ?>"
+			><?php echo esc_textarea( $fields['status-postponed-reason'] ) ?></textarea>
+		</p>
 	</div>
-	<p>
-		<label for="<?php echo esc_attr( "{$metabox::$id}-status-canceled" ); ?>">
-			<input
-				id="<?php echo esc_attr( "{$metabox::$id}-status-canceled" ); ?>"
-				name="<?php echo esc_attr( "{$metabox::$id}[status]" ); ?>"
-				type="checkbox"
-				value="canceled"
-			>
-			<?php echo esc_html_x( 'Mark event as Canceled', 'Event State of being canceled in the select field', 'tribe-ext-events-control' ); ?>
-		</label>
-	</p>
-	<div>
-
+	<div
+		class="tribe-dependent"
+		data-depends="#<?php echo esc_attr( "{$metabox::$id}-status" ); ?>"
+		data-condition="canceled"
+	>
+		<p>
+			<label for="<?php echo esc_attr( "{$metabox::$id}-status-canceled-reason" ); ?>">
+				<?php echo esc_html_x( 'Canceled Reason', 'Label for canceled reason field', 'tribe-ext-events-control' ); ?>
+			</label>
+			<textarea
+				id="<?php echo esc_attr( "{$metabox::$id}-status-canceled-reason" ); ?>"
+				name="<?php echo esc_attr( "{$metabox::$id}[status-canceled-reason]" ); ?>"
+			><?php echo esc_textarea( $fields['status-canceled-reason'] ) ?></textarea>
+		</p>
 	</div>
 	<p>
 		<label for="<?php echo esc_attr( "{$metabox::$id}-online" ); ?>">
@@ -51,4 +71,19 @@ use Tribe__Template as Template;
 			<?php echo esc_html_x( 'Mark as an online event', 'Event State of being Online only checkbox label', 'tribe-ext-events-control' ); ?>
 		</label>
 	</p>
+	<div
+		class="tribe-dependent"
+		data-depends="#<?php echo esc_attr( "{$metabox::$id}-online" ); ?>"
+		data-condition-checked
+	>
+		<p>
+			<label for="<?php echo esc_attr( "{$metabox::$id}-online-url" ); ?>">
+				<?php echo esc_html_x( 'Live Stream URL', 'Label for live stream URL field', 'tribe-ext-events-control' ); ?>
+			</label>
+			<textarea
+				id="<?php echo esc_attr( "{$metabox::$id}-online-url" ); ?>"
+				name="<?php echo esc_attr( "{$metabox::$id}[online-url]" ); ?>"
+			><?php echo esc_textarea( $fields['online-url'] ) ?></textarea>
+		</p>
+	</div>
 </div>

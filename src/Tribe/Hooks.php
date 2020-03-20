@@ -17,6 +17,7 @@
 
 namespace Tribe\Extensions\EventsControl;
 use Tribe__Template;
+use WP_Post;
 
 /**
  * Class Hooks
@@ -44,7 +45,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	protected function add_actions() {
 		add_action( 'add_meta_boxes', [ $this, 'action_add_metabox' ] );
-
+		add_action( 'init', [ $this, 'action_register_metabox_fields' ] );
+		add_action( 'save_post', [ $this, 'action_save_metabox' ], 15, 3 );
 	}
 
 	/**
@@ -112,5 +114,31 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function action_add_metabox() {
 		$this->container->make( Metabox::class )->register();
+	}
+
+	/**
+	 * Register the metabox fields in the correct action.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void Action hook with no return.
+	 */
+	public function action_register_metabox_fields() {
+		$this->container->make( Metabox::class )->register_fields();
+	}
+
+	/**
+	 * Register the metabox fields in the correct action.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int     $post_id Which post ID we are dealing with when saving.
+	 * @param WP_Post $post    WP Post instance we are saving.
+	 * @param boolean $update  If we are updating the post or not.
+	 *
+	 * @return void Action hook with no return.
+	 */
+	public function action_save_metabox( $post_id, $post, $update ) {
+		$this->container->make( Metabox::class )->save( $post_id, $post, $update );
 	}
 }

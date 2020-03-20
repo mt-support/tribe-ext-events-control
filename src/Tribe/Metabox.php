@@ -3,6 +3,8 @@ namespace Tribe\Extensions\EventsControl;
 
 use Tribe__Events__Main as Events_Plugin;
 use Tribe__Template as Template;
+use Tribe__Editor;
+use Tribe__Events__Editor__Compatibility;
 use WP_Post;
 use Tribe__Utils__Array as Arr;
 
@@ -90,9 +92,17 @@ class Metabox {
 	 * @return false|string
 	 */
 	public function render( $post ) {
+		$fields = [
+			'status' => null,
+			'status-canceled-reason' => null,
+			'status-postponed-reason' => null,
+			'online' => null,
+			'online-url' => null,
+		];
 		$args = [
 			'metabox' => $this,
 			'post' => $post,
+			'fields' => $fields,
 		];
 
 		return $this->get_template()->template( 'metabox/container', $args, true );
@@ -117,6 +127,98 @@ class Metabox {
 	}
 
 	/**
+	 * Register all the fields in the Rest API for this metabox.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void Registering fields has no return.
+	 */
+	public function register_fields() {
+		register_post_meta(
+			'post',
+			'_tribe_events_control_status',
+			[
+				'show_in_rest' => true,
+				'single' => true,
+				'type' => 'string',
+				'auth_callback' => static function() {
+					return current_user_can( 'edit_posts' );
+				},
+			]
+		);
+		register_post_meta(
+			'post',
+			'_tribe_events_control_status_canceled_reason',
+			[
+				'show_in_rest' => true,
+				'single' => true,
+				'type' => 'string',
+				'auth_callback' => static function() {
+					return current_user_can( 'edit_posts' );
+				},
+			]
+		);
+		register_post_meta(
+			'post',
+			'_tribe_events_control_status_postponed_reason',
+			[
+				'show_in_rest' => true,
+				'single' => true,
+				'type' => 'string',
+				'auth_callback' => static function() {
+					return current_user_can( 'edit_posts' );
+				},
+			]
+		);
+		register_post_meta(
+			'post',
+			'_tribe_events_control_online',
+			[
+				'show_in_rest' => true,
+				'single' => true,
+				'type' => 'string',
+				'auth_callback' => static function() {
+					return current_user_can( 'edit_posts' );
+				},
+			]
+		);
+		register_post_meta(
+			'post',
+			'_tribe_events_control_online_url',
+			[
+				'show_in_rest' => true,
+				'single' => true,
+				'type' => 'string',
+				'auth_callback' => static function() {
+					return current_user_can( 'edit_posts' );
+				},
+			]
+		);
+	}
+
+	/**
+	 * Is current request bulk edit?
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool If the current request is a bulk edit.
+	 */
+	protected function is_bulk_editing() {
+		return isset( $_GET['bulk_edit'] );
+	}
+
+	/**
+	 * Is current request a inline save.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return bool If the current request is a inline save.
+	 */
+	protected function is_inline_save() {
+		return 'inline-save' === tribe_get_request_var( 'action' );
+	}
+
+	/**
 	 * Saves the metabox, which will be triggered in `save_post`.
 	 *
 	 * @since 1.0.0
@@ -125,10 +227,18 @@ class Metabox {
 	 *
 	 * @param int     $post_id Which post ID we are dealing with when saving.
 	 * @param WP_Post $post    WP Post instance we are saving.
+	 * @param boolean $update  If we are updating the post or not.
 	 *
 	 * @return void Just saving requires no return.
 	 */
-	public function save( $post_id, $post ) {
+	public function save( $post_id, $post, $update ) {
+		$context = tribe_context();
+
+		// Skip non-events.
+		if ( ! tribe_is_event( $post_id ) ) {
+			return;
+		}
+
 		// All fields will be stored in the same array for simplicity.
 		$data = tribe_get_request_var( static::$id, [] );
 
@@ -141,7 +251,15 @@ class Metabox {
 		}
 
 		// Check if user has permissions to save data.
-		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		if ( ! current_user_can( 'edit_tribe_events', $post_id ) ) {
+			return;
+		}
+
+		if  ( $this->is_bulk_editing() ) {
+			return;
+		}
+
+		if  ( $this->is_inline_save() ) {
 			return;
 		}
 
@@ -153,6 +271,39 @@ class Metabox {
 		// Check if not a revision.
 		if ( wp_is_post_revision( $post_id ) ) {
 			return;
+		}
+
+		$status = Arr::get( $data, 'status', false );
+
+		if ( $status ) {
+			update_post_meta( $post_id, '_tribe_events_control_status', $status );
+
+			$status_canceled_reason = Arr::get( $data, 'status-canceled-reason', false );
+			if ( $status_canceled_reason ) {
+				update_post_meta( $post_id, '_tribe_events_control_status_canceled_reason', $status_canceled_reason );
+			} else {
+				delete_post_meta( $post_id, '_tribe_events_control_status_canceled_reason' );
+			}
+
+			$status_postponed_reason = Arr::get( $data, 'status-postponed-reason', false );
+			if ( $status_postponed_reason ) {
+				update_post_meta( $post_id, '_tribe_events_control_status_postponed_reason', $status_postponed_reason );
+			} else {
+				delete_post_meta( $post_id, '_tribe_events_control_status_postponed_reason' );
+			}
+		} else {
+			delete_post_meta( $post_id, '_tribe_events_control_status' );
+			delete_post_meta( $post_id, '_tribe_events_control_status_canceled_reason' );
+			delete_post_meta( $post_id, '_tribe_events_control_status_postponed_reason' );
+		}
+
+		$online = Arr::get( $data, 'online', false );
+		if ( $online ) {
+			update_post_meta( $post_id, '_tribe_events_control_online', $online );
+			update_post_meta( $post_id, '_tribe_events_control_online_url', Arr::get( $data, 'online-url', false ) );
+		} else {
+			delete_post_meta( $post_id, '_tribe_events_control_online' );
+			delete_post_meta( $post_id, '_tribe_events_control_online_url' );
 		}
 	}
 
