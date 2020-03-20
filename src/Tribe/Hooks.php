@@ -47,6 +47,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'add_meta_boxes', [ $this, 'action_add_metabox' ] );
 		add_action( 'init', [ $this, 'action_register_metabox_fields' ] );
 		add_action( 'save_post', [ $this, 'action_save_metabox' ], 15, 3 );
+
+		add_action( 'tribe_template_before_include:events/list/event/date', [ $this, 'action_add_archive_control_status' ], 15, 3 );
+		add_action( 'tribe_template_after_include:events/list/event/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
 	}
 
 	/**
@@ -140,5 +143,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function action_save_metabox( $post_id, $post, $update ) {
 		$this->container->make( Metabox::class )->save( $post_id, $post, $update );
+	}
+
+	public function action_add_archive_control_status( $file, $name, $template ) {
+		$this->container->make( Template_Modifications::class )->add_archive_control_status( $file, $name, $template );
+	}
+	public function action_add_archive_online_link( $file, $name, $template ) {
+		$this->container->make( Template_Modifications::class )->add_archive_online_link( $file, $name, $template );
 	}
 }

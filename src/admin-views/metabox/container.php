@@ -24,13 +24,13 @@ use Tribe__Template as Template;
             <option value=""></option>
             <option
                 value="canceled"
-                <?php selected( 'canceled' === $fields['online-url'] ) ?>
+                <?php selected( 'canceled' === $fields['status'] ) ?>
             >
                 <?php echo esc_html_x( 'Canceled', 'Event status of being canceled in the select field', 'tribe-ext-events-control' ); ?>
             </option>
             <option
                 value="postponed"
-	            <?php selected( 'postponed' === $fields['online-url'] ) ?>
+	            <?php selected( 'postponed' === $fields['status'] ) ?>
             >
                 <?php echo esc_html_x( 'Postponed', 'Event status of being postponed in the select field', 'tribe-ext-events-control' ); ?>
             </option>
@@ -46,6 +46,7 @@ use Tribe__Template as Template;
 				<?php echo esc_html_x( 'Postponed Reason', 'Label for postponed reason field', 'tribe-ext-events-control' ); ?>
 			</label>
 			<textarea
+                class="components-textarea-control__input"
 				id="<?php echo esc_attr( "{$metabox::$id}-status-postponed-reason" ); ?>"
 				name="<?php echo esc_attr( "{$metabox::$id}[status-postponed-reason]" ); ?>"
 			><?php echo esc_textarea( $fields['status-postponed-reason'] ) ?></textarea>
@@ -61,6 +62,7 @@ use Tribe__Template as Template;
 				<?php echo esc_html_x( 'Canceled Reason', 'Label for canceled reason field', 'tribe-ext-events-control' ); ?>
 			</label>
 			<textarea
+                class="components-textarea-control__input"
 				id="<?php echo esc_attr( "{$metabox::$id}-status-canceled-reason" ); ?>"
 				name="<?php echo esc_attr( "{$metabox::$id}[status-canceled-reason]" ); ?>"
 			><?php echo esc_textarea( $fields['status-canceled-reason'] ) ?></textarea>
@@ -91,6 +93,8 @@ use Tribe__Template as Template;
                 id="<?php echo esc_attr( "{$metabox::$id}-online-url" ); ?>"
                 name="<?php echo esc_attr( "{$metabox::$id}[online-url]" ); ?>"
                 value="<?php echo esc_url( $fields['online-url'] ) ?>"
+                type="url"
+                class="components-text-control__input"
             >
         </p>
 	</div>
