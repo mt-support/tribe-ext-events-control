@@ -11,6 +11,7 @@
  */
 namespace Tribe\Extensions\EventsControl;
 
+use Tribe\Events\Views\V2\Assets as Event_Assets;
 use Tribe__Events__Templates;
 
 /**
@@ -49,7 +50,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			],
 			'wp_enqueue_scripts',
 			[
-				'groups' => [ static::$group_key ],
+				'groups' => [ static::$group_key, Event_Assets::$group_key ],
 			]
 		);
 
@@ -66,7 +67,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 				],
 				'wp_enqueue_scripts',
 				[
-					'groups' => [ static::$group_key ],
+					'groups' => [ static::$group_key, Event_Assets::$group_key ],
 				]
 			);
 		}
