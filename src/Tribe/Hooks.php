@@ -16,7 +16,7 @@
  */
 
 namespace Tribe\Extensions\EventsControl;
-use Tribe__Template;
+use Tribe__Template as Template;
 use WP_Post;
 
 /**
@@ -48,8 +48,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'init', [ $this, 'action_register_metabox_fields' ] );
 		add_action( 'save_post', [ $this, 'action_save_metabox' ], 15, 3 );
 
-		add_action( 'tribe_template_before_include:events/list/event/date', [ $this, 'action_add_archive_control_status' ], 15, 3 );
-		add_action( 'tribe_template_after_include:events/list/event/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
+		add_action( 'tribe_template_before_include:events/v2/list/event/date', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+		add_action( 'tribe_template_after_include:events/v2/list/event/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
 	}
 
 	/**
@@ -60,6 +60,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	protected function add_filters() {
 		add_filter( 'tribe_template_origin_namespace_map', [ $this, 'filter_add_template_origin_namespace' ], 15, 3 );
 		add_filter( 'tribe_template_path_list', [ $this, 'filter_template_path_list' ], 15, 2 );
+		add_action( 'tribe_events_before_html', [ $this, 'filter_include_single_control_markers' ] );
 	}
 
 	/**
@@ -67,9 +68,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array            $namespace_map Indexed array containing the namespace as the key and path to `strpos`.
-	 * @param string           $path          Path we will do the `strpos` to validate a given namespace.
-	 * @param Tribe__Template  $template      Current instance of the template class.
+	 * @param array     $namespace_map Indexed array containing the namespace as the key and path to `strpos`.
+	 * @param string    $path          Path we will do the `strpos` to validate a given namespace.
+	 * @param Template  $template      Current instance of the template class.
 	 *
 	 * @return array  Namespace map after adding Pro to the list.
 	 */
@@ -145,10 +146,46 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$this->container->make( Metabox::class )->save( $post_id, $post, $update );
 	}
 
-	public function action_add_archive_control_status( $file, $name, $template ) {
-		$this->container->make( Template_Modifications::class )->add_archive_control_status( $file, $name, $template );
+	/**
+	 * Include the control markers for the archive pages.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string   $file      Complete path to include the PHP File.
+	 * @param string   $name      Template name.
+	 * @param Template $template  Current instance of the Template.
+	 *
+	 * @return void  Template render has no return/
+	 */
+	public function action_add_archive_control_markers( $file, $name, $template ) {
+		$this->container->make( Template_Modifications::class )->add_archive_control_markers( $file, $name, $template );
 	}
+
+	/**
+	 * Include the online now url anchor for the archive pages.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string   $file      Complete path to include the PHP File.
+	 * @param string   $name      Template name.
+	 * @param Template $template  Current instance of the Template.
+	 *
+	 * @return void  Template render has no return/
+	 */
 	public function action_add_archive_online_link( $file, $name, $template ) {
 		$this->container->make( Template_Modifications::class )->add_archive_online_link( $file, $name, $template );
+	}
+
+	/**
+	 * Include the control markers for the single pages.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string   $before      Previously set before HTML.
+	 *
+	 * @return string  Before event html with the new markers.
+	 */
+	public function filter_include_single_control_markers( $before ) {
+		return $this->container->make( Template_Modifications::class )->add_single_control_markers( $before );
 	}
 }

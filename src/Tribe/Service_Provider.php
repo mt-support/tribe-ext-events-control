@@ -26,6 +26,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		}
 
 		$this->container->singleton( Metabox::class, Metabox::class, [ 'set_template' ] );
+		$this->container->singleton( Template_Modifications::class, Template_Modifications::class, [ 'set_template' ] );
 
 		$this->register_hooks();
 		$this->register_assets();
