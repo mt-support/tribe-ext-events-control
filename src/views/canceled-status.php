@@ -9,9 +9,9 @@ namespace Tribe\Extensions\EventsControl;
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link {INSERT_ARTICLE_LINK_HERE}
  *
- * @version 4.9.9
+ * @version TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -22,12 +22,14 @@ use WP_Post;
 
 $status = get_post_meta( $event->ID, Metabox::$meta_status, true );
 
-// Dont print anything when status for this event is not.
+// Don't print anything when status for this event is not.
 if ( 'canceled' !== $status ) {
 	return;
 }
 
 ?>
-<div class="tribe-common-b2">
-	<?php echo esc_html_x( 'Canceled', 'Text next to the date to display postponed', 'tribe-ext-events-control' ); ?>
+<div class="tribe-ext-events-control-list tribe-ext-events-control-list--canceled">
+	<span class="tribe-common-b2">
+		<?php echo esc_html_x( 'Canceled', 'Text next to the date to display postponed', 'tribe-ext-events-control' ); ?>
+	</span>
 </div>
