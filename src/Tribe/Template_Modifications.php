@@ -2,6 +2,7 @@
 namespace Tribe\Extensions\EventsControl;
 
 use Tribe__Template as Template;
+use Tribe__Events__Main as Events_Plugin;
 
 /**
  * Class Template_Modifications
@@ -57,10 +58,15 @@ class Template_Modifications {
 	 * @return string  New Before with the control markers appended.
 	 */
 	public function add_single_control_markers( $before ) {
+		if ( ! is_singular( Events_Plugin::POSTTYPE ) ) {
+			return;
+		}
+
 		$template = $this->get_template();
 		$args = [
 			'event' => tribe_get_event( get_the_ID() ),
 		];
+
 
 		$before .= $template->template( 'single/online-marker', $args, false );
 		$before .= $template->template( 'single/canceled-status', $args, false );
