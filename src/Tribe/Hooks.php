@@ -60,7 +60,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	protected function add_filters() {
 		add_filter( 'tribe_template_origin_namespace_map', [ $this, 'filter_add_template_origin_namespace' ], 15, 3 );
 		add_filter( 'tribe_template_path_list', [ $this, 'filter_template_path_list' ], 15, 2 );
-		add_action( 'tribe_events_before_html', [ $this, 'filter_include_single_control_markers' ] );
+		add_filter( 'tribe_events_before_html', [ $this, 'filter_include_single_control_markers' ] );
+		add_filter( 'tribe_json_ld_event_object', [ $this, 'filter_json_ld_modifiers' ], 15, 3 );
 	}
 
 	/**
@@ -74,7 +75,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return array  Namespace map after adding Pro to the list.
 	 */
-	public function filter_add_template_origin_namespace( $namespace_map, $path, Tribe__Template $template ) {
+	public function filter_add_template_origin_namespace( $namespace_map, $path, Template $template ) {
 		$namespace_map[ Main::SLUG ] = Main::PATH;
 		return $namespace_map;
 	}
@@ -84,12 +85,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array           $folders  The current list of folders that will be searched template files.
-	 * @param Tribe__Template $template Which template instance we are dealing with.
+	 * @param array    $folders  The current list of folders that will be searched template files.
+	 * @param Template $template Which template instance we are dealing with.
 	 *
 	 * @return array The filtered list of folders that will be searched for the templates.
 	 */
-	public function filter_template_path_list( array $folders, Tribe__Template $template ) {
+	public function filter_template_path_list( array $folders, Template $template ) {
 		$path = (array) rtrim( Main::PATH, '/' );
 
 		// Pick up if the folder needs to be added to the public template path.
@@ -107,6 +108,23 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		];
 
 		return $folders;
+	}
+
+	/**
+	 * Modifiers to the JSON LD object we use.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param object  $data The JSON-LD object.
+	 * @param array   $args The arguments used to get data.
+	 * @param WP_Post $post The post object.
+	 *
+	 * @return object JSON LD object after modifications.
+	 */
+	public function filter_json_ld_modifiers( $data, $args, $post ) {
+		$data = $this->container->make( JSON_LD::class )->modify_canceled_event( $data, $args, $post );
+		$data = $this->container->make( JSON_LD::class )->modify_postponed_event( $data, $args, $post );
+		return $this->container->make( JSON_LD::class )->modify_online_event( $data, $args, $post );
 	}
 
 	/**
