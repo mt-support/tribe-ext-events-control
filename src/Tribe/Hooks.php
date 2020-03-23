@@ -60,7 +60,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	protected function add_filters() {
 		add_filter( 'tribe_template_origin_namespace_map', [ $this, 'filter_add_template_origin_namespace' ], 15, 3 );
 		add_filter( 'tribe_template_path_list', [ $this, 'filter_template_path_list' ], 15, 2 );
-		add_filter( 'tribe_the_notices', [ $this, 'filter_include_single_control_markers' ] );
+		add_filter( 'tribe_the_notices', [ $this, 'filter_include_single_control_markers' ], 15, 2 );
 		add_filter( 'tribe_json_ld_event_object', [ $this, 'filter_json_ld_modifiers' ], 15, 3 );
 		add_filter( 'post_class', [ $this, 'filter_add_post_class' ], 15, 2 );
 	}
@@ -215,11 +215,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param string   $before      Previously set before HTML.
+	 * @param  string  $notices_html  Previously set HTML.
+	 * @param  array   $notices       Array of notices added previously.
 	 *
 	 * @return string  Before event html with the new markers.
 	 */
-	public function filter_include_single_control_markers( $before ) {
-		return $this->container->make( Template_Modifications::class )->add_single_control_markers( $before );
+	public function filter_include_single_control_markers( $notices_html, $notices ) {
+		return $this->container->make( Template_Modifications::class )->add_single_control_markers( $notices_html, $notices );
 	}
 }
