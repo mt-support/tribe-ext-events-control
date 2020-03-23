@@ -81,7 +81,7 @@ use Tribe__Template as Template;
                     name="<?php echo esc_attr( "{$metabox::$id}[online]" ); ?>"
                     type="checkbox"
                     value="yes"
-                    <?php checked( $fields['online-url'] ); ?>
+                    <?php checked( $fields['online'] ); ?>
                 >
                 <?php echo esc_html_x( 'Mark as an online event', 'Event State of being Online only checkbox label', 'tribe-ext-events-control' ); ?>
             </label>
