@@ -28,8 +28,8 @@ if ( 'canceled' !== $status ) {
 }
 
 ?>
-<div class="tribe-ext-events-control-list-status tribe-ext-events-control-list-status--canceled">
-	<span class="tribe-common-b2 tribe-ext-events-control-list__red-text">
+<div class="tribe-ext-events-control-list-status">
+	<span class="tribe-common-b2 tribe-ext-events-control-text tribe-ext-events-control-text--red tribe-ext-events-control-text--bold">
 		<?php echo esc_html_x( 'Canceled', 'Text next to the date to display canceled', 'tribe-ext-events-control' ); ?>
 	</span>
 </div>
