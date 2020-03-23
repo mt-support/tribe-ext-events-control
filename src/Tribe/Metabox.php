@@ -34,53 +34,7 @@ class Metabox {
 	 * @var string
 	 */
 	public static $nonce_action = 'tribe-event-control-nonce';
-
-	/**
-	 * Meta Key for Status field.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var string
-	 */
-	public static $meta_status = '_tribe_events_control_status';
-
-	/**
-	 * Meta Key for Canceled reason field.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var string
-	 */
-	public static $meta_status_canceled_reason = '_tribe_events_control_status_canceled_reason';
-
-	/**
-	 * Meta Key for Postponed reason field.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var string
-	 */
-	public static $meta_status_postponed_reason = '_tribe_events_control_status_postponed_reason';
-
-	/**
-	 * Meta Key for Online field.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var string
-	 */
-	public static $meta_online = '_tribe_events_control_online';
-
-	/**
-	 * Meta Key for Online URL field.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var string
-	 */
-	public static $meta_online_url = '_tribe_events_control_online_url';
-
-
+	
 	/**
 	 * Stores the template class used.
 	 *
@@ -139,11 +93,11 @@ class Metabox {
 	 */
 	public function render( $post ) {
 		$fields = [
-			'status' => get_post_meta( $post->ID, static::$meta_status, true ),
-			'status-canceled-reason' => get_post_meta( $post->ID, static::$meta_status_canceled_reason, true ),
-			'status-postponed-reason' => get_post_meta( $post->ID, static::$meta_status_postponed_reason, true ),
-			'online' => tribe_is_truthy( get_post_meta( $post->ID, static::$meta_online, true ) ),
-			'online-url' => get_post_meta( $post->ID, static::$meta_online_url, true ),
+			'status' => get_post_meta( $post->ID, Event_Meta::$key_status, true ),
+			'status-canceled-reason' => get_post_meta( $post->ID, Event_Meta::$key_status_canceled_reason, true ),
+			'status-postponed-reason' => get_post_meta( $post->ID, Event_Meta::$key_status_postponed_reason, true ),
+			'online' => tribe_is_truthy( get_post_meta( $post->ID, Event_Meta::$key_online, true ) ),
+			'online-url' => get_post_meta( $post->ID, Event_Meta::$key_online_url, true ),
 		];
 		$args = [
 			'metabox' => $this,
@@ -182,7 +136,7 @@ class Metabox {
 	public function register_fields() {
 		register_post_meta(
 			'post',
-			static::$meta_status,
+			Event_Meta::$key_status,
 			[
 				'show_in_rest' => true,
 				'single' => true,
@@ -194,7 +148,7 @@ class Metabox {
 		);
 		register_post_meta(
 			'post',
-			static::$meta_status_canceled_reason,
+			Event_Meta::$key_status_canceled_reason,
 			[
 				'show_in_rest' => true,
 				'single' => true,
@@ -206,7 +160,7 @@ class Metabox {
 		);
 		register_post_meta(
 			'post',
-			static::$meta_status_postponed_reason,
+			Event_Meta::$key_status_postponed_reason,
 			[
 				'show_in_rest' => true,
 				'single' => true,
@@ -218,7 +172,7 @@ class Metabox {
 		);
 		register_post_meta(
 			'post',
-			static::$meta_online,
+			Event_Meta::$key_online,
 			[
 				'show_in_rest' => true,
 				'single' => true,
@@ -230,7 +184,7 @@ class Metabox {
 		);
 		register_post_meta(
 			'post',
-			static::$meta_online_url,
+			Event_Meta::$key_online_url,
 			[
 				'show_in_rest' => true,
 				'single' => true,
@@ -322,36 +276,36 @@ class Metabox {
 		$status = Arr::get( $data, 'status', false );
 
 		if ( $status ) {
-			update_post_meta( $post_id, static::$meta_status, $status );
+			update_post_meta( $post_id, Event_Meta::$key_status, $status );
 
 			$status_canceled_reason = Arr::get( $data, 'status-canceled-reason', false );
 			if ( $status_canceled_reason ) {
 				$status_canceled_reason = wp_kses_post( $status_canceled_reason );
-				update_post_meta( $post_id, static::$meta_status_canceled_reason, $status_canceled_reason );
+				update_post_meta( $post_id, Event_Meta::$key_status_canceled_reason, $status_canceled_reason );
 			} else {
-				delete_post_meta( $post_id, static::$meta_status_canceled_reason );
+				delete_post_meta( $post_id, Event_Meta::$key_status_canceled_reason );
 			}
 
 			$status_postponed_reason = Arr::get( $data, 'status-postponed-reason', false );
 			if ( $status_postponed_reason ) {
 				$status_postponed_reason = wp_kses_post( $status_canceled_reason );
-				update_post_meta( $post_id, static::$meta_status_postponed_reason, $status_postponed_reason );
+				update_post_meta( $post_id, Event_Meta::$key_status_postponed_reason, $status_postponed_reason );
 			} else {
-				delete_post_meta( $post_id, static::$meta_status_postponed_reason );
+				delete_post_meta( $post_id, Event_Meta::$key_status_postponed_reason );
 			}
 		} else {
-			delete_post_meta( $post_id, static::$meta_status );
-			delete_post_meta( $post_id, static::$meta_status_canceled_reason );
-			delete_post_meta( $post_id, static::$meta_status_postponed_reason );
+			delete_post_meta( $post_id, Event_Meta::$key_status );
+			delete_post_meta( $post_id, Event_Meta::$key_status_canceled_reason );
+			delete_post_meta( $post_id, Event_Meta::$key_status_postponed_reason );
 		}
 
 		$online = Arr::get( $data, 'online', false );
 		if ( $online ) {
-			update_post_meta( $post_id, static::$meta_online, $online );
-			update_post_meta( $post_id, static::$meta_online_url, Arr::get( $data, 'online-url', false ) );
+			update_post_meta( $post_id, Event_Meta::$key_online, $online );
+			update_post_meta( $post_id, Event_Meta::$key_online_url, Arr::get( $data, 'online-url', false ) );
 		} else {
-			delete_post_meta( $post_id, static::$meta_online );
-			delete_post_meta( $post_id, static::$meta_online_url );
+			delete_post_meta( $post_id, Event_Meta::$key_online );
+			delete_post_meta( $post_id, Event_Meta::$key_online_url );
 		}
 	}
 

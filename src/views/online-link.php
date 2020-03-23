@@ -19,8 +19,8 @@ namespace Tribe\Extensions\EventsControl;
  */
 use WP_Post;
 
-$online = tribe_is_truthy( get_post_meta( $event->ID, Metabox::$meta_online, true ) );
-$online_url = get_post_meta( $event->ID, Metabox::$meta_online_url, true );
+$online = tribe_is_truthy( get_post_meta( $event->ID, Event_Meta::$key_online, true ) );
+$online_url = get_post_meta( $event->ID, Event_Meta::$key_online_url, true );
 
 // Dont print anything when status for this event is not
 if ( ! $online || ! $online_url ) {

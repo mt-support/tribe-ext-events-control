@@ -17,11 +17,9 @@ namespace Tribe\Extensions\EventsControl;
  *
  * @see tribe_get_event() For the format of the event object.
  */
-use Tribe__Date_Utils as Dates;
 use WP_Post;
 
-$online = tribe_is_truthy( get_post_meta( $event->ID, Metabox::$meta_online, true ) );
-$online_url = get_post_meta( $event->ID, Metabox::$meta_online_url, true );
+$online = tribe_is_truthy( get_post_meta( $event->ID, Event_Meta::$key_online, true ) );
 
 // Dont print anything when status for this event is not
 if ( ! $online ) {

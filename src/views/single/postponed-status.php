@@ -20,8 +20,8 @@ namespace Tribe\Extensions\EventsControl;
 use Tribe__Date_Utils as Dates;
 use WP_Post;
 
-$status = get_post_meta( $event->ID, Metabox::$meta_status, true );
-$postponed_reason = get_post_meta( $event->ID, Metabox::$meta_status_postponed_reason, true );
+$status = get_post_meta( $event->ID, Event_Meta::$key_status, true );
+$postponed_reason = get_post_meta( $event->ID, Event_Meta::$key_status_postponed_reason, true );
 
 // Dont print anything when status for this event is not
 if ( 'postponed' !== $status ) {
