@@ -9,7 +9,7 @@ namespace Tribe\Extensions\EventsControl;
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link {INSERT_ARTICLE_LINK_HERE}
  *
  * @version 4.9.9
  *
@@ -22,12 +22,14 @@ use WP_Post;
 
 $status = get_post_meta( $event->ID, Event_Meta::$key_status, true );
 
-// Dont print anything when status for this event is not
+// Don't print anything when status for this event is not
 if ( 'postponed' !== $status ) {
 	return;
 }
 
 ?>
-<div class="tribe-common-b2">
-	<?php echo esc_html_x( 'Postponed', 'Text next to the date to display postponed', 'tribe-ext-events-control' ); ?>
+<div class="tribe-ext-events-control-list-status tribe-ext-events-control-list-status--postponed">
+	<span class="tribe-common-b2 tribe-ext-events-control-text tribe-ext-events-control-text--red tribe-ext-events-control-text--bold">
+		<?php echo esc_html_x( 'Postponed', 'Text next to the date to display postponed', 'tribe-ext-events-control' ); ?>
+	</span>
 </div>

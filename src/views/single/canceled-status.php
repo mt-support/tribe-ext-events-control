@@ -9,7 +9,7 @@ namespace Tribe\Extensions\EventsControl;
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link {INSERT_ARTICLE_LINK_HERE}
  *
  * @version 4.9.9
  *
@@ -20,21 +20,26 @@ namespace Tribe\Extensions\EventsControl;
 use Tribe__Date_Utils as Dates;
 use WP_Post;
 
-$status = get_post_meta( $event->ID, Event_Meta::$key_status, true );
+$status          = get_post_meta( $event->ID, Event_Meta::$key_status, true );
 $canceled_reason = get_post_meta( $event->ID, Event_Meta::$key_status_canceled_reason, true );
 
-// Dont print anything when status for this event is not
+// Don't print anything when status for this event is not
 if ( 'canceled' !== $status ) {
 	return;
 }
 
 ?>
-<div class="tribe-common-b2">
-	<?php echo esc_html_x( 'Canceled', 'Text next to the date to display postponed', 'tribe-ext-events-control' ); ?>
+<div class="tribe-ext-events-control-single-notice tribe-ext-events-control-single-notice--canceled">
+	<div class="tribe-ext-events-control-text">
 
-    <?php if ( $canceled_reason ) : ?>
-    <div>
-        <?php echo wp_kses_post( $canceled_reason ); ?>
-    </div>
-    <?php endif; ?>
+		<div class="tribe-ext-events-control-single-notice-header tribe-ext-events-control-text--red tribe-ext-events-control-text--bold tribe-ext-events-control-text--alert-icon">
+			<?php echo esc_html_x( 'Canceled', 'Text next to the date to display canceled', 'tribe-ext-events-control' ); ?>
+		</div>
+
+		<?php if ( $canceled_reason ) : ?>
+			<div class="tribe-ext-events-control-single-notice-description">
+				<?php echo wp_kses_post( $canceled_reason ); ?>
+			</div>
+		<?php endif; ?>
+	</div>
 </div>

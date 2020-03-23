@@ -9,7 +9,7 @@ namespace Tribe\Extensions\EventsControl;
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link {INSERT_ARTICLE_LINK_HERE}
  *
  * @version 4.9.9
  *
@@ -21,12 +21,14 @@ use WP_Post;
 
 $online = tribe_is_truthy( get_post_meta( $event->ID, Event_Meta::$key_online, true ) );
 
-// Dont print anything when status for this event is not
+// Don't print anything when status for this event is not
 if ( ! $online ) {
 	return;
 }
 
 ?>
-<div class="tribe-common-b2">
-	<?php echo esc_html_x( 'Livestream', 'Livestream label on single view', 'tribe-ext-events-control' ); ?>
+<div class="tribe-ext-events-control-list-status">
+	<span class="tribe-common-b2 tribe-ext-events-control-text tribe-ext-events-control-text--blue tribe-ext-events-control-text--bold tribe-ext-events-control-text--live-icon">
+		<?php echo esc_html_x( 'Livestream', 'Livestream label on list view', 'tribe-ext-events-control' ); ?>
+	</span>
 </div>
