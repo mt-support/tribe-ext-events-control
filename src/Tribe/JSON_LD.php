@@ -18,7 +18,6 @@ class JSON_LD {
 
 	const MOVED_ONLINE_SCHEMA = 'https://schema.org/EventMovedOnline';
 
-
 	/**
 	 * Modifiers to the JSON LD event object for canceled events.
 	 *

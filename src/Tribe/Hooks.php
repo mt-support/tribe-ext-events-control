@@ -60,8 +60,24 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	protected function add_filters() {
 		add_filter( 'tribe_template_origin_namespace_map', [ $this, 'filter_add_template_origin_namespace' ], 15, 3 );
 		add_filter( 'tribe_template_path_list', [ $this, 'filter_template_path_list' ], 15, 2 );
-		add_filter( 'tribe_events_before_html', [ $this, 'filter_include_single_control_markers' ] );
+		add_filter( 'tribe_the_notices', [ $this, 'filter_include_single_control_markers' ] );
 		add_filter( 'tribe_json_ld_event_object', [ $this, 'filter_json_ld_modifiers' ], 15, 3 );
+		add_filter( 'post_class', [ $this, 'filter_add_post_class' ], 15, 2 );
+	}
+
+	/**
+	 * Add the control classes for the views v2 elements
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string|string[]  $classes   Space-separated string or array of class names to add to the class list.
+	 * @param int|WP_Post      $post      Post ID or post object.
+	 *
+	 * @return string[]
+	 */
+	public function filter_add_post_class( $classes, $post ) {
+		$new_classes = $this->container->make( Template_Modifications::class )->get_post_classes( $post );
+		return array_merge( $classes, $new_classes );
 	}
 
 	/**
