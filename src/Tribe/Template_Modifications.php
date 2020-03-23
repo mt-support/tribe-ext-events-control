@@ -68,12 +68,12 @@ class Template_Modifications {
 
 		$status = get_post_meta( $event->ID, Event_Meta::$key_status, true );
 		if ( $status ) {
-			$classes[] = 'tribe-event-control-' . sanitize_html_class( $status );
+			$classes[] = 'tribe-ext-events-control-list-event--' . sanitize_html_class( $status );
 		}
 
 		$online =  tribe_is_truthy( get_post_meta( $event->ID, Event_Meta::$key_online, true ) );
 		if ( $online ) {
-			$classes[] = 'tribe-event-control-online';
+			$classes[] = 'tribe-ext-events-control-list-event--live';
 		}
 
 		return $classes;

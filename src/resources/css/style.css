@@ -58,6 +58,19 @@
 * List.
 * ----------------------------------------------------------------------------- */
 
+.tribe-common--breakpoint-medium.tribe-events .tribe-ext-events-control-list-event--live {
+	position: relative;
+}
+
+.tribe-common--breakpoint-medium.tribe-events .tribe-ext-events-control-list-event--live .tribe-events-calendar-list__event-details::before {
+	background-color: #334AFF;
+	content: '';
+	height: 100%;
+	left: -3px;
+	position: absolute;
+	width: 4px;
+}
+
 .tribe-ext-events-control-list-status,
 .tribe-common .tribe-ext-events-control-list-status {
 	float: left;
