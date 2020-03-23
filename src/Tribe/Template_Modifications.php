@@ -3,6 +3,7 @@ namespace Tribe\Extensions\EventsControl;
 
 use Tribe__Template as Template;
 use Tribe__Events__Main as Events_Plugin;
+use WP_Post;
 
 /**
  * Class Template_Modifications
@@ -49,17 +50,48 @@ class Template_Modifications {
 	}
 
 	/**
+	 * Add the control classes for the views v2 elements
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int|WP_Post      $event      Post ID or post object.
+	 *
+	 * @return string[]
+	 */
+	public function get_post_classes( $event ) {
+		$classes = [];
+		if ( ! tribe_is_event( $event ) ) {
+			return $classes;
+		}
+
+		$event = tribe_get_event( $event );
+
+		$status = get_post_meta( $event->ID, Event_Meta::$key_status, true );
+		if ( $status ) {
+			$classes[] = 'tribe-event-control-' . sanitize_html_class( $status );
+		}
+
+		$online =  tribe_is_truthy( get_post_meta( $event->ID, Event_Meta::$key_online, true ) );
+		if ( $online ) {
+			$classes[] = 'tribe-event-control-online';
+		}
+
+		return $classes;
+	}
+
+	/**
 	 * Include the control markers to the single page.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param  string  $before  Previously set HTML.
+	 * @param  string  $notices_html  Previously set HTML.
+	 * @param  array   $notices       Array of notices added previously.
 	 *
 	 * @return string  New Before with the control markers appended.
 	 */
-	public function add_single_control_markers( $before ) {
+	public function add_single_control_markers( $notices_html, $notices ) {
 		if ( ! is_singular( Events_Plugin::POSTTYPE ) ) {
-			return;
+			return $notices_html;
 		}
 
 		$template = $this->get_template();
@@ -67,12 +99,11 @@ class Template_Modifications {
 			'event' => tribe_get_event( get_the_ID() ),
 		];
 
+		$notices_html .= $template->template( 'single/online-marker', $args, false );
+		$notices_html .= $template->template( 'single/canceled-status', $args, false );
+		$notices_html .= $template->template( 'single/postponed-status', $args, false );
 
-		$before .= $template->template( 'single/online-marker', $args, false );
-		$before .= $template->template( 'single/canceled-status', $args, false );
-		$before .= $template->template( 'single/postponed-status', $args, false );
-
-		return $before;
+		return $notices_html;
 	}
 
 	/**

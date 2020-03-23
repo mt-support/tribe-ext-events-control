@@ -288,7 +288,7 @@ class Metabox {
 
 			$status_postponed_reason = Arr::get( $data, 'status-postponed-reason', false );
 			if ( $status_postponed_reason ) {
-				$status_postponed_reason = wp_kses_post( $status_canceled_reason );
+				$status_postponed_reason = wp_kses_post( $status_postponed_reason );
 				update_post_meta( $post_id, Event_Meta::$key_status_postponed_reason, $status_postponed_reason );
 			} else {
 				delete_post_meta( $post_id, Event_Meta::$key_status_postponed_reason );

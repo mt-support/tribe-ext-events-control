@@ -18,7 +18,6 @@ class JSON_LD {
 
 	const MOVED_ONLINE_SCHEMA = 'https://schema.org/EventMovedOnline';
 
-
 	/**
 	 * Modifiers to the JSON LD event object for canceled events.
 	 *
@@ -99,7 +98,7 @@ class JSON_LD {
 		}
 
 		// Prevent modifying an already set postponed event to online status.
-		if ( static::POSTPONED_SCHEMA !== $data->eventStatus ) {
+		if ( empty( $data->eventStatus ) || static::POSTPONED_SCHEMA !== $data->eventStatus ) {
 			// Modify the Status Schema
 			$data->eventStatus = static::MOVED_ONLINE_SCHEMA;
 		}
