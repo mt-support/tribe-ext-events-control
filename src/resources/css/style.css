@@ -92,6 +92,14 @@
 	position: relative;
 }
 
+.tribe-common--breakpoint-medium.tribe-events .tribe-ext-events-happening-now--single.tribe-ext-events-happening-now .tribe-events-calendar-list__event-row {
+	border-left: 4px solid #334AFF;
+}
+
+.tribe-common--breakpoint-medium.tribe-events .tribe-ext-events-happening-now--single.tribe-ext-events-happening-now .tribe-events-calendar-list__event.tribe-ext-events-control-list-event--live::after {
+	display: none;
+}
+
 .tribe-events .tribe-ext-events-happening-now__event-row .tribe-events-calendar-list__event.tribe-ext-events-control-list-event--live::after {
 	right: calc(100% + 51px);
 }
