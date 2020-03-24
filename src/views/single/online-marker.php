@@ -20,8 +20,10 @@ namespace Tribe\Extensions\EventsControl;
 use Tribe__Date_Utils as Dates;
 use WP_Post;
 
-$online = tribe_is_truthy( get_post_meta( $event->ID, Event_Meta::$key_online, true ) );
-$online_url = get_post_meta( $event->ID, Event_Meta::$key_online_url, true );
+$online       = tribe_is_truthy( get_post_meta( $event->ID, Event_Meta::$key_online, true ) );
+$online_url   = get_post_meta( $event->ID, Event_Meta::$key_online_url, true );
+$online_label = apply_filters( 'tribe_ext_events_control_online_label', _x( 'Livestream', 'Online label on single view', 'tribe-ext-events-control' ), $event->ID, $event );
+$watch_label  = apply_filters( 'tribe_ext_events_control_watch_label', _x( 'Watch Now', 'Label for an online event link', 'tribe-ext-events-control' ), $event->ID, $event );
 
 // Don't print anything when status for this event is not
 if ( ! $online ) {
@@ -32,12 +34,12 @@ if ( ! $online ) {
 <div class="tribe-ext-events-control-single-notice tribe-ext-events-control-single-notice--live">
 	<div class="tribe-ext-events-control-text">
 		<span class="tribe-ext-events-control-text--blue tribe-ext-events-control-text--bold tribe-ext-events-control-text--live-icon">
-			<?php echo esc_html_x( 'Livestream', 'Livestream label on single view', 'tribe-ext-events-control' ); ?>
+			<?php echo esc_html( $online_label ); ?>
 
 			<?php if ( $online_url ) : ?>
 				<span class="tribe-ext-events-control-text--bold tribe-ext-events-control-single-notice-live-link">
 					<a href="<?php echo esc_url( $online_url ) ?>" target="_blank">
-						<?php echo esc_html_x( 'Watch Now', 'Label for a livestream link', 'tribe-ext-events-control' ); ?>
+						<?php echo esc_html( $watch_label ); ?>
 					</a>
 				</span>
 			<?php endif; ?>

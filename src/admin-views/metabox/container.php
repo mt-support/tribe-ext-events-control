@@ -69,40 +69,36 @@ use Tribe__Template as Template;
 		</p>
 	</div>
 
-    <div
-        class="tribe-dependent"
-        data-depends="#<?php echo esc_attr( "{$metabox::$id}-status" ); ?>"
-        data-condition-not="canceled"
-    >
-        <p>
-            <label for="<?php echo esc_attr( "{$metabox::$id}-online" ); ?>">
-                <input
-                    id="<?php echo esc_attr( "{$metabox::$id}-online" ); ?>"
-                    name="<?php echo esc_attr( "{$metabox::$id}[online]" ); ?>"
-                    type="checkbox"
-                    value="yes"
-                    <?php checked( $fields['online'] ); ?>
-                >
-                <?php echo esc_html_x( 'Mark as an online event', 'Event State of being Online only checkbox label', 'tribe-ext-events-control' ); ?>
-            </label>
-        </p>
-        <div
-            class="tribe-dependent"
-            data-depends="#<?php echo esc_attr( "{$metabox::$id}-online" ); ?>"
-            data-condition-checked
-        >
-            <p>
-                <label for="<?php echo esc_attr( "{$metabox::$id}-online-url" ); ?>">
-                    <?php echo esc_html_x( 'Live Stream URL', 'Label for live stream URL field', 'tribe-ext-events-control' ); ?>
-                </label>
-                <input
-                    id="<?php echo esc_attr( "{$metabox::$id}-online-url" ); ?>"
-                    name="<?php echo esc_attr( "{$metabox::$id}[online-url]" ); ?>"
-                    value="<?php echo esc_url( $fields['online-url'] ) ?>"
-                    type="url"
-                    class="components-text-control__input"
-                >
-            </p>
-        </div>
-    </div>
+		<div>
+				<p>
+						<label for="<?php echo esc_attr( "{$metabox::$id}-online" ); ?>">
+								<input
+										id="<?php echo esc_attr( "{$metabox::$id}-online" ); ?>"
+										name="<?php echo esc_attr( "{$metabox::$id}[online]" ); ?>"
+										type="checkbox"
+										value="yes"
+										<?php checked( $fields['online'] ); ?>
+								>
+								<?php echo esc_html_x( 'Mark as an online event', 'Event State of being Online only checkbox label', 'tribe-ext-events-control' ); ?>
+						</label>
+				</p>
+				<div
+						class="tribe-dependent"
+						data-depends="#<?php echo esc_attr( "{$metabox::$id}-online" ); ?>"
+						data-condition-checked
+				>
+						<p>
+								<label for="<?php echo esc_attr( "{$metabox::$id}-online-url" ); ?>">
+										<?php echo esc_html_x( 'Live Stream URL', 'Label for live stream URL field', 'tribe-ext-events-control' ); ?>
+								</label>
+								<input
+										id="<?php echo esc_attr( "{$metabox::$id}-online-url" ); ?>"
+										name="<?php echo esc_attr( "{$metabox::$id}[online-url]" ); ?>"
+										value="<?php echo esc_url( $fields['online-url'] ) ?>"
+										type="url"
+										class="components-text-control__input"
+								>
+						</p>
+				</div>
+		</div>
 </div>

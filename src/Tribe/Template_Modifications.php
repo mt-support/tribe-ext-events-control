@@ -99,9 +99,9 @@ class Template_Modifications {
 			'event' => tribe_get_event( get_the_ID() ),
 		];
 
-		$notices_html .= $template->template( 'single/online-marker', $args, false );
 		$notices_html .= $template->template( 'single/canceled-status', $args, false );
 		$notices_html .= $template->template( 'single/postponed-status', $args, false );
+		$notices_html .= $template->template( 'single/online-marker', $args, false );
 
 		return $notices_html;
 	}

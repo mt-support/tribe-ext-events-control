@@ -19,8 +19,9 @@ namespace Tribe\Extensions\EventsControl;
  */
 use WP_Post;
 
-$online = tribe_is_truthy( get_post_meta( $event->ID, Event_Meta::$key_online, true ) );
-$online_url = get_post_meta( $event->ID, Event_Meta::$key_online_url, true );
+$online       = tribe_is_truthy( get_post_meta( $event->ID, Event_Meta::$key_online, true ) );
+$online_url   = get_post_meta( $event->ID, Event_Meta::$key_online_url, true );
+$watch_label  = apply_filters( 'tribe_ext_events_control_watch_label', _x( 'Watch Now', 'Label for an online event link', 'tribe-ext-events-control' ), $event->ID, $event );
 
 // Dont print anything when status for this event is not
 if ( ! $online || ! $online_url ) {
@@ -28,8 +29,8 @@ if ( ! $online || ! $online_url ) {
 }
 
 ?>
-<div class="tribe-common-b2">
-	<a href="<?php echo esc_url( $online_url ) ?>" target="_blank">
-		<?php echo esc_html_x( 'Watch Now', 'Label for a livestream link', 'tribe-ext-events-control' ); ?>
+<div class="tribe-events-c-small-cta tribe-common-b2">
+	<a href="<?php echo esc_url( $online_url ) ?>" target="_blank" class="tribe-events-c-small-cta__link tribe-common-cta tribe-common-cta--thin-alt">
+		<?php echo esc_html( $watch_label ); ?>
 	</a>
 </div>

@@ -77,12 +77,21 @@
 	margin-right: 8px;
 }
 
+.tribe-ext-events-happening-now--single .tribe-events-c-small-cta {
+	margin-top: 12px;
+}
+
+.tribe-common--breakpoint-medium.tribe-ext-events-happening-now--single .tribe-events-c-small-cta {
+	margin-top: 16px;
+}
+
 /* -----------------------------------------------------------------------------
 * Single.
 * ----------------------------------------------------------------------------- */
 .tribe-ext-events-control-single-notice {
 	border: 1px solid #D5D5D5;
 	padding: 12px 20px;
+	margin-bottom: 20px;
 	font-size: 14px;
 }
 
@@ -100,6 +109,10 @@
 .tribe-ext-events-control-single-notice-description {
 	padding-left: 23px;
 	margin-bottom: 10px;
+}
+
+.tribe-ext-events-control-single-notice-description:last-child {
+	margin-bottom: 0;
 }
 
 .tribe-ext-events-control-single-notice-live-link {
