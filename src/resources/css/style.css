@@ -55,19 +55,72 @@
 }
 
 /* -----------------------------------------------------------------------------
+* Month.
+* ----------------------------------------------------------------------------- */
+
+.tribe-events .tribe-events-calendar-month__events .tribe-ext-events-control-list-event--live::before {
+	background-color: #334aff;
+	content: "";
+	height: 100%;
+	left: 7px;
+	position: absolute;
+	width: 2px;
+}
+
+/* -----------------------------------------------------------------------------
+* Week.
+* ----------------------------------------------------------------------------- */
+
+.tribe-events-pro .tribe-events-pro-week-grid__event.tribe-ext-events-control-list-event--live .tribe-events-pro-week-grid__event-link-inner::before {
+	background: #334aff;
+	content: "";
+	height: 100%;
+	left: 0;
+	top: 0;
+	position: absolute;
+	width: 2px;
+}
+
+/* -----------------------------------------------------------------------------
 * List.
 * ----------------------------------------------------------------------------- */
 
+.tribe-common-g-row.tribe-ext-events-happening-now__event-row .tribe-ext-events-control-list-event--live,
+.tribe-events-calendar-day .tribe-common-g-row,
+.tribe-common-g-row.tribe-events-calendar-list__event-row,
 .tribe-common--breakpoint-medium.tribe-events .tribe-ext-events-control-list-event--live {
 	position: relative;
 }
 
-.tribe-common--breakpoint-medium.tribe-events .tribe-ext-events-control-list-event--live .tribe-events-calendar-list__event-details::before {
+.tribe-events .tribe-ext-events-happening-now__event-row .tribe-events-calendar-list__event.tribe-ext-events-control-list-event--live::after {
+	right: calc(100% + 51px);
+}
+
+.tribe-events .tribe-events-calendar-list__event.tribe-ext-events-control-list-event--live::after {
+	background-color: #334aff;
+	content: "";
+	height: 100%;
+	right: calc(100% - 3px);
+	position: absolute;
+	width: 3px;
+}
+
+.tribe-common--breakpoint-medium.tribe-events .tribe-events-calendar-list__event.tribe-ext-events-control-list-event--live::after {
+	left: -1px;
+	width: 4px;
+}
+
+.tribe-events .tribe-events-calendar-day__event.tribe-ext-events-control-list-event--live::after {
 	background-color: #334AFF;
 	content: '';
 	height: 100%;
-	left: -3px;
+	left: 21px;
 	position: absolute;
+	width: 3px;
+}
+
+.tribe-common--breakpoint-medium.tribe-events .tribe-events-calendar-day__event.tribe-ext-events-control-list-event--live::after {
+	left: calc(11.111% - 24px);
 	width: 4px;
 }
 

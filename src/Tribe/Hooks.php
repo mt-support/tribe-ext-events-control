@@ -48,8 +48,16 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'init', [ $this, 'action_register_metabox_fields' ] );
 		add_action( 'save_post', [ $this, 'action_save_metabox' ], 15, 3 );
 
+		add_action( 'tribe_template_before_include:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+		add_action( 'tribe_template_after_include:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
 		add_action( 'tribe_template_before_include:events/v2/list/event/date/meta', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
 		add_action( 'tribe_template_after_include:events/v2/list/event/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
+		add_action( 'tribe_template_before_include:events/v2/day/event/date/meta', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+		add_action( 'tribe_template_after_include:events/v2/day/event/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
+		add_action( 'tribe_template_before_include:events-pro/v2/photo/event/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+		add_action( 'tribe_template_before_include:events-pro/v2/map/event-cards/event-card/event/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+		add_action( 'tribe_template_before_include:events-pro/v2/week/grid-body/events-day/event/tooltip/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+		add_action( 'tribe_template_after_include:events-pro/v2/week/grid-body/events-day/event/tooltip/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
 	}
 
 	/**
@@ -62,7 +70,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_template_path_list', [ $this, 'filter_template_path_list' ], 15, 2 );
 		add_filter( 'tribe_the_notices', [ $this, 'filter_include_single_control_markers' ], 15, 2 );
 		add_filter( 'tribe_json_ld_event_object', [ $this, 'filter_json_ld_modifiers' ], 15, 3 );
-		add_filter( 'post_class', [ $this, 'filter_add_post_class' ], 15, 2 );
+		add_filter( 'post_class', [ $this, 'filter_add_post_class' ], 15, 3 );
 	}
 
 	/**
@@ -75,7 +83,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return string[]
 	 */
-	public function filter_add_post_class( $classes, $post ) {
+	public function filter_add_post_class( $classes, $class, $post ) {
 		$new_classes = $this->container->make( Template_Modifications::class )->get_post_classes( $post );
 		return array_merge( $classes, $new_classes );
 	}

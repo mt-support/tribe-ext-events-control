@@ -103,7 +103,9 @@ class Template_Modifications {
 		$notices_html .= $template->template( 'single/postponed-status', $args, false );
 		$notices_html .= $template->template( 'single/online-marker', $args, false );
 
-		return $notices_html;
+		$args['post_statuses'] = $notices_html;
+
+		return $template->template( 'single/post-statuses', $args, false );
 	}
 
 	/**
@@ -118,10 +120,21 @@ class Template_Modifications {
 	 * @return void  Template render has no return/
 	 */
 	public function add_archive_control_markers( $file, $name, $template ) {
-		$template->template( 'online-marker' );
-		$template->template( 'canceled-status' );
-		$template->template( 'postponed-status' );
+
+		$args = [
+			'event' => tribe_get_event( get_the_ID() ),
+		];
+
+		$statuses = '';
+		$statuses .= $template->template( 'canceled-status', $args, false );
+		$statuses .= $template->template( 'postponed-status', $args, false );
+		$statuses .= $template->template( 'online-marker', $args, false );
+
+		$args['post_statuses'] = $statuses;
+
+		$template->template( 'post-statuses', $args );
 	}
+
 	/**
 	 * Required inclusions for the online link.
 	 *
