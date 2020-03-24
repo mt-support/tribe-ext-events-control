@@ -9,13 +9,11 @@ Stable tag: 1.0.0
 License: GPL version 3 or any later version
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-[Extension Description]
+Adds the ability to mark an event as an Online event and to change an event's status to Canceled or Postponed.
 
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
-
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and Markdown parsed.
+Events marked as Online, Canceled, or Postponed will have a visual representation of those states in views and on the single event page. These event states also get reflected in the event schema with the `eventStatus` and `eventAttendanceMode` defined in Google's JSON-LD `Event` standard.
 
 == Installation ==
 
@@ -37,6 +35,6 @@ We're always interested in your feedback and our [Help Desk](https://support.the
 
 == Changelog ==
 
-= [1.0.0] YYYY-MM-DD =
+= [1.0.0] 2020-03-24 =
 
 * Initial release

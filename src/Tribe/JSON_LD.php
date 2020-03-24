@@ -18,6 +18,8 @@ class JSON_LD {
 
 	const MOVED_ONLINE_SCHEMA = 'https://schema.org/EventMovedOnline';
 
+	const ONLINE_EVENT_ATTENDANCE_MODE = 'https://schema.org/OnlineEventAttendanceMode';
+
 	/**
 	 * Modifiers to the JSON LD event object for canceled events.
 	 *
@@ -102,6 +104,9 @@ class JSON_LD {
 			// Modify the Status Schema
 			$data->eventStatus = static::MOVED_ONLINE_SCHEMA;
 		}
+
+		// if online, set the attendance mode
+		$data->eventAttendenceMode = static::ONLINE_EVENT_ATTENDANCE_MODE;
 
 		if ( $online_url ) {
 			$data->location = (object) [
