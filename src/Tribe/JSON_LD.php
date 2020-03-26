@@ -36,7 +36,7 @@ class JSON_LD {
 		if ( empty( $data->startDate ) || empty( $data->endDate ) ) {
 			return $data;
 		}
-		$status = get_post_meta( $post->ID, Event_Meta::$key_status, true );
+		$status = tribe( Event_Meta::class )->get_status( $post->ID );
 
 		// Bail on modifications for non canceled events.
 		if ( 'canceled' !== $status ) {
@@ -63,7 +63,7 @@ class JSON_LD {
 		if ( empty( $data->startDate ) || empty( $data->endDate ) ) {
 			return $data;
 		}
-		$status = get_post_meta( $post->ID, Event_Meta::$key_status, true );
+		$status = tribe( Event_Meta::class )->get_status( $post->ID );
 
 		// Bail on modifications for non canceled events.
 		if ( 'postponed' !== $status ) {
@@ -91,8 +91,8 @@ class JSON_LD {
 		if ( empty( $data->startDate ) || empty( $data->endDate ) ) {
 			return $data;
 		}
-		$online = tribe_is_truthy( get_post_meta( $post->ID, Event_Meta::$key_online, true ) );
-		$online_url = get_post_meta( $post->ID, Event_Meta::$key_online_url, true );
+		$online     = tribe( Event_Meta::class )->is_online( $post->ID );
+		$online_url = tribe( Event_Meta::class )->get_online_url( $post->ID );
 
 		// Bail on modifications for non canceled events.
 		if ( ! $online ) {

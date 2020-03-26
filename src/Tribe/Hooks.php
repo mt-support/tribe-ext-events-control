@@ -71,6 +71,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_the_notices', [ $this, 'filter_include_single_control_markers' ], 15, 2 );
 		add_filter( 'tribe_json_ld_event_object', [ $this, 'filter_json_ld_modifiers' ], 15, 3 );
 		add_filter( 'post_class', [ $this, 'filter_add_post_class' ], 15, 3 );
+		add_filter( 'tribe_rest_event_data', [ $this, 'filter_rest_event_data'], 10, 2 );
 	}
 
 	/**
@@ -149,6 +150,25 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		$data = $this->container->make( JSON_LD::class )->modify_canceled_event( $data, $args, $post );
 		$data = $this->container->make( JSON_LD::class )->modify_postponed_event( $data, $args, $post );
 		return $this->container->make( JSON_LD::class )->modify_online_event( $data, $args, $post );
+	}
+
+	/**
+	 * Filters event REST data to include new fields.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param array $data The event data array.
+	 * @param WP_Post $event The post object.
+	 *
+	 * @return array The event data array after modification.
+	 */
+	public function filter_rest_event_data( $data, $event ) {
+		$meta = tribe( Event_Meta::class )->get_meta( $event );
+		if ( empty( $meta ) ) {
+			return $data;
+		}
+
+		return array_merge( $data, $meta );
 	}
 
 	/**
