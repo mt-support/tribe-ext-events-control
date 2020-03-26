@@ -25,6 +25,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 			return;
 		}
 
+		$this->container->singleton( Event_Meta::class, Event_Meta::class );
 		$this->container->singleton( Metabox::class, Metabox::class, [ 'set_template' ] );
 		$this->container->singleton( JSON_LD::class, JSON_LD::class );
 		$this->container->singleton( Template_Modifications::class, Template_Modifications::class, [ 'set_template' ] );

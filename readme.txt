@@ -5,7 +5,7 @@ Tags: events, calendar
 Requires at least: 4.5
 Tested up to: 5.3.2
 Requires PHP: 5.6
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPL version 3 or any later version
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -35,6 +35,10 @@ We're always interested in your feedback and our [Help Desk](https://support.the
 
 == Changelog ==
 
+= [1.0.1] 2020-03-26 =
+
+* Provide `event_status`, `event_status_reason`, `is_online`, and `online_url` in REST data for events.
+
 = [1.0.0] 2020-03-24 =
 
-* Initial release
+* Initial release.
