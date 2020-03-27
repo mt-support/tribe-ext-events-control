@@ -1,6 +1,8 @@
 <?php
 namespace Tribe\Extensions\EventsControl;
 
+use WP_Post;
+
 /**
  * Class Event_Meta
  *
@@ -64,6 +66,14 @@ class Event_Meta {
 	 * @return null|string The event's status.
 	 */
 	public function get_status( $event ) {
+		if ( ! $event instanceof WP_Post ) {
+			$event = tribe_get_event( $event );
+		}
+
+		if ( ! $event ) {
+			return null;
+		}
+
 		return get_post_meta( $event->ID, static::$key_status, true );
 	}
 
@@ -77,6 +87,14 @@ class Event_Meta {
 	 * @return null|string The event's cancellation reason.
 	 */
 	public function get_canceled_reason( $event ) {
+		if ( ! $event instanceof WP_Post ) {
+			$event = tribe_get_event( $event );
+		}
+
+		if ( ! $event ) {
+			return null;
+		}
+
 		return get_post_meta( $event->ID, static::$key_status_canceled_reason, true );
 	}
 
@@ -90,6 +108,14 @@ class Event_Meta {
 	 * @return null|string The event's postponed reason.
 	 */
 	public function get_postponed_reason( $event ) {
+		if ( ! $event instanceof WP_Post ) {
+			$event = tribe_get_event( $event );
+		}
+
+		if ( ! $event ) {
+			return null;
+		}
+
 		return get_post_meta( $event->ID, static::$key_status_postponed_reason, true );
 	}
 
@@ -103,6 +129,14 @@ class Event_Meta {
 	 * @return null|string The event's online URL.
 	 */
 	public function get_online_url( $event ) {
+		if ( ! $event instanceof WP_Post ) {
+			$event = tribe_get_event( $event );
+		}
+
+		if ( ! $event ) {
+			return null;
+		}
+
 		return get_post_meta( $event->ID, static::$key_online_url, true );
 	}
 
@@ -116,6 +150,14 @@ class Event_Meta {
 	 * @return bool Whether the event is online or not.
 	 */
 	public function is_online( $event ) {
+		if ( ! $event instanceof WP_Post ) {
+			$event = tribe_get_event( $event );
+		}
+
+		if ( ! $event ) {
+			return null;
+		}
+
 		return tribe_is_truthy( get_post_meta( $event->ID, static::$key_online, true ) );
 	}
 

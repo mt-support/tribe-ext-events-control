@@ -22,11 +22,13 @@ use WP_Post;
 
 
 // Dont print anything when there are no statuses for this event.
-if ( ! $post_statuses ) {
+if ( ! $event ) {
 	return;
 }
 
 ?>
-<div class="tribe-common-b2">
-	<?php echo $post_statuses; ?>
+<div class="tribe-common-b2 tribe-ext-events-control-status-single-container">
+	<?php $this->template( 'single/canceled-status' ); ?>
+	<?php $this->template( 'single/postponed-status' ); ?>
+	<?php $this->template( 'single/online-marker' ); ?>
 </div>
