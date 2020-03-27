@@ -54,6 +54,10 @@
 	margin-right: 8px;
 }
 
+.tribe-common .tribe-ext-events-control-status-archive-container {
+	display: inline-block;
+}
+
 /* -----------------------------------------------------------------------------
 * Month.
 * ----------------------------------------------------------------------------- */

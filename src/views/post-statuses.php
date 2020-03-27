@@ -18,11 +18,13 @@
 */
 
 // Dont print anything when there are no statuses for this event.
-if ( ! $post_statuses ) {
-return;
+if ( ! $event ) {
+	return;
 }
 
 ?>
-<div class="tribe-common-b2">
-	<?php echo $post_statuses; ?>
+<div class="tribe-common-b2 tribe-ext-events-control-status-archive-container">
+	<?php $this->template( 'canceled-status' ); ?>
+	<?php $this->template( 'postponed-status' ); ?>
+	<?php $this->template( 'online-marker' ); ?>
 </div>

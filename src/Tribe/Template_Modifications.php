@@ -99,13 +99,7 @@ class Template_Modifications {
 			'event' => tribe_get_event( get_the_ID() ),
 		];
 
-		$notices_html .= $template->template( 'single/canceled-status', $args, false );
-		$notices_html .= $template->template( 'single/postponed-status', $args, false );
-		$notices_html .= $template->template( 'single/online-marker', $args, false );
-
-		$args['post_statuses'] = $notices_html;
-
-		return $template->template( 'single/post-statuses', $args, false );
+		return $notices_html . $template->template( 'single/post-statuses', $args, false );
 	}
 
 	/**
@@ -120,17 +114,9 @@ class Template_Modifications {
 	 * @return void  Template render has no return/
 	 */
 	public function add_archive_control_markers( $file, $name, $template ) {
-
 		$args = [
 			'event' => tribe_get_event( get_the_ID() ),
 		];
-
-		$statuses = '';
-		$statuses .= $template->template( 'canceled-status', $args, false );
-		$statuses .= $template->template( 'postponed-status', $args, false );
-		$statuses .= $template->template( 'online-marker', $args, false );
-
-		$args['post_statuses'] = $statuses;
 
 		$template->template( 'post-statuses', $args );
 	}
