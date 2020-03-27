@@ -122,7 +122,7 @@ class Metabox {
 			[ $this, 'render' ],
 			Events_Plugin::POSTTYPE,
 			'side',
-			'normal'
+			'default'
 		);
 	}
 
