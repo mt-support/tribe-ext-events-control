@@ -21,7 +21,7 @@ use Tribe__Template as Template;
             id="<?php echo esc_attr( "{$metabox::$id}-status" ); ?>"
             name="<?php echo esc_attr( "{$metabox::$id}[status]" ); ?>"
         >
-            <option value=""></option>
+            <option value=""><?php echo esc_html_x( 'Select Event status', 'Event status default option', 'tribe-ext-events-control' ); ?></option>
             <option
                 value="canceled"
                 <?php selected( 'canceled' === $fields['status'] ) ?>
