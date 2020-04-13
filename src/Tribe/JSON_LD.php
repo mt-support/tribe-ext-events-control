@@ -92,7 +92,7 @@ class JSON_LD {
 			return $data;
 		}
 		$online     = tribe( Event_Meta::class )->is_online( $post->ID );
-		$online_url = tribe( Event_Meta::class )->get_online_url( $post->ID );
+		$online_url = $this->get_online_url( $post );
 
 		// Bail on modifications for non canceled events.
 		if ( ! $online ) {
@@ -106,7 +106,7 @@ class JSON_LD {
 		}
 
 		// if online, set the attendance mode
-		$data->eventAttendenceMode = static::ONLINE_EVENT_ATTENDANCE_MODE;
+		$data->eventAttendanceMode = static::ONLINE_EVENT_ATTENDANCE_MODE;
 
 		if ( $online_url ) {
 			$data->location = (object) [
@@ -119,4 +119,26 @@ class JSON_LD {
 		$i=1;
 		return $data;
 	}
+
+	/**
+	 * Get the Online URL for an Event Trying the Online URL and Website URL.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post $post The post object to use to get the online url for an event.
+	 *
+	 * @return mixed The string of the online url for an event if available.
+	 */
+	protected function get_online_url( $post ) {
+
+		$online_url = tribe( Event_Meta::class )->get_online_url( $post->ID );
+		if ( $online_url ) {
+			return $online_url;
+		}
+
+		$online_url = get_post_meta( $post->ID, '_EventURL', true );
+
+		return $online_url;
+	}
+
 }
