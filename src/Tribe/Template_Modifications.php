@@ -135,4 +135,19 @@ class Template_Modifications {
 	public function add_archive_online_link( $file, $name, $template ) {
 		$template->template( 'online-link' );
 	}
+
+	/**
+	 * Required inclusions for the online link.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string   $file      Complete path to include the PHP File.
+	 * @param string   $name      Template name.
+	 * @param Template $template  Current instance of the Template.
+	 *
+	 * @return void  Template render has no return/
+	 */
+	public function add_list_online_link( $file, $name, $template ) {
+		$template->template( 'list/online-marker' );
+	}
 }

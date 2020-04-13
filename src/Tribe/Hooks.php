@@ -50,12 +50,17 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		add_action( 'tribe_template_before_include:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
 		add_action( 'tribe_template_after_include:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
+
 		add_action( 'tribe_template_before_include:events/v2/list/event/date/meta', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
-		add_action( 'tribe_template_after_include:events/v2/list/event/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
+		add_action( 'tribe_template_after_include:events/v2/list/event/description', [ $this, 'action_add_list_online_link' ], 15, 3 );
+
 		add_action( 'tribe_template_before_include:events/v2/day/event/date/meta', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
 		add_action( 'tribe_template_after_include:events/v2/day/event/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
+
 		add_action( 'tribe_template_before_include:events-pro/v2/photo/event/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+
 		add_action( 'tribe_template_before_include:events-pro/v2/map/event-cards/event-card/event/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+
 		add_action( 'tribe_template_before_include:events-pro/v2/week/grid-body/events-day/event/tooltip/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
 		add_action( 'tribe_template_after_include:events-pro/v2/week/grid-body/events-day/event/tooltip/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
 	}
@@ -236,6 +241,21 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function action_add_archive_online_link( $file, $name, $template ) {
 		$this->container->make( Template_Modifications::class )->add_archive_online_link( $file, $name, $template );
+	}
+
+	/**
+	 * Include the online now url anchor for the archive pages.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string   $file      Complete path to include the PHP File.
+	 * @param string   $name      Template name.
+	 * @param Template $template  Current instance of the Template.
+	 *
+	 * @return void  Template render has no return/
+	 */
+	public function action_add_list_online_link( $file, $name, $template ) {
+		$this->container->make( Template_Modifications::class )->add_list_online_link( $file, $name, $template );
 	}
 
 	/**
