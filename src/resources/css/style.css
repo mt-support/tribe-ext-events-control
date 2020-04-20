@@ -34,11 +34,11 @@
 .tribe-common .tribe-ext-events-control-text--live-icon::before {
 	background-image: url('../images/live.svg');
 	background-repeat: no-repeat;
-	background-size: 24px;
+	background-size: 18px;
 	display: inline-block;
 	content: '';
-	min-width: 24px;
-	height: 14px;
+	min-width: 18px;
+	height: 12px;
 	margin-right: 8px;
 }
 
@@ -138,7 +138,6 @@
 
 .tribe-ext-events-control-list-status,
 .tribe-common .tribe-ext-events-control-list-status {
-	float: left;
 	margin-right: 8px;
 }
 

@@ -137,9 +137,9 @@ class Template_Modifications {
 	}
 
 	/**
-	 * Required inclusions for the online link.
+	 * Adds Template for Online Event.
 	 *
-	 * @since 1.0.0
+	 * @since TBD
 	 *
 	 * @param string   $file      Complete path to include the PHP File.
 	 * @param string   $name      Template name.
@@ -147,7 +147,22 @@ class Template_Modifications {
 	 *
 	 * @return void  Template render has no return/
 	 */
-	public function add_list_online_link( $file, $name, $template ) {
-		$template->template( 'list/online-marker' );
+	public function add_online_event( $file, $name, $template ) {
+		$template->template( 'online-event' );
+	}
+
+	/**
+	 * Adds Template for Online Event Icon.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $file      Complete path to include the PHP File.
+	 * @param string   $name      Template name.
+	 * @param Template $template  Current instance of the Template.
+	 *
+	 * @return void  Template render has no return/
+	 */
+	public function add_online_icon( $file, $name, $template ) {
+		$template->template( '/online-icon' );
 	}
 }

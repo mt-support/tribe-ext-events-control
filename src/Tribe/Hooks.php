@@ -48,21 +48,37 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'init', [ $this, 'action_register_metabox_fields' ] );
 		add_action( 'save_post', [ $this, 'action_save_metabox' ], 15, 3 );
 
-		add_action( 'tribe_template_before_include:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
-		add_action( 'tribe_template_after_include:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
+		// Month View
+		add_action( 'tribe_template_before_include:events/v2/month/calendar-body/day/calendar-events/calendar-event/date', [ $this, 'action_add_online_icon' ], 5, 3 );
+		add_action( 'tribe_template_after_include:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image', [ $this, 'action_add_online_icon' ], 20, 3 );
+		add_action( 'tribe_template_after_include:events/v2/month/calendar-body/day/multiday-events/multiday-event', [ $this, 'action_add_online_icon' ], 20, 3 );
+		add_action( 'tribe_template_after_include:events/v2/month/mobile-events/mobile-day/mobile-event/date', [ $this, 'action_add_online_icon' ], 5, 3 );
 
-		add_action( 'tribe_template_before_include:events/v2/list/event/date/meta', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
-		add_action( 'tribe_template_after_include:events/v2/list/event/description', [ $this, 'action_add_list_online_link' ], 15, 3 );
+		// List View
+		//add_action( 'tribe_template_before_include:events/v2/list/event/date/meta', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+		add_action( 'tribe_template_after_include:events/v2/list/event/venue', [ $this, 'action_add_online_event' ], 15, 3 );
 
-		add_action( 'tribe_template_before_include:events/v2/day/event/date/meta', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
-		add_action( 'tribe_template_after_include:events/v2/day/event/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
+		// Day View
+		//add_action( 'tribe_template_before_include:events/v2/day/event/date/meta', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+		//add_action( 'tribe_template_after_include:events/v2/day/event/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
+		add_action( 'tribe_template_after_include:events/v2/day/event/venue', [ $this, 'action_add_online_event' ], 15, 3 );
 
-		add_action( 'tribe_template_before_include:events-pro/v2/photo/event/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+		// Photo View
+		//add_action( 'tribe_template_before_include:events-pro/v2/photo/event/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+		add_action( 'tribe_template_before_include:events-pro/v2/photo/event/featured-image', [ $this, 'action_add_online_icon' ], 20, 3 );
 
-		add_action( 'tribe_template_before_include:events-pro/v2/map/event-cards/event-card/event/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+		// Map View
+		//add_action( 'tribe_template_before_include:events-pro/v2/map/event-cards/event-card/event/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+		add_action( 'tribe_template_before_include:events-pro/v2/map/event-cards/event-card/event/venue', [ $this, 'action_add_online_event' ], 15, 3 );
+		add_action( 'tribe_template_before_include:events-pro/v2/map/event-cards/event-card/tooltip/venue', [ $this, 'action_add_online_event' ], 15, 3 );
 
-		add_action( 'tribe_template_before_include:events-pro/v2/week/grid-body/events-day/event/tooltip/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
-		add_action( 'tribe_template_after_include:events-pro/v2/week/grid-body/events-day/event/tooltip/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
+		// Week View
+		add_action( 'tribe_template_before_include:events-pro/v2/week/grid-body/events-day/event/featured-image', [ $this, 'action_add_online_icon' ], 15, 3 );
+		add_action( 'tribe_template_after_include:events-pro/v2/week/grid-body/events-day/event/tooltip/featured-image', [ $this, 'action_add_online_icon' ], 15, 3 );
+		add_action( 'tribe_template_after_include:events-pro/v2/week/grid-body/multiday-events-day/multiday-event', [ $this, 'action_add_online_icon' ], 15, 3 );
+		add_action( 'tribe_template_after_include:events-pro/v2/week/mobile-events/day/event/date', [ $this, 'action_add_online_icon' ], 15, 3 );
+		//add_action( 'tribe_template_before_include:events-pro/v2/week/grid-body/events-day/event/tooltip/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+		//add_action( 'tribe_template_after_include:events-pro/v2/week/grid-body/events-day/event/tooltip/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
 	}
 
 	/**
@@ -246,7 +262,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	/**
 	 * Include the online now url anchor for the archive pages.
 	 *
-	 * @since 1.0.0
+	 * @since TBD
 	 *
 	 * @param string   $file      Complete path to include the PHP File.
 	 * @param string   $name      Template name.
@@ -254,8 +270,23 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return void  Template render has no return/
 	 */
-	public function action_add_list_online_link( $file, $name, $template ) {
-		$this->container->make( Template_Modifications::class )->add_list_online_link( $file, $name, $template );
+	public function action_add_online_event( $file, $name, $template ) {
+		$this->container->make( Template_Modifications::class )->add_online_event( $file, $name, $template );
+	}
+
+	/**
+	 * Include the online now url anchor for the archive pages.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $file      Complete path to include the PHP File.
+	 * @param string   $name      Template name.
+	 * @param Template $template  Current instance of the Template.
+	 *
+	 * @return void  Template render has no return/
+	 */
+	public function action_add_online_icon( $file, $name, $template ) {
+		$this->container->make( Template_Modifications::class )->add_online_icon( $file, $name, $template );
 	}
 
 	/**

@@ -29,7 +29,7 @@ if ( ! $online ) {
 
 ?>
 <div class="tribe-ext-events-control-list-status">
-	<span class="tribe-common-b2 tribe-ext-events-control-text tribe-ext-events-control-text--blue tribe-ext-events-control-text--bold tribe-ext-events-control-text--live-icon">
+	<span class="tribe-common-b2 tribe-ext-events-control-text tribe-ext-events-control-text--bold tribe-ext-events-control-text--live-icon">
 		<?php echo esc_html( $online_label ); ?>
 	</span>
 </div>
