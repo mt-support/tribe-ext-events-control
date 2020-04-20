@@ -55,20 +55,20 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_template_after_include:events/v2/month/mobile-events/mobile-day/mobile-event/date', [ $this, 'action_add_online_icon' ], 5, 3 );
 
 		// List View
-		//add_action( 'tribe_template_before_include:events/v2/list/event/date/meta', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+		add_action( 'tribe_template_before_include:events/v2/list/event/date/meta', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
 		add_action( 'tribe_template_after_include:events/v2/list/event/venue', [ $this, 'action_add_online_event' ], 15, 3 );
 
 		// Day View
-		//add_action( 'tribe_template_before_include:events/v2/day/event/date/meta', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
-		//add_action( 'tribe_template_after_include:events/v2/day/event/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
+		add_action( 'tribe_template_before_include:events/v2/day/event/date/meta', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+		add_action( 'tribe_template_after_include:events/v2/day/event/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
 		add_action( 'tribe_template_after_include:events/v2/day/event/venue', [ $this, 'action_add_online_event' ], 15, 3 );
 
 		// Photo View
-		//add_action( 'tribe_template_before_include:events-pro/v2/photo/event/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+		add_action( 'tribe_template_before_include:events-pro/v2/photo/event/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
 		add_action( 'tribe_template_before_include:events-pro/v2/photo/event/featured-image', [ $this, 'action_add_online_icon' ], 20, 3 );
 
 		// Map View
-		//add_action( 'tribe_template_before_include:events-pro/v2/map/event-cards/event-card/event/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+		add_action( 'tribe_template_before_include:events-pro/v2/map/event-cards/event-card/event/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
 		add_action( 'tribe_template_before_include:events-pro/v2/map/event-cards/event-card/event/venue', [ $this, 'action_add_online_event' ], 15, 3 );
 		add_action( 'tribe_template_before_include:events-pro/v2/map/event-cards/event-card/tooltip/venue', [ $this, 'action_add_online_event' ], 15, 3 );
 
@@ -77,8 +77,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_template_after_include:events-pro/v2/week/grid-body/events-day/event/tooltip/featured-image', [ $this, 'action_add_online_icon' ], 15, 3 );
 		add_action( 'tribe_template_after_include:events-pro/v2/week/grid-body/multiday-events-day/multiday-event', [ $this, 'action_add_online_icon' ], 15, 3 );
 		add_action( 'tribe_template_after_include:events-pro/v2/week/mobile-events/day/event/date', [ $this, 'action_add_online_icon' ], 15, 3 );
-		//add_action( 'tribe_template_before_include:events-pro/v2/week/grid-body/events-day/event/tooltip/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
-		//add_action( 'tribe_template_after_include:events-pro/v2/week/grid-body/events-day/event/tooltip/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
+		add_action( 'tribe_template_before_include:events-pro/v2/week/grid-body/events-day/event/tooltip/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
+		add_action( 'tribe_template_after_include:events-pro/v2/week/grid-body/events-day/event/tooltip/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
 	}
 
 	/**
