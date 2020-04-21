@@ -5,7 +5,7 @@ Tags: events, calendar
 Requires at least: 4.5
 Tested up to: 5.3.2
 Requires PHP: 5.6
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPL version 3 or any later version
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -34,6 +34,10 @@ Please visit our [extension library](https://theeventscalendar.com/extensions/) 
 We're always interested in your feedback and our [Help Desk](https://support.theeventscalendar.com/) are the best place to flag any issues. Do note, however, that the degree of support we provide for extensions like this one tends to be very limited.
 
 == Changelog ==
+
+= [1.3.0] TBD =
+
+* Tweak - Text changes to the Event Status Metabox UI [EXT-167]
 
 = [1.2.0] 2020-03-27 =
 
