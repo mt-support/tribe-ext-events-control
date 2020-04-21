@@ -4,7 +4,7 @@
  * Plugin URI:        https://theeventscalendar.com/extensions/events-control/
  * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-events-control
  * Description:       Adds the ability to mark an event as an Online event and to change an event's status to Canceled or Postponed.
- * Version:           1.2.0
+ * Version:           1.3.0
  * Extension Class:   Tribe\Extensions\EventsControl\Main
  * Author:            Modern Tribe, Inc.
  * Author URI:        http://m.tri.be/1971
@@ -56,7 +56,7 @@ if (
 		 *
 		 * @var string
 		 */
-		const VERSION = '1.2.0';
+		const VERSION = '1.3.0';
 
 		/**
 		 * Stores the base slug for the extension.
