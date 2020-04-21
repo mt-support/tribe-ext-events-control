@@ -35,6 +35,10 @@ We're always interested in your feedback and our [Help Desk](https://support.the
 
 == Changelog ==
 
+= [1.4.0] TBD =
+
+* Fix - Modify the location schema to always include a url when using VirtualLocation and add a filter `tribe_events_single_event_online_status` to be able to change any event as an online event. [EXT-164]
+
 = [1.3.0] 2020-04-18 =
 
 * Fix - Make sure template injections from Event Control are looking for theme overwrites.

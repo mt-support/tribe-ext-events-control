@@ -91,8 +91,20 @@ class JSON_LD {
 		if ( empty( $data->startDate ) || empty( $data->endDate ) ) {
 			return $data;
 		}
-		$online     = tribe( Event_Meta::class )->is_online( $post->ID );
-		$online_url = $this->get_online_url( $post );
+
+		$online = tribe( Event_Meta::class )->is_online( $post->ID );
+
+		/**
+		 * Filters if an Event is Considered Online.
+		 *
+		 * @since TBD
+		 *
+		 * @param boolean $online If an event is considered online.
+		 * @param object  $data   The JSON-LD object.
+		 * @param array   $args   The arguments used to get data.
+		 * @param WP_Post $post   The post object.
+		 */
+		$online = apply_filters( 'tribe_events_single_event_online_status', $online, $data, $args, $post );
 
 		// Bail on modifications for non canceled events.
 		if ( ! $online ) {
@@ -108,20 +120,19 @@ class JSON_LD {
 		// if online, set the attendance mode
 		$data->eventAttendanceMode = static::ONLINE_EVENT_ATTENDANCE_MODE;
 
-		if ( $online_url ) {
-			$data->location = (object) [
-				'@type' => 'VirtualLocation',
-				'url'   => esc_url( $online_url ),
-			];
-		}
+		$data->location = (object) [
+			'@type' => 'VirtualLocation',
+			'url'   => esc_url( $this->get_online_url( $post ) ),
+		];
 
+		$i = 1;
 
-		$i=1;
 		return $data;
 	}
 
 	/**
-	 * Get the Online URL for an Event Trying the Online URL and Website URL.
+	 * Get the Online URL for an Event Trying the Online URL, the Website URL, and using the Permalink if nothing found.
+	 * A URL is required when using VirtualLocation.
 	 *
 	 * @since TBD
 	 *
@@ -132,11 +143,16 @@ class JSON_LD {
 	protected function get_online_url( $post ) {
 
 		$online_url = tribe( Event_Meta::class )->get_online_url( $post->ID );
-		if ( $online_url ) {
-			return $online_url;
+
+		// If Empty Get Website URL.
+		if ( empty( $online_url ) ) {
+			$online_url = get_post_meta( $post->ID, '_EventURL', true );
 		}
 
-		$online_url = get_post_meta( $post->ID, '_EventURL', true );
+		// If Both are Empty Then Get the Permalink.
+		if ( empty( $online_url ) ) {
+			$online_url = get_the_permalink( $post->ID );
+		}
 
 		return $online_url;
 	}
