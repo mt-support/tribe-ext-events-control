@@ -88,7 +88,7 @@
 .tribe-events .tribe-events-calendar-month .tribe-ext-events-control-online-event__text {
 	/* visually hide */
 	border: 0;
-	clip: rect(0 0 0 0);
+	clip: rect(0, 0, 0, 0);
 	height: 1px;
 	margin: -1px;
 	overflow: hidden;
@@ -100,17 +100,17 @@
 /* List + Day */
 .tribe-events .tribe-events-calendar-list .tribe-ext-events-control-online-event,
 .tribe-events .tribe-events-calendar-day .tribe-ext-events-control-online-event {
-		margin-bottom: 8px;
+	margin-bottom: 8px;
 }
 
 .tribe-common--breakpoint-medium.tribe-events .tribe-events-calendar-list .tribe-ext-events-control-online-event,
 .tribe-common--breakpoint-medium.tribe-events .tribe-events-calendar-day .tribe-ext-events-control-online-event {
-		margin-bottom: 16px;
+	margin-bottom: 16px;
 }
 
 .tribe-events .tribe-events-calendar-list .tribe-ext-events-control-online-event:last-child,
 .tribe-events .tribe-events-calendar-day .tribe-ext-events-control-online-event:last-child {
-		margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 /* Week */
@@ -144,7 +144,7 @@
 .tribe-events-pro .tribe-events-pro-photo .tribe-ext-events-control-online-event__text {
 	/* visually hide */
 	border: 0;
-	clip: rect(0 0 0 0);
+	clip: rect(0, 0, 0, 0);
 	height: 1px;
 	margin: -1px;
 	overflow: hidden;
@@ -163,10 +163,6 @@
 	font-size: 12px;
 	line-height: 1.38;
 }
-
-
-
-
 
 /* -----------------------------------------------------------------------------
 * Month.
