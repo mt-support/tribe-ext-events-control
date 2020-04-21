@@ -65,7 +65,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		// Photo View
 		add_action( 'tribe_template_before_include:events-pro/v2/photo/event/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
-		add_action( 'tribe_template_before_include:events-pro/v2/photo/event/featured-image', [ $this, 'action_add_online_icon' ], 20, 3 );
+		add_action( 'tribe_template_before_include:events-pro/v2/photo/event/date-time', [ $this, 'action_add_online_event' ], 20, 3 );
 
 		// Map View
 		add_action( 'tribe_template_before_include:events-pro/v2/map/event-cards/event-card/event/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );

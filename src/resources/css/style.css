@@ -113,6 +113,61 @@
 		margin-bottom: 0;
 }
 
+/* Week */
+
+/* Photo */
+.tribe-events-pro .tribe-events-pro-photo__event.tribe-ext-events-control-list-event--live { /* @todo: fix class name */
+	position: relative;
+}
+
+.tribe-events-pro .tribe-events-pro-photo .tribe-ext-events-control-online-event {
+	align-items: center;
+	background-color: #E5E7EA;
+	border-radius: 13px;
+	display: flex;
+	height: 26px;
+	justify-content: center;
+	left: 33px;
+	position: absolute;
+	top: 12px;
+	width: 37px;
+}
+
+.tribe-common--breakpoint-medium.tribe-events-pro .tribe-events-pro-photo .tribe-ext-events-control-online-event {
+	left: 36px;
+}
+
+.tribe-events-pro .tribe-events-pro-photo .tribe-ext-events-control-online-event__icon {
+	margin-right: 0;
+}
+
+.tribe-events-pro .tribe-events-pro-photo .tribe-ext-events-control-online-event__text {
+	/* visually hide */
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+/* Map */
+.tribe-events-pro .tribe-events-pro-map .tribe-ext-events-control-online-event {
+	font-size: 11px;
+	line-height: 1.5;
+}
+
+.tribe-common--breakpoint-medium.tribe-events-pro .tribe-events-pro-map .tribe-ext-events-control-online-event {
+	font-size: 12px;
+	line-height: 1.38;
+}
+
+
+
+
+
 /* -----------------------------------------------------------------------------
 * Month.
 * ----------------------------------------------------------------------------- */
