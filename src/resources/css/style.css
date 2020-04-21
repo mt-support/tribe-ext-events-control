@@ -34,11 +34,11 @@
 .tribe-common .tribe-ext-events-control-text--live-icon::before {
 	background-image: url('../images/live.svg');
 	background-repeat: no-repeat;
-	background-size: 18px;
+	background-size: contain;
 	display: inline-block;
 	content: '';
-	min-width: 18px;
 	height: 12px;
+	width: 17px;
 	margin-right: 8px;
 }
 
@@ -56,6 +56,61 @@
 
 .tribe-common .tribe-ext-events-control-status-archive-container {
 	display: inline-block;
+}
+
+.tribe-common .tribe-ext-events-control-icon {
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-size: contain;
+	margin-right: 8px;
+}
+
+.tribe-common .tribe-ext-events-control-icon--live {
+	background-image: url('../images/live.svg');
+	height: 12px;
+	width: 17px;
+}
+
+/* -----------------------------------------------------------------------------
+ * Online Event
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events .tribe-ext-events-control-online-event {
+	display: flex;
+	align-items: center;
+}
+
+/* Month */
+.tribe-events .tribe-events-calendar-month .tribe-ext-events-control-online-event {
+	display: inline-block;
+}
+
+.tribe-events .tribe-events-calendar-month .tribe-ext-events-control-online-event__text {
+	/* visually hide */
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+/* List + Day */
+.tribe-events .tribe-events-calendar-list .tribe-ext-events-control-online-event,
+.tribe-events .tribe-events-calendar-day .tribe-ext-events-control-online-event {
+		margin-bottom: 8px;
+}
+
+.tribe-common--breakpoint-medium.tribe-events .tribe-events-calendar-list .tribe-ext-events-control-online-event,
+.tribe-common--breakpoint-medium.tribe-events .tribe-events-calendar-day .tribe-ext-events-control-online-event {
+		margin-bottom: 16px;
+}
+
+.tribe-events .tribe-events-calendar-list .tribe-ext-events-control-online-event:last-child,
+.tribe-events .tribe-events-calendar-day .tribe-ext-events-control-online-event:last-child {
+		margin-bottom: 0;
 }
 
 /* -----------------------------------------------------------------------------

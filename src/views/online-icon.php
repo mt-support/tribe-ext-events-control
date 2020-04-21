@@ -1,4 +1,5 @@
 <?php
+
 namespace Tribe\Extensions\EventsControl;
 
 /**
@@ -11,7 +12,7 @@ namespace Tribe\Extensions\EventsControl;
  *
  * @link {INSERT_ARTICLE_LINK_HERE}
  *
- * @version 4.9.9
+ * @version TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *

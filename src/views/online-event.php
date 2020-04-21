@@ -1,4 +1,5 @@
 <?php
+
 namespace Tribe\Extensions\EventsControl;
 
 /**
@@ -11,7 +12,7 @@ namespace Tribe\Extensions\EventsControl;
  *
  * @link {INSERT_ARTICLE_LINK_HERE}
  *
- * @version 4.9.9
+ * @version TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -28,8 +29,14 @@ if ( ! $online ) {
 }
 
 ?>
-<div class="tribe-ext-events-control-list-status">
-	<span class="tribe-common-b2 tribe-ext-events-control-text tribe-ext-events-control-text--bold tribe-ext-events-control-text--live-icon">
+<div class="tribe-common-b2 tribe-common-b2--bold tribe-ext-events-control-online-event">
+	<em
+		class="tribe-ext-events-control-online-event__icon tribe-ext-events-control-icon tribe-ext-events-control-icon--live"
+		aria-label="<?php echo esc_attr( $online_label ); ?>"
+		title="<?php echo esc_attr( $online_label ); ?>"
+	>
+	</em>
+	<span class="tribe-ext-events-control-online-event__text">
 		<?php echo esc_html( $online_label ); ?>
 	</span>
 </div>
