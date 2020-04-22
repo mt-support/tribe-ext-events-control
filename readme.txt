@@ -35,6 +35,10 @@ We're always interested in your feedback and our [Help Desk](https://support.the
 
 == Changelog ==
 
+= [TBD] TBD =
+
+* Feature - Add online events indicator for The Events Calendar archive views.
+
 = [1.2.0] 2020-03-27 =
 
 * Fix - Clean up status templates PHP to not overwrite notices.
