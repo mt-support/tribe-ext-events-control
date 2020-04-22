@@ -28,6 +28,15 @@ use WP_Post;
  */
 class Hooks extends \tad_DI52_ServiceProvider {
 
+	protected $file_to_regex_map = [
+		// Month View
+		'month/calendar-body/day/calendar-events/calendar-event/date'         => '/(<div class="tribe-events-calendar-month__calendar-event-datetime">)/',
+		'month/calendar-body/day/calendar-events/calendar-event/tooltip/date' => '/(<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">)/',
+		'month/calendar-body/day/multiday-events/multiday-event'              => '/(<div class="tribe-events-calendar-month__multiday-event-bar-inner">)/',
+		'month/mobile-events/mobile-day/mobile-event/date'                    => '/(<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">)/',
+		// Week View
+	];
+
 	/**
 	 * Binds and sets up implementations.
 	 *
@@ -47,12 +56,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'add_meta_boxes', [ $this, 'action_add_metabox' ] );
 		add_action( 'init', [ $this, 'action_register_metabox_fields' ] );
 		add_action( 'save_post', [ $this, 'action_save_metabox' ], 15, 3 );
-
-		// Month View
-		add_action( 'tribe_template_before_include:events/v2/month/calendar-body/day/calendar-events/calendar-event/date', [ $this, 'action_add_online_icon' ], 5, 3 );
-		add_action( 'tribe_template_after_include:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/featured-image', [ $this, 'action_add_online_icon' ], 20, 3 );
-		add_action( 'tribe_template_after_include:events/v2/month/calendar-body/day/multiday-events/multiday-event', [ $this, 'action_add_online_icon' ], 20, 3 );
-		add_action( 'tribe_template_after_include:events/v2/month/mobile-events/mobile-day/mobile-event/date', [ $this, 'action_add_online_icon' ], 5, 3 );
 
 		// List View
 		add_action( 'tribe_template_before_include:events/v2/list/event/date/meta', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
@@ -93,6 +96,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_json_ld_event_object', [ $this, 'filter_json_ld_modifiers' ], 15, 3 );
 		add_filter( 'post_class', [ $this, 'filter_add_post_class' ], 15, 3 );
 		add_filter( 'tribe_rest_event_data', [ $this, 'filter_rest_event_data'], 10, 2 );
+
+		// Month View
+		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
+		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
+		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/multiday-events/multiday-event', [ $this, 'filter_insert_online_event' ], 15, 4 );
+		add_filter( 'tribe_template_html:events/v2/month/mobile-events/mobile-day/mobile-event/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
 	}
 
 	/**
@@ -235,7 +244,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 1.0.0
 	 *
 	 * @param string   $file      Complete path to include the PHP File.
-	 * @param string   $name      Template name.
+	 * @param array    $name      Template name.
 	 * @param Template $template  Current instance of the Template.
 	 *
 	 * @return void  Template render has no return/
@@ -250,7 +259,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 1.0.0
 	 *
 	 * @param string   $file      Complete path to include the PHP File.
-	 * @param string   $name      Template name.
+	 * @param array    $name      Template name.
 	 * @param Template $template  Current instance of the Template.
 	 *
 	 * @return void  Template render has no return/
@@ -265,7 +274,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since TBD
 	 *
 	 * @param string   $file      Complete path to include the PHP File.
-	 * @param string   $name      Template name.
+	 * @param array    $name      Template name.
 	 * @param Template $template  Current instance of the Template.
 	 *
 	 * @return void  Template render has no return/
@@ -275,18 +284,23 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Include the online now url anchor for the archive pages.
+	 * Insert the online event
 	 *
-	 * @since TBD
-	 *
+	 * @param string   $html      HTML of the template.
 	 * @param string   $file      Complete path to include the PHP File.
-	 * @param string   $name      Template name.
+	 * @param array    $name      Template name.
 	 * @param Template $template  Current instance of the Template.
-	 *
-	 * @return void  Template render has no return/
+	 * @return void
 	 */
-	public function action_add_online_icon( $file, $name, $template ) {
-		$this->container->make( Template_Modifications::class )->add_online_icon( $file, $name, $template );
+	public function filter_insert_online_event( $html, $file, $name, $template ) {
+		$filename = implode( '/', $name );
+
+		if ( ! array_key_exists( $filename, $this->file_to_regex_map ) ) {
+			return $html;
+		}
+
+		$regex = $this->file_to_regex_map[ $filename ];
+		return $this->container->make( Template_Modifications::class )->regex_insert_template( $regex, 'online-event', $html, $file, $name, $template );
 	}
 
 	/**

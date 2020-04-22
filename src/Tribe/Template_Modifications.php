@@ -108,7 +108,7 @@ class Template_Modifications {
 	 * @since 1.0.0
 	 *
 	 * @param string   $file      Complete path to include the PHP File.
-	 * @param string   $name      Template name.
+	 * @param array    $name      Template name.
 	 * @param Template $template  Current instance of the Template.
 	 *
 	 * @return void  Template render has no return/
@@ -127,7 +127,7 @@ class Template_Modifications {
 	 * @since 1.0.0
 	 *
 	 * @param string   $file      Complete path to include the PHP File.
-	 * @param string   $name      Template name.
+	 * @param array    $name      Template name.
 	 * @param Template $template  Current instance of the Template.
 	 *
 	 * @return void  Template render has no return/
@@ -142,7 +142,7 @@ class Template_Modifications {
 	 * @since TBD
 	 *
 	 * @param string   $file      Complete path to include the PHP File.
-	 * @param string   $name      Template name.
+	 * @param array    $name      Template name.
 	 * @param Template $template  Current instance of the Template.
 	 *
 	 * @return void  Template render has no return/
@@ -152,17 +152,21 @@ class Template_Modifications {
 	}
 
 	/**
-	 * Adds Template for Online Event Icon.
+	 * Inserts HTML after regex match.
 	 *
 	 * @since TBD
 	 *
-	 * @param string   $file      Complete path to include the PHP File.
-	 * @param string   $name      Template name.
-	 * @param Template $template  Current instance of the Template.
+	 * @param string   $regex         The regular expression to match.
+	 * @param string   $template_name Template name to insert into the html.
+	 * @param string   $html          HTML to be modified.
+	 * @param string   $file          Complete path to include the PHP File.
+	 * @param array    $name          Template name.
+	 * @param Template $template      Current instance of the Template.
 	 *
-	 * @return void  Template render has no return/
+	 * @return void
 	 */
-	public function add_online_icon( $file, $name, $template ) {
-		$template->template( '/online-icon' );
+	public function regex_insert_template( $regex, $template_name, $html, $file, $name, $template ) {
+		$replacement = '$1' . $template->template( $template_name, [], false );
+		return preg_replace( $regex, $replacement, $html );
 	}
 }
