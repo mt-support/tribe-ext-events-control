@@ -35,6 +35,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		'month/calendar-body/day/multiday-events/multiday-event'              => '/(<div class="tribe-events-calendar-month__multiday-event-bar-inner">)/',
 		'month/mobile-events/mobile-day/mobile-event/date'                    => '/(<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">)/',
 		// Week View
+		'week/grid-body/events-day/event/date'                                => '/(<div class="tribe-events-pro-week-grid__event-datetime">)/',
+		'week/grid-body/events-day/event/tooltip/date'                        => '/(<div class="tribe-events-pro-week-grid__event-tooltip-datetime">)/',
+		'week/grid-body/multiday-events-day/multiday-event'                   => '/(<div class="tribe-events-pro-week-grid__multiday-event-bar-inner">)/',
+		'week/mobile-events/day/event/date'                                   => '/(<div class="tribe-events-pro-week-mobile-events__event-datetime-wrapper tribe-common-b2">)/',
 	];
 
 	/**
@@ -76,10 +80,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'tribe_template_before_include:events-pro/v2/map/event-cards/event-card/tooltip/venue', [ $this, 'action_add_online_event' ], 15, 3 );
 
 		// Week View
-		add_action( 'tribe_template_before_include:events-pro/v2/week/grid-body/events-day/event/featured-image', [ $this, 'action_add_online_icon' ], 15, 3 );
-		add_action( 'tribe_template_after_include:events-pro/v2/week/grid-body/events-day/event/tooltip/featured-image', [ $this, 'action_add_online_icon' ], 15, 3 );
-		add_action( 'tribe_template_after_include:events-pro/v2/week/grid-body/multiday-events-day/multiday-event', [ $this, 'action_add_online_icon' ], 15, 3 );
-		add_action( 'tribe_template_after_include:events-pro/v2/week/mobile-events/day/event/date', [ $this, 'action_add_online_icon' ], 15, 3 );
 		add_action( 'tribe_template_before_include:events-pro/v2/week/grid-body/events-day/event/tooltip/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
 		add_action( 'tribe_template_after_include:events-pro/v2/week/grid-body/events-day/event/tooltip/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
 	}
@@ -102,6 +102,12 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
 		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/multiday-events/multiday-event', [ $this, 'filter_insert_online_event' ], 15, 4 );
 		add_filter( 'tribe_template_html:events/v2/month/mobile-events/mobile-day/mobile-event/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
+
+		// Week View
+		add_filter( 'tribe_template_html:events-pro/v2/week/grid-body/events-day/event/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
+		add_filter( 'tribe_template_html:events-pro/v2/week/grid-body/events-day/event/tooltip/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
+		add_filter( 'tribe_template_html:events-pro/v2/week/grid-body/multiday-events-day/multiday-event', [ $this, 'filter_insert_online_event' ], 15, 4 );
+		add_filter( 'tribe_template_html:events-pro/v2/week/mobile-events/day/event/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
 	}
 
 	/**

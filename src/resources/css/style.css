@@ -125,6 +125,32 @@
 }
 
 /* Week */
+.tribe-events-pro .tribe-events-pro-week-grid .tribe-ext-events-control-online-event,
+.tribe-events-pro .tribe-events-pro-week-grid__event-tooltip .tribe-ext-events-control-online-event,
+.tribe-events-pro .tribe-events-pro-week-mobile-events .tribe-ext-events-control-online-event {
+	display: inline-block;
+	line-height: 0;
+}
+
+.tribe-events-pro .tribe-events-pro-week-grid .tribe-ext-events-control-online-event__icon,
+.tribe-events-pro .tribe-events-pro-week-grid__event-tooltip .tribe-ext-events-control-online-event__icon,
+.tribe-events-pro .tribe-events-pro-week-mobile-events .tribe-ext-events-control-online-event__icon {
+	margin-right: 4px;
+}
+
+.tribe-events-pro .tribe-events-pro-week-grid .tribe-ext-events-control-online-event__text,
+.tribe-events-pro .tribe-events-pro-week-grid__event-tooltip .tribe-ext-events-control-online-event__text,
+.tribe-events-pro .tribe-events-pro-week-mobile-events .tribe-ext-events-control-online-event__text {
+	/* visually hide */
+	border: 0;
+	clip: rect(0, 0, 0, 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
 
 /* Photo */
 .tribe-events-pro .tribe-events-pro-photo__event.tribe-ext-events-control-list-event--live { /* @todo: fix class name */
