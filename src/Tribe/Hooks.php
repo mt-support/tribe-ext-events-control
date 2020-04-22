@@ -44,7 +44,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @since 1.0.0
 	 */
 	protected function add_actions() {
-		add_action( 'add_meta_boxes', [ $this, 'action_add_metabox' ] );
+		add_action( 'admin_init', array( $this, 'action_render_template' ), 5 );
+
+		//add_action( 'add_meta_boxes', [ $this, 'action_add_metabox' ] );
 		add_action( 'init', [ $this, 'action_register_metabox_fields' ] );
 		add_action( 'save_post', [ $this, 'action_save_metabox' ], 15, 3 );
 
@@ -169,6 +171,17 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return array_merge( $data, $meta );
+	}
+
+	/**
+	 * Render Event Status Template.
+	 *
+	 * @since TBD
+	 *
+	 * @return void Action hook with no return.
+	 */
+	public function action_render_template() {
+		$this->container->make( Metabox::class )->hook_template();
 	}
 
 	/**

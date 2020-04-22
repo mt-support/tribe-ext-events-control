@@ -109,6 +109,44 @@ class Metabox {
 	}
 
 	/**
+	 *
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post $post Which post we are using here.
+	 *
+	 * @return false|string
+	 */
+	public function hook_template() {
+		add_action( 'tribe_after_location_details', array( $this, 'render_template' ), 5 );
+	}
+	/**
+	/**
+	 * Render the Event Status Metabox.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post $post Which post we are using here.
+	 *
+	 * @return false|string
+	 */
+	public function render_template( $post_id ) {
+		$fields = [
+			'status' => get_post_meta( $post_id, Event_Meta::$key_status, true ),
+			'status-canceled-reason' => get_post_meta( $post_id, Event_Meta::$key_status_canceled_reason, true ),
+			'status-postponed-reason' => get_post_meta( $post_id, Event_Meta::$key_status_postponed_reason, true ),
+			'online' => tribe_is_truthy( get_post_meta( $post_id, Event_Meta::$key_online, true ) ),
+			'online-url' => get_post_meta( $post_id, Event_Meta::$key_online_url, true ),
+		];
+		$args = [
+			'metabox' => $this,
+			//'post' => $post,
+			'fields' => $fields,
+		];
+
+		return $this->get_template()->template( 'online-events', $args, true );
+	}
+	/**
 	 * Register the metabox in WP system.
 	 *
 	 * @since 1.0.0
@@ -116,6 +154,7 @@ class Metabox {
 	 * @return void Registering has no return.
 	 */
 	public function register() {
+
 		add_meta_box(
 			static::$id,
 			$this->get_title(),
