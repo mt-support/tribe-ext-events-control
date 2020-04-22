@@ -28,19 +28,6 @@ use WP_Post;
  */
 class Hooks extends \tad_DI52_ServiceProvider {
 
-	protected $file_to_regex_map = [
-		// Month View
-		'month/calendar-body/day/calendar-events/calendar-event/date'         => '/(<div class="tribe-events-calendar-month__calendar-event-datetime">)/',
-		'month/calendar-body/day/calendar-events/calendar-event/tooltip/date' => '/(<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">)/',
-		'month/calendar-body/day/multiday-events/multiday-event'              => '/(<div class="tribe-events-calendar-month__multiday-event-bar-inner">)/',
-		'month/mobile-events/mobile-day/mobile-event/date'                    => '/(<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">)/',
-		// Week View
-		'week/grid-body/events-day/event/date'                                => '/(<div class="tribe-events-pro-week-grid__event-datetime">)/',
-		'week/grid-body/events-day/event/tooltip/date'                        => '/(<div class="tribe-events-pro-week-grid__event-tooltip-datetime">)/',
-		'week/grid-body/multiday-events-day/multiday-event'                   => '/(<div class="tribe-events-pro-week-grid__multiday-event-bar-inner">)/',
-		'week/mobile-events/day/event/date'                                   => '/(<div class="tribe-events-pro-week-mobile-events__event-datetime-wrapper tribe-common-b2">)/',
-	];
-
 	/**
 	 * Binds and sets up implementations.
 	 *
@@ -76,10 +63,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		// Map View
 		add_action( 'tribe_template_before_include:events-pro/v2/map/event-cards/event-card/event/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
-		add_action( 'tribe_template_before_include:events-pro/v2/map/event-cards/event-card/event/venue', [ $this, 'action_add_online_event' ], 15, 3 );
-		add_action( 'tribe_template_before_include:events-pro/v2/map/event-cards/event-card/tooltip/venue', [ $this, 'action_add_online_event' ], 15, 3 );
+		add_action( 'tribe_template_after_include:events-pro/v2/map/event-cards/event-card/event/venue', [ $this, 'action_add_online_event' ], 15, 3 );
+		add_action( 'tribe_template_after_include:events-pro/v2/map/event-cards/event-card/tooltip/venue', [ $this, 'action_add_online_event' ], 15, 3 );
 
 		// Week View
+		add_action( 'tribe_template_after_include:events-pro/v2/week/mobile-events/day/event/venue', [ $this, 'action_add_online_event' ], 15, 3 );
 		add_action( 'tribe_template_before_include:events-pro/v2/week/grid-body/events-day/event/tooltip/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
 		add_action( 'tribe_template_after_include:events-pro/v2/week/grid-body/events-day/event/tooltip/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
 	}
@@ -107,7 +95,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_template_html:events-pro/v2/week/grid-body/events-day/event/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
 		add_filter( 'tribe_template_html:events-pro/v2/week/grid-body/events-day/event/tooltip/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
 		add_filter( 'tribe_template_html:events-pro/v2/week/grid-body/multiday-events-day/multiday-event', [ $this, 'filter_insert_online_event' ], 15, 4 );
-		add_filter( 'tribe_template_html:events-pro/v2/week/mobile-events/day/event/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
 	}
 
 	/**
@@ -299,14 +286,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return void
 	 */
 	public function filter_insert_online_event( $html, $file, $name, $template ) {
-		$filename = implode( '/', $name );
-
-		if ( ! array_key_exists( $filename, $this->file_to_regex_map ) ) {
-			return $html;
-		}
-
-		$regex = $this->file_to_regex_map[ $filename ];
-		return $this->container->make( Template_Modifications::class )->regex_insert_template( $regex, 'online-event', $html, $file, $name, $template );
+		return $this->container->make( Template_Modifications::class )->regex_insert_template( 'online-event', $html, $file, $name, $template );
 	}
 
 	/**

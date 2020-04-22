@@ -126,21 +126,18 @@
 
 /* Week */
 .tribe-events-pro .tribe-events-pro-week-grid .tribe-ext-events-control-online-event,
-.tribe-events-pro .tribe-events-pro-week-grid__event-tooltip .tribe-ext-events-control-online-event,
-.tribe-events-pro .tribe-events-pro-week-mobile-events .tribe-ext-events-control-online-event {
+.tribe-events-pro .tribe-events-pro-week-grid__event-tooltip .tribe-ext-events-control-online-event {
 	display: inline-block;
 	line-height: 0;
 }
 
 .tribe-events-pro .tribe-events-pro-week-grid .tribe-ext-events-control-online-event__icon,
-.tribe-events-pro .tribe-events-pro-week-grid__event-tooltip .tribe-ext-events-control-online-event__icon,
-.tribe-events-pro .tribe-events-pro-week-mobile-events .tribe-ext-events-control-online-event__icon {
+.tribe-events-pro .tribe-events-pro-week-grid__event-tooltip .tribe-ext-events-control-online-event__icon {
 	margin-right: 4px;
 }
 
 .tribe-events-pro .tribe-events-pro-week-grid .tribe-ext-events-control-online-event__text,
-.tribe-events-pro .tribe-events-pro-week-grid__event-tooltip .tribe-ext-events-control-online-event__text,
-.tribe-events-pro .tribe-events-pro-week-mobile-events .tribe-ext-events-control-online-event__text {
+.tribe-events-pro .tribe-events-pro-week-grid__event-tooltip .tribe-ext-events-control-online-event__text {
 	/* visually hide */
 	border: 0;
 	clip: rect(0, 0, 0, 0);
@@ -191,14 +188,20 @@
 }
 
 /* Map */
-.tribe-events-pro .tribe-events-pro-map .tribe-ext-events-control-online-event {
+.tribe-events-pro .tribe-events-pro-map__event-card .tribe-ext-events-control-online-event {
 	font-size: 11px;
 	line-height: 1.5;
 }
 
-.tribe-common--breakpoint-medium.tribe-events-pro .tribe-events-pro-map .tribe-ext-events-control-online-event {
+.tribe-common--breakpoint-medium.tribe-events-pro .tribe-events-pro-map__event-card .tribe-ext-events-control-online-event {
 	font-size: 12px;
 	line-height: 1.38;
+}
+
+.tribe-events-pro .tribe-events-pro-map__event-tooltip .tribe-ext-events-control-online-event {
+	font-size: 12px;
+	line-height: 1.38;
+	margin-top: 8px;
 }
 
 /* -----------------------------------------------------------------------------
