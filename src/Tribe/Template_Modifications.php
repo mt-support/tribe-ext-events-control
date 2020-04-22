@@ -23,6 +23,25 @@ class Template_Modifications {
 	protected $template;
 
 	/**
+	 * File name to regex map.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected $file_to_regex_map = [
+		// Month View
+		'month/calendar-body/day/calendar-events/calendar-event/date'         => '/(<div class="tribe-events-calendar-month__calendar-event-datetime">)/',
+		'month/calendar-body/day/calendar-events/calendar-event/tooltip/date' => '/(<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">)/',
+		'month/calendar-body/day/multiday-events/multiday-event'              => '/(<div class="tribe-events-calendar-month__multiday-event-bar-inner">)/',
+		'month/mobile-events/mobile-day/mobile-event/date'                    => '/(<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">)/',
+		// Week View
+		'week/grid-body/events-day/event/date'                                => '/(<div class="tribe-events-pro-week-grid__event-datetime">)/',
+		'week/grid-body/events-day/event/tooltip/date'                        => '/(<div class="tribe-events-pro-week-grid__event-tooltip-datetime">)/',
+		'week/grid-body/multiday-events-day/multiday-event'                   => '/(<div class="tribe-events-pro-week-grid__multiday-event-bar-inner">)/',
+	];
+
+	/**
 	 * Normally ran when the class is setting up but configures the template instance that we will use render non v2 contents.
 	 *
 	 * @since 1.0.0
@@ -111,7 +130,7 @@ class Template_Modifications {
 	 * @since 1.0.0
 	 *
 	 * @param string   $file      Complete path to include the PHP File.
-	 * @param string   $name      Template name.
+	 * @param array    $name      Template name.
 	 * @param Template $template  Current instance of the Template.
 	 *
 	 * @return void  Template render has no return/
@@ -130,12 +149,53 @@ class Template_Modifications {
 	 * @since 1.0.0
 	 *
 	 * @param string   $file      Complete path to include the PHP File.
-	 * @param string   $name      Template name.
+	 * @param array    $name      Template name.
 	 * @param Template $template  Current instance of the Template.
 	 *
 	 * @return void  Template render has no return/
 	 */
 	public function add_archive_online_link( $file, $name, $template ) {
 		$template->template( 'online-link' );
+	}
+
+	/**
+	 * Adds Template for Online Event.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $file      Complete path to include the PHP File.
+	 * @param array    $name      Template name.
+	 * @param Template $template  Current instance of the Template.
+	 *
+	 * @return void  Template render has no return/
+	 */
+	public function add_online_event( $file, $name, $template ) {
+		$template->template( 'online-event' );
+	}
+
+	/**
+	 * Inserts HTML after regex match.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $template_name Template name to insert into the html.
+	 * @param string   $html          HTML to be modified.
+	 * @param string   $file          Complete path to include the PHP File.
+	 * @param array    $name          Template name.
+	 * @param Template $template      Current instance of the Template.
+	 *
+	 * @return void
+	 */
+	public function regex_insert_template( $template_name, $html, $file, $name, $template ) {
+		$filename = implode( '/', $name );
+
+		if ( ! array_key_exists( $filename, $this->file_to_regex_map ) ) {
+			return $html;
+		}
+
+		$regex       = $this->file_to_regex_map[ $filename ];
+		$replacement = '$1' . $template->template( $template_name, [], false );
+
+		return preg_replace( $regex, $replacement, $html );
 	}
 }

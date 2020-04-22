@@ -26,5 +26,4 @@ if ( ! $event ) {
 <div class="tribe-common-b2 tribe-ext-events-control-status-archive-container">
 	<?php $this->template( 'canceled-status' ); ?>
 	<?php $this->template( 'postponed-status' ); ?>
-	<?php $this->template( 'online-marker' ); ?>
 </div>
