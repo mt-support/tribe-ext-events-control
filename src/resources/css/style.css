@@ -26,8 +26,8 @@
 }
 .tribe-ext-events-control-text--live-icon,
 .tribe-ext-events-control-text--alert-icon  {
-	display: inline-flex;
 	align-items: center;
+	display: inline-flex;
 }
 
 .tribe-ext-events-control-text--live-icon::before,
@@ -35,11 +35,11 @@
 	background-image: url('../images/live.svg');
 	background-repeat: no-repeat;
 	background-size: contain;
-	display: inline-block;
 	content: '';
+	display: inline-block;
 	height: 12px;
-	width: 17px;
 	margin-right: 8px;
+	width: 17px;
 }
 
 .tribe-ext-events-control-text--alert-icon::before,
@@ -47,11 +47,11 @@
 	background-image: url('../images/alert.svg');
 	background-repeat: no-repeat;
 	background-size: 15px;
-	display: inline-block;
 	content: '';
-	min-width: 15px;
+	display: inline-block;
 	height: 15px;
 	margin-right: 8px;
+	min-width: 15px;
 }
 
 .tribe-common .tribe-ext-events-control-status-archive-container {
@@ -59,9 +59,9 @@
 }
 
 .tribe-common .tribe-ext-events-control-icon {
-	display: inline-block;
 	background-repeat: no-repeat;
 	background-size: contain;
+	display: inline-block;
 	margin-right: 8px;
 }
 
@@ -76,8 +76,8 @@
  * ----------------------------------------------------------------------------- */
 
 .tribe-events .tribe-ext-events-control-online-event {
-	display: flex;
 	align-items: center;
+	display: flex;
 }
 
 /* Month */
@@ -245,15 +245,15 @@
 * ----------------------------------------------------------------------------- */
 .tribe-ext-events-control-single-notice {
 	border: 1px solid #D5D5D5;
-	padding: 12px 20px;
-	margin-bottom: 20px;
 	font-size: 14px;
+	margin-bottom: 20px;
+	padding: 12px 20px;
 }
 
 .tribe-ext-events-control-single-notice--postponed,
 .tribe-ext-events-control-single-notice--canceled {
-	border-left-width: 4px;
 	border-left-color: #DA394D;
+	border-left-width: 4px;
 }
 
 .tribe-ext-events-control-single-notice--live {
@@ -262,8 +262,8 @@
 }
 
 .tribe-ext-events-control-single-notice-description {
-	padding-left: 23px;
 	margin-bottom: 10px;
+	padding-left: 23px;
 }
 
 .tribe-ext-events-control-single-notice-description:last-child {
@@ -275,8 +275,8 @@
 }
 
 .tribe-ext-events-control-single-notice-live-link a {
-	color: #141827;
 	border-bottom: 1px solid #334AFF;
+	color: #141827;
 }
 
 .tribe-ext-events-control-single-notice-live-link a:hover,

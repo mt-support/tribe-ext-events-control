@@ -53,6 +53,9 @@ class Template_Modifications {
 		$this->template->set_template_origin( tribe( Main::class ) );
 		$this->template->set_template_folder( 'src/views' );
 
+		// Setup to look for theme files.
+		$this->template->set_template_folder_lookup( true );
+
 		// Configures this templating class extract variables.
 		$this->template->set_template_context_extract( true );
 	}

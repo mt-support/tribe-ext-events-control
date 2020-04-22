@@ -3,9 +3,9 @@ Contributors: ModernTribe
 Donate link: http://m.tri.be/29
 Tags: events, calendar
 Requires at least: 4.5
-Tested up to: 5.3.2
+Tested up to: 5.4
 Requires PHP: 5.6
-Stable tag: 1.2.0
+Stable tag: 1.4.0
 License: GPL version 3 or any later version
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -35,9 +35,14 @@ We're always interested in your feedback and our [Help Desk](https://support.the
 
 == Changelog ==
 
-= [TBD] TBD =
+= [1.4.0] TBD =
 
+* Tweak - Text changes to the Event Status Metabox UI [EXT-167]
 * Feature - Add online events indicator for The Events Calendar archive views.
+
+= [1.3.0] 2020-04-18 =
+
+* Fix - Make sure template injections from Event Control are looking for theme overwrites.
 
 = [1.2.0] 2020-03-27 =
 

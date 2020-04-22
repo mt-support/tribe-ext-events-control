@@ -15,13 +15,13 @@ use Tribe__Template as Template;
 	<?php wp_nonce_field( $metabox::$nonce_action, "{$metabox::$id}[nonce]" ); ?>
 	<p>
 		<label for="<?php echo esc_attr( "{$metabox::$id}-status" ); ?>">
-			<?php echo esc_html_x( 'Event Status:', 'Event status label the select field', 'tribe-ext-events-control' ); ?>
+			<?php echo esc_html_x( 'Set status:', 'Event status label the select field', 'tribe-ext-events-control' ); ?>
         </label>
         <select
             id="<?php echo esc_attr( "{$metabox::$id}-status" ); ?>"
             name="<?php echo esc_attr( "{$metabox::$id}[status]" ); ?>"
         >
-            <option value=""><?php echo esc_html_x( 'Select Event status', 'Event status default option', 'tribe-ext-events-control' ); ?></option>
+            <option value=""><?php echo esc_html_x( 'Scheduled', 'Event status default option', 'tribe-ext-events-control' ); ?></option>
             <option
                 value="canceled"
                 <?php selected( 'canceled' === $fields['status'] ) ?>
@@ -43,7 +43,7 @@ use Tribe__Template as Template;
 	>
 		<p>
 			<label for="<?php echo esc_attr( "{$metabox::$id}-status-postponed-reason" ); ?>">
-				<?php echo esc_html_x( 'Postponed Reason', 'Label for postponed reason field', 'tribe-ext-events-control' ); ?>
+				<?php echo esc_html_x( 'Reason (optional)', 'Label for postponed reason field', 'tribe-ext-events-control' ); ?>
 			</label>
 			<textarea
                 class="components-textarea-control__input"
@@ -59,7 +59,7 @@ use Tribe__Template as Template;
 	>
 		<p>
 			<label for="<?php echo esc_attr( "{$metabox::$id}-status-canceled-reason" ); ?>">
-				<?php echo esc_html_x( 'Canceled Reason', 'Label for canceled reason field', 'tribe-ext-events-control' ); ?>
+				<?php echo esc_html_x( 'Reason (optional)', 'Label for canceled reason field', 'tribe-ext-events-control' ); ?>
 			</label>
 			<textarea
                 class="components-textarea-control__input"
