@@ -96,8 +96,6 @@ class Metabox {
 			'status' => get_post_meta( $post->ID, Event_Meta::$key_status, true ),
 			'status-canceled-reason' => get_post_meta( $post->ID, Event_Meta::$key_status_canceled_reason, true ),
 			'status-postponed-reason' => get_post_meta( $post->ID, Event_Meta::$key_status_postponed_reason, true ),
-			'online' => tribe_is_truthy( get_post_meta( $post->ID, Event_Meta::$key_online, true ) ),
-			'online-url' => get_post_meta( $post->ID, Event_Meta::$key_online_url, true ),
 		];
 		$args = [
 			'metabox' => $this,
@@ -137,6 +135,10 @@ class Metabox {
 			'status-postponed-reason' => get_post_meta( $post_id, Event_Meta::$key_status_postponed_reason, true ),
 			'online' => tribe_is_truthy( get_post_meta( $post_id, Event_Meta::$key_online, true ) ),
 			'online-url' => get_post_meta( $post_id, Event_Meta::$key_online_url, true ),
+			'online-button-text' => get_post_meta( $post_id, Event_Meta::$online_button_text, true ),
+			'show-at-start' => get_post_meta( $post_id, Event_Meta::$show_at_start, true ),
+			'show-on-event' => get_post_meta( $post_id, Event_Meta::$show_on_event, true ),
+			'show-on-views' => get_post_meta( $post_id, Event_Meta::$show_on_views, true ),
 		];
 		$args = [
 			'metabox' => $this,
@@ -233,6 +235,59 @@ class Metabox {
 				},
 			]
 		);
+
+		register_post_meta(
+			'post',
+			Event_Meta::$online_button_text,
+			[
+				'show_in_rest' => true,
+				'single' => true,
+				'type' => 'string',
+				'auth_callback' => static function() {
+					return current_user_can( 'edit_posts' );
+				},
+			]
+		);
+
+		register_post_meta(
+			'post',
+			Event_Meta::$show_at_start,
+			[
+				'show_in_rest' => true,
+				'single' => true,
+				'type' => 'string',
+				'auth_callback' => static function() {
+					return current_user_can( 'edit_posts' );
+				},
+			]
+		);
+
+		register_post_meta(
+			'post',
+			Event_Meta::$show_on_event,
+			[
+				'show_in_rest' => true,
+				'single' => true,
+				'type' => 'string',
+				'auth_callback' => static function() {
+					return current_user_can( 'edit_posts' );
+				},
+			]
+		);
+
+		register_post_meta(
+			'post',
+			Event_Meta::$show_on_views,
+			[
+				'show_in_rest' => true,
+				'single' => true,
+				'type' => 'string',
+				'auth_callback' => static function() {
+					return current_user_can( 'edit_posts' );
+				},
+			]
+		);
+
 	}
 
 	/**

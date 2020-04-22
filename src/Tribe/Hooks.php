@@ -46,7 +46,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	protected function add_actions() {
 		add_action( 'admin_init', array( $this, 'action_render_template' ), 5 );
 
-		//add_action( 'add_meta_boxes', [ $this, 'action_add_metabox' ] );
+		add_action( 'add_meta_boxes', [ $this, 'action_add_metabox' ] );
 		add_action( 'init', [ $this, 'action_register_metabox_fields' ] );
 		add_action( 'save_post', [ $this, 'action_save_metabox' ], 15, 3 );
 

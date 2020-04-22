@@ -57,6 +57,42 @@ class Event_Meta {
 	public static $key_online_url = '_tribe_events_control_online_url';
 
 	/**
+	 * Meta Key for Online Button Text field.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $online_button_text = '_tribe_events_control_online_button_text';
+
+	/**
+	 * Meta Key for Showing Online Watch Button or Emded At Start.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $show_at_start = '_tribe_events_control_online_at_start';
+
+	/**
+	 * Meta Key for Showing Online Indicators on Single Events.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $show_on_event = '_tribe_events_control_show_on_event';
+
+	/**
+	 * Meta Key for Showing Online Indicator on V2 Views.
+	 *
+	 * @since TBD
+	 *
+	 * @var string
+	 */
+	public static $show_on_views = '_tribe_events_control_online_show_on_views';
+
+	/**
 	 * Retrieves an event's status.
 	 *
 	 * @since 1.1.0
