@@ -277,13 +277,14 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Insert the online event
+	 * Insert the online event for the archive pages.
 	 *
 	 * @param string   $html      HTML of the template.
 	 * @param string   $file      Complete path to include the PHP File.
 	 * @param array    $name      Template name.
 	 * @param Template $template  Current instance of the Template.
-	 * @return void
+	 *
+	 * @return string
 	 */
 	public function filter_insert_online_event( $html, $file, $name, $template ) {
 		return $this->container->make( Template_Modifications::class )->regex_insert_template( 'online-event', $html, $file, $name, $template );

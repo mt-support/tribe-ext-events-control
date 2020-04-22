@@ -181,7 +181,7 @@ class Template_Modifications {
 	 * @param array    $name          Template name.
 	 * @param Template $template      Current instance of the Template.
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public function regex_insert_template( $template_name, $html, $file, $name, $template ) {
 		$filename = implode( '/', $name );
