@@ -5,7 +5,7 @@ Tags: events, calendar
 Requires at least: 4.5
 Tested up to: 5.4
 Requires PHP: 5.6
-Stable tag: 1.3.0
+Stable tag: 1.4.0
 License: GPL version 3 or any later version
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -38,6 +38,7 @@ We're always interested in your feedback and our [Help Desk](https://support.the
 = [1.4.0] TBD =
 
 * Fix - Modify the location schema to always include a url when using VirtualLocation and add a filter `tribe_events_single_event_online_status` to be able to change any event as an online event. [EXT-164]
+* Tweak - Text changes to the Event Status Metabox UI [EXT-167]
 
 = [1.3.0] 2020-04-18 =
 

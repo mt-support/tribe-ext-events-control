@@ -52,7 +52,7 @@ class Metabox {
 	 * @return string
 	 */
 	public function get_title() {
-		return esc_html_x( 'Events Advanced Control', 'Meta box title for the Advanced Control', 'tribe-ext-events-control' );
+		return esc_html_x( 'Events Status', 'Meta box title for the Event Status', 'tribe-ext-events-control' );
 	}
 
 	/**
