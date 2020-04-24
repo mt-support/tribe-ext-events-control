@@ -81,19 +81,20 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_rest_event_data', [ $this, 'filter_rest_event_data'], 10, 2 );
 
 		// List View
-		add_filter( 'tribe_template_html:events/v2/list/event/title', [ $this, 'filter_insert_canceled_label' ], 15, 4 );
-		add_filter( 'tribe_template_html:events/v2/list/event/title', [ $this, 'filter_insert_postponed_label' ], 15, 4 );
+		add_filter( 'tribe_template_html:events/v2/list/event/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
 
 		// Day View
-		add_filter( 'tribe_template_html:events/v2/day/event/title', [ $this, 'filter_insert_canceled_label' ], 15, 4 );
-		add_filter( 'tribe_template_html:events/v2/day/event/title', [ $this, 'filter_insert_postponed_label' ], 15, 4 );
+		add_filter( 'tribe_template_html:events/v2/day/event/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
 
 		// Month View
 		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
 		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
 		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/multiday-events/multiday-event', [ $this, 'filter_insert_online_event' ], 15, 4 );
 		add_filter( 'tribe_template_html:events/v2/month/mobile-events/mobile-day/mobile-event/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
-
+		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
+		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
+		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/multiday-events/multiday-event', [ $this, 'filter_insert_status_label' ], 15, 4 );
+		add_filter( 'tribe_template_html:events/v2/month/mobile-events/mobile-day/mobile-event/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
 		// Week View
 		add_filter( 'tribe_template_html:events-pro/v2/week/grid-body/events-day/event/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
 		add_filter( 'tribe_template_html:events-pro/v2/week/grid-body/events-day/event/tooltip/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
@@ -279,7 +280,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Insert the canceled label for the archive pages.
+	 * Insert the status label for the archive pages.
 	 *
 	 * @param string   $html      HTML of the template.
 	 * @param string   $file      Complete path to include the PHP File.
@@ -288,22 +289,8 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @return string
 	 */
-	public function filter_insert_canceled_label( $html, $file, $name, $template ) {
-		return $this->container->make( Template_Modifications::class )->regex_insert_template( 'canceled-label', $html, $file, $name, $template );
-	}
-
-	/**
-	 * Insert the postponed label for the archive pages.
-	 *
-	 * @param string   $html      HTML of the template.
-	 * @param string   $file      Complete path to include the PHP File.
-	 * @param array    $name      Template name.
-	 * @param Template $template  Current instance of the Template.
-	 *
-	 * @return string
-	 */
-	public function filter_insert_postponed_label( $html, $file, $name, $template ) {
-		return $this->container->make( Template_Modifications::class )->regex_insert_template( 'postponed-label', $html, $file, $name, $template );
+	public function filter_insert_status_label( $html, $file, $name, $template ) {
+		return $this->container->make( Template_Modifications::class )->regex_insert_template( 'status-label', $html, $file, $name, $template );
 	}
 
 	/**

@@ -23,26 +23,30 @@ class Template_Modifications {
 	protected $template;
 
 	/**
-	 * File name to regex map.
+	 * File name and template insert to regex map.
 	 *
 	 * @since TBD
 	 *
 	 * @var array
 	 */
-	protected $file_to_regex_map = [
+	protected $file_template_to_regex_map = [
 		// List View
-		'list/event/title'                                                    => '/(<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">)/',
+		'list/event/title:status-label'                                                     => '/(<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">)/',
 		// List View
-		'day/event/title'                                                     => '/(<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">)/',
+		'day/event/title:status-label'                                                      => '/(<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">)/',
 		// Month View
-		'month/calendar-body/day/calendar-events/calendar-event/date'         => '/(<div class="tribe-events-calendar-month__calendar-event-datetime">)/',
-		'month/calendar-body/day/calendar-events/calendar-event/tooltip/date' => '/(<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">)/',
-		'month/calendar-body/day/multiday-events/multiday-event'              => '/(<div class="tribe-events-calendar-month__multiday-event-bar-inner">)/',
-		'month/mobile-events/mobile-day/mobile-event/date'                    => '/(<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">)/',
+		'month/calendar-body/day/calendar-events/calendar-event/date:online-event'          => '/(<divclass="tribe-events-calendar-month__calendar-event-datetime">)/',
+		'month/calendar-body/day/calendar-events/calendar-event/tooltip/date:online-event'  => '/(<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">)/',
+		'month/calendar-body/day/multiday-events/multiday-event:online-event'               => '/(<div class="tribe-events-calendar-month__multiday-event-bar-inner">)/',
+		'month/mobile-events/mobile-day/mobile-event/date:online-event'                     => '/(<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">)/',
+		'month/calendar-body/day/calendar-events/calendar-event/title:status-label'         => '/(<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">)/',
+		'month/calendar-body/day/calendar-events/calendar-event/tooltip/title:status-label' => '/(<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">)/',
+		'month/calendar-body/day/multiday-events/multiday-event:status-label'               => '/(<h3 class="tribe-events-calendar-month__multiday-event-bar-title tribe-common-h8">)/',
+		'month/mobile-events/mobile-day/mobile-event/title:status-label'                    => '/(<h3 class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7">)/',
 		// Week View
-		'week/grid-body/events-day/event/date'                                => '/(<div class="tribe-events-pro-week-grid__event-datetime">)/',
-		'week/grid-body/events-day/event/tooltip/date'                        => '/(<div class="tribe-events-pro-week-grid__event-tooltip-datetime">)/',
-		'week/grid-body/multiday-events-day/multiday-event'                   => '/(<div class="tribe-events-pro-week-grid__multiday-event-bar-inner">)/',
+		'week/grid-body/events-day/event/date:online-event'                                 => '/(<div class="tribe-events-pro-week-grid__event-datetime">)/',
+		'week/grid-body/events-day/event/tooltip/date:online-event'                         => '/(<div class="tribe-events-pro-week-grid__event-tooltip-datetime">)/',
+		'week/grid-body/multiday-events-day/multiday-event:online-event'                    => '/(<div class="tribe-events-pro-week-grid__multiday-event-bar-inner">)/',
 	];
 
 	/**
@@ -180,13 +184,13 @@ class Template_Modifications {
 	 * @return string
 	 */
 	public function regex_insert_template( $template_name, $html, $file, $name, $template ) {
-		$filename = implode( '/', $name );
+		$key = implode( '/', $name ) . ":$template_name";
 
-		if ( ! array_key_exists( $filename, $this->file_to_regex_map ) ) {
+		if ( ! array_key_exists( $key, $this->file_template_to_regex_map ) ) {
 			return $html;
 		}
 
-		$regex       = $this->file_to_regex_map[ $filename ];
+		$regex       = $this->file_template_to_regex_map[ $key ];
 		$replacement = '$1' . $template->template( $template_name, [], false );
 
 		return preg_replace( $regex, $replacement, $html );
