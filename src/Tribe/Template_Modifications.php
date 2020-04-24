@@ -32,6 +32,8 @@ class Template_Modifications {
 	protected $file_to_regex_map = [
 		// List View
 		'list/event/title'                                                    => '/(<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">)/',
+		// List View
+		'day/event/title'                                                     => '/(<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">)/',
 		// Month View
 		'month/calendar-body/day/calendar-events/calendar-event/date'         => '/(<div class="tribe-events-calendar-month__calendar-event-datetime">)/',
 		'month/calendar-body/day/calendar-events/calendar-event/tooltip/date' => '/(<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">)/',

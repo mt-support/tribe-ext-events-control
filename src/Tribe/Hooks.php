@@ -84,6 +84,10 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_template_html:events/v2/list/event/title', [ $this, 'filter_insert_canceled_label' ], 15, 4 );
 		add_filter( 'tribe_template_html:events/v2/list/event/title', [ $this, 'filter_insert_postponed_label' ], 15, 4 );
 
+		// Day View
+		add_filter( 'tribe_template_html:events/v2/day/event/title', [ $this, 'filter_insert_canceled_label' ], 15, 4 );
+		add_filter( 'tribe_template_html:events/v2/day/event/title', [ $this, 'filter_insert_postponed_label' ], 15, 4 );
+
 		// Month View
 		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
 		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
