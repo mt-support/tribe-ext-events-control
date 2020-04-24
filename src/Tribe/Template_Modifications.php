@@ -23,6 +23,42 @@ class Template_Modifications {
 	protected $template;
 
 	/**
+	 * File name and template insert to regex map.
+	 *
+	 * @since TBD
+	 *
+	 * @var array
+	 */
+	protected $file_template_to_regex_map = [
+		// List View
+		'list/event/title:status-label'                                                     => '/(<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">)/',
+		// List View
+		'day/event/title:status-label'                                                      => '/(<h3 class="tribe-events-calendar-day__event-title tribe-common-h6 tribe-common-h4--min-medium">)/',
+		// Month View
+		'month/calendar-body/day/calendar-events/calendar-event/date:online-event'          => '/(<divclass="tribe-events-calendar-month__calendar-event-datetime">)/',
+		'month/calendar-body/day/calendar-events/calendar-event/tooltip/date:online-event'  => '/(<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">)/',
+		'month/calendar-body/day/multiday-events/multiday-event:online-event'               => '/(<div class="tribe-events-calendar-month__multiday-event-bar-inner">)/',
+		'month/mobile-events/mobile-day/mobile-event/date:online-event'                     => '/(<div class="tribe-events-calendar-month-mobile-events__mobile-event-datetime tribe-common-b2">)/',
+		'month/calendar-body/day/calendar-events/calendar-event/title:status-label'         => '/(<h3 class="tribe-events-calendar-month__calendar-event-title tribe-common-h8 tribe-common-h--alt">)/',
+		'month/calendar-body/day/calendar-events/calendar-event/tooltip/title:status-label' => '/(<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">)/',
+		'month/calendar-body/day/multiday-events/multiday-event:status-label'               => '/(<h3 class="tribe-events-calendar-month__multiday-event-bar-title tribe-common-h8">)/',
+		'month/mobile-events/mobile-day/mobile-event/title:status-label'                    => '/(<h3 class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7">)/',
+		// Photo View
+		'photo/event/title:status-label'                                                    => '/(<h3 class="tribe-events-pro-photo__event-title tribe-common-h6">)/',
+		// Map View
+		'map/event-cards/event-card/event/title:status-label'                               => '/(<h3 class="tribe-events-pro-map__event-title tribe-common-h8 tribe-common-h7--min-medium">)/',
+		'map/event-cards/event-card/tooltip/title:status-label'                             => '/(<h3 class="tribe-events-pro-map__event-tooltip-title tribe-common-h7">)/',
+		// Week View
+		'week/grid-body/events-day/event/date:online-event'                                 => '/(<div class="tribe-events-pro-week-grid__event-datetime">)/',
+		'week/grid-body/events-day/event/tooltip/date:online-event'                         => '/(<div class="tribe-events-pro-week-grid__event-tooltip-datetime">)/',
+		'week/grid-body/multiday-events-day/multiday-event:online-event'                    => '/(<div class="tribe-events-pro-week-grid__multiday-event-bar-inner">)/',
+		'week/grid-body/events-day/event/title:status-label'                                => '/(<h3 class="tribe-events-pro-week-grid__event-title tribe-common-h8 tribe-common-h--alt">)/',
+		'week/grid-body/events-day/event/tooltip/title:status-label'                        => '/(<h3 class="tribe-events-pro-week-grid__event-tooltip-title tribe-common-h7">)/',
+		'week/grid-body/multiday-events-day/multiday-event:status-label'                    => '/(<h3 class="tribe-events-pro-week-grid__multiday-event-bar-title tribe-common-h8 tribe-common-h--alt">)/',
+		'week/mobile-events/day/event/title:status-label'                                   => '/(<h3 class="tribe-events-pro-week-mobile-events__event-title tribe-common-h6 tribe-common-h5--min-medium">)/',
+	];
+
+	/**
 	 * Normally ran when the class is setting up but configures the template instance that we will use render non v2 contents.
 	 *
 	 * @since 1.0.0
@@ -106,36 +142,66 @@ class Template_Modifications {
 	}
 
 	/**
-	 * Required inclusions for the markers.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string   $file      Complete path to include the PHP File.
-	 * @param string   $name      Template name.
-	 * @param Template $template  Current instance of the Template.
-	 *
-	 * @return void  Template render has no return/
-	 */
-	public function add_archive_control_markers( $file, $name, $template ) {
-		$args = [
-			'event' => tribe_get_event( get_the_ID() ),
-		];
-
-		$template->template( 'post-statuses', $args );
-	}
-
-	/**
 	 * Required inclusions for the online link.
 	 *
 	 * @since 1.0.0
 	 *
 	 * @param string   $file      Complete path to include the PHP File.
-	 * @param string   $name      Template name.
+	 * @param array    $name      Template name.
 	 * @param Template $template  Current instance of the Template.
 	 *
 	 * @return void  Template render has no return/
 	 */
 	public function add_archive_online_link( $file, $name, $template ) {
-		$template->template( 'online-link' );
+		$args = [
+			'event' => tribe_get_event( get_the_ID() ),
+		];
+
+		$template->template( 'online-link', $args );
+	}
+
+	/**
+	 * Adds Template for Online Event.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $file      Complete path to include the PHP File.
+	 * @param array    $name      Template name.
+	 * @param Template $template  Current instance of the Template.
+	 *
+	 * @return void  Template render has no return/
+	 */
+	public function add_online_event( $file, $name, $template ) {
+		$args = [
+			'event' => tribe_get_event( get_the_ID() ),
+		];
+
+		$template->template( 'online-event', $args );
+	}
+
+	/**
+	 * Inserts HTML after regex match.
+	 *
+	 * @since TBD
+	 *
+	 * @param string   $template_name Template name to insert into the html.
+	 * @param string   $html          HTML to be modified.
+	 * @param string   $file          Complete path to include the PHP File.
+	 * @param array    $name          Template name.
+	 * @param Template $template      Current instance of the Template.
+	 *
+	 * @return string
+	 */
+	public function regex_insert_template( $template_name, $html, $file, $name, $template ) {
+		$key = implode( '/', $name ) . ":$template_name";
+
+		if ( ! array_key_exists( $key, $this->file_template_to_regex_map ) ) {
+			return $html;
+		}
+
+		$regex       = $this->file_template_to_regex_map[ $key ];
+		$replacement = '$1' . $template->template( $template_name, [], false );
+
+		return preg_replace( $regex, $replacement, $html );
 	}
 }
