@@ -52,6 +52,10 @@ class Template_Modifications {
 		'week/grid-body/events-day/event/date:online-event'                                 => '/(<div class="tribe-events-pro-week-grid__event-datetime">)/',
 		'week/grid-body/events-day/event/tooltip/date:online-event'                         => '/(<div class="tribe-events-pro-week-grid__event-tooltip-datetime">)/',
 		'week/grid-body/multiday-events-day/multiday-event:online-event'                    => '/(<div class="tribe-events-pro-week-grid__multiday-event-bar-inner">)/',
+		'week/grid-body/events-day/event/title:status-label'                                => '/(<h3 class="tribe-events-pro-week-grid__event-title tribe-common-h8 tribe-common-h--alt">)/',
+		'week/grid-body/events-day/event/tooltip/title:status-label'                        => '/(<h3 class="tribe-events-pro-week-grid__event-tooltip-title tribe-common-h7">)/',
+		'week/grid-body/multiday-events-day/multiday-event:status-label'                    => '/(<h3 class="tribe-events-pro-week-grid__multiday-event-bar-title tribe-common-h8 tribe-common-h--alt">)/',
+		'week/mobile-events/day/event/title:status-label'                                   => '/(<h3 class="tribe-events-pro-week-mobile-events__event-title tribe-common-h6 tribe-common-h5--min-medium">)/',
 	];
 
 	/**
