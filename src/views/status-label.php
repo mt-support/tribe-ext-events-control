@@ -22,7 +22,6 @@ use WP_Post;
 
 $status = get_post_meta( $event->ID, Event_Meta::$key_status, true );
 
-
 if ( ! in_array( $status, [ 'canceled', 'postponed' ] ) ) {
 	return;
 }
