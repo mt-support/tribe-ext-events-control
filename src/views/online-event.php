@@ -6,7 +6,7 @@ namespace Tribe\Extensions\EventsControl;
  * Marker for an online event.
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events-control/online-marker.php
+ * [your-theme]/tribe/events-control/online-event.php
  *
  * See more documentation about our views templating system.
  *

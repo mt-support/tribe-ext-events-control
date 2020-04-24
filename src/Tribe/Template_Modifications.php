@@ -30,6 +30,8 @@ class Template_Modifications {
 	 * @var array
 	 */
 	protected $file_to_regex_map = [
+		// List View
+		'list/event/title'                                                    => '/(<h3 class="tribe-events-calendar-list__event-title tribe-common-h6 tribe-common-h4--min-medium">)/',
 		// Month View
 		'month/calendar-body/day/calendar-events/calendar-event/date'         => '/(<div class="tribe-events-calendar-month__calendar-event-datetime">)/',
 		'month/calendar-body/day/calendar-events/calendar-event/tooltip/date' => '/(<div class="tribe-events-calendar-month__calendar-event-tooltip-datetime">)/',
@@ -125,25 +127,6 @@ class Template_Modifications {
 	}
 
 	/**
-	 * Required inclusions for the markers.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string   $file      Complete path to include the PHP File.
-	 * @param array    $name      Template name.
-	 * @param Template $template  Current instance of the Template.
-	 *
-	 * @return void  Template render has no return/
-	 */
-	public function add_archive_control_markers( $file, $name, $template ) {
-		$args = [
-			'event' => tribe_get_event( get_the_ID() ),
-		];
-
-		$template->template( 'post-statuses', $args );
-	}
-
-	/**
 	 * Required inclusions for the online link.
 	 *
 	 * @since 1.0.0
@@ -155,7 +138,11 @@ class Template_Modifications {
 	 * @return void  Template render has no return/
 	 */
 	public function add_archive_online_link( $file, $name, $template ) {
-		$template->template( 'online-link' );
+		$args = [
+			'event' => tribe_get_event( get_the_ID() ),
+		];
+
+		$template->template( 'online-link', $args );
 	}
 
 	/**
@@ -170,7 +157,11 @@ class Template_Modifications {
 	 * @return void  Template render has no return/
 	 */
 	public function add_online_event( $file, $name, $template ) {
-		$template->template( 'online-event' );
+		$args = [
+			'event' => tribe_get_event( get_the_ID() ),
+		];
+
+		$template->template( 'online-event', $args );
 	}
 
 	/**

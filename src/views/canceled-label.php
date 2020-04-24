@@ -1,11 +1,12 @@
 <?php
+
 namespace Tribe\Extensions\EventsControl;
 
 /**
- * Status for a Canceled Event.
+ * Marker for a canceled event.
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events-control/canceled-status.php
+ * [your-theme]/tribe/events-control/canceled-label.php
  *
  * See more documentation about our views templating system.
  *
@@ -17,19 +18,16 @@ namespace Tribe\Extensions\EventsControl;
  *
  * @see tribe_get_event() For the format of the event object.
  */
-use Tribe__Date_Utils as Dates;
 use WP_Post;
 
 $status = get_post_meta( $event->ID, Event_Meta::$key_status, true );
+$label  = apply_filters( 'tribe_ext_events_control_canceled_label', _x( 'Canceled', 'Canceled label', 'tribe-ext-events-control' ), $event->ID, $event );
 
-// Don't print anything when status for this event is not.
 if ( 'canceled' !== $status ) {
 	return;
 }
 
 ?>
-<div class="tribe-ext-events-control-list-status">
-	<span class="tribe-common-b2 tribe-ext-events-control-text tribe-ext-events-control-text--red tribe-ext-events-control-text--bold">
-		<?php echo esc_html_x( 'Canceled', 'Text next to the date to display canceled', 'tribe-ext-events-control' ); ?>
-	</span>
-</div>
+<span class="tribe-ext-events-control-status-label tribe-ext-events-control-status-label--canceled">
+	<?php echo esc_html( $label ); ?>
+</span>

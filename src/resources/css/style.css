@@ -205,6 +205,14 @@
 }
 
 /* -----------------------------------------------------------------------------
+ * Event Status (Canceled, Postponed)
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events .tribe-ext-events-control-status-label {
+	color: #DA394D;
+}
+
+/* -----------------------------------------------------------------------------
 * List.
 * ----------------------------------------------------------------------------- */
 
@@ -225,11 +233,6 @@
 
 .tribe-events .tribe-ext-events-happening-now__event-row .tribe-events-calendar-list__event.tribe-ext-events-control-list-event--live::after {
 	right: calc(100% + 51px);
-}
-
-.tribe-ext-events-control-list-status,
-.tribe-common .tribe-ext-events-control-list-status {
-	margin-right: 8px;
 }
 
 .tribe-ext-events-happening-now--single .tribe-events-c-small-cta {
