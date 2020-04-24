@@ -28,6 +28,6 @@ if ( ! in_array( $status, [ 'canceled', 'postponed' ] ) ) {
 
 ?>
 <span class="tribe-ext-events-control-status-label-wrapper">
-	<?php $this->template( 'canceled-label', [ 'event' => $event ] ); ?>
-	<?php $this->template( 'postponed-label', [ 'event' => $event ] ); ?>
+	<?php $this->template( 'canceled-label', [ 'event' => $event, 'status' => $status ] ); ?>
+	<?php $this->template( 'postponed-label', [ 'event' => $event, 'status' => $status ] ); ?>
 </span>

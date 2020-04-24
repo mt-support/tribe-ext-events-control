@@ -20,12 +20,11 @@ namespace Tribe\Extensions\EventsControl;
  */
 use WP_Post;
 
-$status = get_post_meta( $event->ID, Event_Meta::$key_status, true );
-$label  = apply_filters( 'tribe_ext_events_control_canceled_label', _x( 'Canceled', 'Canceled label', 'tribe-ext-events-control' ), $event->ID, $event );
-
 if ( 'canceled' !== $status ) {
 	return;
 }
+
+$label = apply_filters( 'tribe_ext_events_control_canceled_label', _x( 'Canceled', 'Canceled label', 'tribe-ext-events-control' ), $event->ID, $event );
 
 ?>
 <span class="tribe-ext-events-control-status-label tribe-ext-events-control-status-label--canceled">
