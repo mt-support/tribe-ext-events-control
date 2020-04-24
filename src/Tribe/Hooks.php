@@ -49,26 +49,21 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_action( 'save_post', [ $this, 'action_save_metabox' ], 15, 3 );
 
 		// List View
-		add_action( 'tribe_template_before_include:events/v2/list/event/date/meta', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
 		add_action( 'tribe_template_after_include:events/v2/list/event/venue', [ $this, 'action_add_online_event' ], 15, 3 );
 
 		// Day View
-		add_action( 'tribe_template_before_include:events/v2/day/event/date/meta', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
 		add_action( 'tribe_template_after_include:events/v2/day/event/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
 		add_action( 'tribe_template_after_include:events/v2/day/event/venue', [ $this, 'action_add_online_event' ], 15, 3 );
 
 		// Photo View
-		add_action( 'tribe_template_before_include:events-pro/v2/photo/event/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
 		add_action( 'tribe_template_before_include:events-pro/v2/photo/event/date-time', [ $this, 'action_add_online_event' ], 20, 3 );
 
 		// Map View
-		add_action( 'tribe_template_before_include:events-pro/v2/map/event-cards/event-card/event/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
 		add_action( 'tribe_template_after_include:events-pro/v2/map/event-cards/event-card/event/venue', [ $this, 'action_add_online_event' ], 15, 3 );
 		add_action( 'tribe_template_after_include:events-pro/v2/map/event-cards/event-card/tooltip/venue', [ $this, 'action_add_online_event' ], 15, 3 );
 
 		// Week View
 		add_action( 'tribe_template_after_include:events-pro/v2/week/mobile-events/day/event/venue', [ $this, 'action_add_online_event' ], 15, 3 );
-		add_action( 'tribe_template_before_include:events-pro/v2/week/grid-body/events-day/event/tooltip/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
 		add_action( 'tribe_template_after_include:events-pro/v2/week/grid-body/events-day/event/tooltip/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
 	}
 
@@ -85,16 +80,37 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'post_class', [ $this, 'filter_add_post_class' ], 15, 3 );
 		add_filter( 'tribe_rest_event_data', [ $this, 'filter_rest_event_data'], 10, 2 );
 
+		// List View
+		add_filter( 'tribe_template_html:events/v2/list/event/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
+
+		// Day View
+		add_filter( 'tribe_template_html:events/v2/day/event/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
+
 		// Month View
 		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
 		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
 		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/multiday-events/multiday-event', [ $this, 'filter_insert_online_event' ], 15, 4 );
 		add_filter( 'tribe_template_html:events/v2/month/mobile-events/mobile-day/mobile-event/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
+		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
+		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
+		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/multiday-events/multiday-event', [ $this, 'filter_insert_status_label' ], 15, 4 );
+		add_filter( 'tribe_template_html:events/v2/month/mobile-events/mobile-day/mobile-event/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
+
+		// Photo View
+		add_filter( 'tribe_template_html:events-pro/v2/photo/event/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
+
+		// Map View
+		add_filter( 'tribe_template_html:events-pro/v2/map/event-cards/event-card/event/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
+		add_filter( 'tribe_template_html:events-pro/v2/map/event-cards/event-card/tooltip/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
 
 		// Week View
 		add_filter( 'tribe_template_html:events-pro/v2/week/grid-body/events-day/event/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
 		add_filter( 'tribe_template_html:events-pro/v2/week/grid-body/events-day/event/tooltip/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
 		add_filter( 'tribe_template_html:events-pro/v2/week/grid-body/multiday-events-day/multiday-event', [ $this, 'filter_insert_online_event' ], 15, 4 );
+		add_filter( 'tribe_template_html:events-pro/v2/week/grid-body/events-day/event/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
+		add_filter( 'tribe_template_html:events-pro/v2/week/grid-body/events-day/event/tooltip/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
+		add_filter( 'tribe_template_html:events-pro/v2/week/grid-body/multiday-events-day/multiday-event', [ $this, 'filter_insert_status_label' ], 15, 4 );
+		add_filter( 'tribe_template_html:events-pro/v2/week/mobile-events/day/event/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
 	}
 
 	/**
@@ -232,21 +248,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Include the control markers for the archive pages.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string   $file      Complete path to include the PHP File.
-	 * @param array    $name      Template name.
-	 * @param Template $template  Current instance of the Template.
-	 *
-	 * @return void  Template render has no return/
-	 */
-	public function action_add_archive_control_markers( $file, $name, $template ) {
-		$this->container->make( Template_Modifications::class )->add_archive_control_markers( $file, $name, $template );
-	}
-
-	/**
 	 * Include the online now url anchor for the archive pages.
 	 *
 	 * @since 1.0.0
@@ -288,6 +289,20 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function filter_insert_online_event( $html, $file, $name, $template ) {
 		return $this->container->make( Template_Modifications::class )->regex_insert_template( 'online-event', $html, $file, $name, $template );
+	}
+
+	/**
+	 * Insert the status label for the archive pages.
+	 *
+	 * @param string   $html      HTML of the template.
+	 * @param string   $file      Complete path to include the PHP File.
+	 * @param array    $name      Template name.
+	 * @param Template $template  Current instance of the Template.
+	 *
+	 * @return string
+	 */
+	public function filter_insert_status_label( $html, $file, $name, $template ) {
+		return $this->container->make( Template_Modifications::class )->regex_insert_template( 'status-label', $html, $file, $name, $template );
 	}
 
 	/**
