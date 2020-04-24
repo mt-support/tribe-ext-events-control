@@ -95,6 +95,14 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
 		add_filter( 'tribe_template_html:events/v2/month/calendar-body/day/multiday-events/multiday-event', [ $this, 'filter_insert_status_label' ], 15, 4 );
 		add_filter( 'tribe_template_html:events/v2/month/mobile-events/mobile-day/mobile-event/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
+
+		// Photo View
+		add_filter( 'tribe_template_html:events-pro/v2/photo/event/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
+
+		// Map View
+		add_filter( 'tribe_template_html:events-pro/v2/map/event-cards/event-card/event/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
+		add_filter( 'tribe_template_html:events-pro/v2/map/event-cards/event-card/tooltip/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
+
 		// Week View
 		add_filter( 'tribe_template_html:events-pro/v2/week/grid-body/events-day/event/date', [ $this, 'filter_insert_online_event' ], 15, 4 );
 		add_filter( 'tribe_template_html:events-pro/v2/week/grid-body/events-day/event/tooltip/date', [ $this, 'filter_insert_online_event' ], 15, 4 );

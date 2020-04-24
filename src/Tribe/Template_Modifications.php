@@ -43,6 +43,11 @@ class Template_Modifications {
 		'month/calendar-body/day/calendar-events/calendar-event/tooltip/title:status-label' => '/(<h3 class="tribe-events-calendar-month__calendar-event-tooltip-title tribe-common-h7">)/',
 		'month/calendar-body/day/multiday-events/multiday-event:status-label'               => '/(<h3 class="tribe-events-calendar-month__multiday-event-bar-title tribe-common-h8">)/',
 		'month/mobile-events/mobile-day/mobile-event/title:status-label'                    => '/(<h3 class="tribe-events-calendar-month-mobile-events__mobile-event-title tribe-common-h7">)/',
+		// Photo View
+		'photo/event/title:status-label'                                                    => '/(<h3 class="tribe-events-pro-photo__event-title tribe-common-h6">)/',
+		// Map View
+		'map/event-cards/event-card/event/title:status-label'                               => '/(<h3 class="tribe-events-pro-map__event-title tribe-common-h8 tribe-common-h7--min-medium">)/',
+		'map/event-cards/event-card/tooltip/title:status-label'                             => '/(<h3 class="tribe-events-pro-map__event-tooltip-title tribe-common-h7">)/',
 		// Week View
 		'week/grid-body/events-day/event/date:online-event'                                 => '/(<div class="tribe-events-pro-week-grid__event-datetime">)/',
 		'week/grid-body/events-day/event/tooltip/date:online-event'                         => '/(<div class="tribe-events-pro-week-grid__event-tooltip-datetime">)/',
