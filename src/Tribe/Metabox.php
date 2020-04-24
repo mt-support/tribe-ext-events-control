@@ -130,15 +130,15 @@ class Metabox {
 	 */
 	public function render_template( $post_id ) {
 		$fields = [
-			'status' => get_post_meta( $post_id, Event_Meta::$key_status, true ),
-			'status-canceled-reason' => get_post_meta( $post_id, Event_Meta::$key_status_canceled_reason, true ),
+			'status'                  => get_post_meta( $post_id, Event_Meta::$key_status, true ),
+			'status-canceled-reason'  => get_post_meta( $post_id, Event_Meta::$key_status_canceled_reason, true ),
 			'status-postponed-reason' => get_post_meta( $post_id, Event_Meta::$key_status_postponed_reason, true ),
-			'online' => tribe_is_truthy( get_post_meta( $post_id, Event_Meta::$key_online, true ) ),
-			'online-url' => get_post_meta( $post_id, Event_Meta::$key_online_url, true ),
-			'online-button-text' => get_post_meta( $post_id, Event_Meta::$online_button_text, true ),
-			'show-at-start' => get_post_meta( $post_id, Event_Meta::$show_at_start, true ),
-			'show-on-event' => get_post_meta( $post_id, Event_Meta::$show_on_event, true ),
-			'show-on-views' => get_post_meta( $post_id, Event_Meta::$show_on_views, true ),
+			'online'                  => tribe_is_truthy( get_post_meta( $post_id, Event_Meta::$key_online, true ) ),
+			'online-url'              => get_post_meta( $post_id, Event_Meta::$key_online_url, true ),
+			'online-button-text'      => get_post_meta( $post_id, Event_Meta::$online_button_text, true ),
+			'show-at-start'           => tribe_is_truthy( get_post_meta( $post_id, Event_Meta::$show_at_start, true ) ),
+			'show-on-event'           => tribe_is_truthy( get_post_meta( $post_id, Event_Meta::$show_on_event, true ) ),
+			'show-on-views'           => tribe_is_truthy( get_post_meta( $post_id, Event_Meta::$show_on_views, true ) ),
 		];
 		$args = [
 			'metabox' => $this,
@@ -397,9 +397,17 @@ class Metabox {
 		if ( $online ) {
 			update_post_meta( $post_id, Event_Meta::$key_online, $online );
 			update_post_meta( $post_id, Event_Meta::$key_online_url, Arr::get( $data, 'online-url', false ) );
+			update_post_meta( $post_id, Event_Meta::$online_button_text, Arr::get( $data, 'online-button-text', false ) );
+			update_post_meta( $post_id, Event_Meta::$show_at_start, Arr::get( $data, 'show-at-start', false ) );
+			update_post_meta( $post_id, Event_Meta::$show_on_event, Arr::get( $data, 'show-on-event', false ) );
+			update_post_meta( $post_id, Event_Meta::$show_on_views, Arr::get( $data, 'show-on-views', false ) );
 		} else {
 			delete_post_meta( $post_id, Event_Meta::$key_online );
 			delete_post_meta( $post_id, Event_Meta::$key_online_url );
+			delete_post_meta( $post_id, Event_Meta::$online_button_text );
+			delete_post_meta( $post_id, Event_Meta::$show_at_start );
+			delete_post_meta( $post_id, Event_Meta::$show_on_event );
+			delete_post_meta( $post_id, Event_Meta::$show_on_views );
 		}
 	}
 

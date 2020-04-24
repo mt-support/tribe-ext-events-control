@@ -198,6 +198,89 @@ class Event_Meta {
 	}
 
 	/**
+	 * Get the Online Button Text.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post $event Event post object.
+	 *
+	 * @return null|string The event's online button text.
+	 */
+	public function get_online_button_text( $event ) {
+		if ( ! $event instanceof WP_Post ) {
+			$event = tribe_get_event( $event );
+		}
+
+		if ( ! $event ) {
+			return null;
+		}
+
+		return get_post_meta( $event->ID, static::$online_button_text, true );
+	}
+
+	/**
+	 * Retrieves whether the watch button shows at start of event.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post $event Event post object.
+	 *
+	 * @return bool Whether the online watch Button shows at start.
+	 */
+	public function is_show_at_start( $event ) {
+		if ( ! $event instanceof WP_Post ) {
+			$event = tribe_get_event( $event );
+		}
+
+		if ( ! $event ) {
+			return null;
+		}
+
+		return tribe_is_truthy( get_post_meta( $event->ID, static::$show_at_start, true ) );
+	}
+
+	/**
+	 * Retrieves whether to Show Online Indicators on Single Events.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post $event Event post object.
+	 *
+	 * @return bool Whether the online indicators show on single events.
+	 */
+	public function is_show_on_event( $event ) {
+		if ( ! $event instanceof WP_Post ) {
+			$event = tribe_get_event( $event );
+		}
+
+		if ( ! $event ) {
+			return null;
+		}
+
+		return tribe_is_truthy( get_post_meta( $event->ID, static::$show_on_event, true ) );
+	}
+
+	/**
+	 * Retrieves whether to Show Online Indicators on V2 Views.
+	 *
+	 * @since TBD
+	 *
+	 * @param WP_Post $event Event post object.
+	 *
+	 * @return bool Whether the online indicators show on V2 views.
+	 */
+	public function is_show_on_views( $event ) {
+		if ( ! $event instanceof WP_Post ) {
+			$event = tribe_get_event( $event );
+		}
+
+		if ( ! $event ) {
+			return null;
+		}
+
+		return tribe_is_truthy( get_post_meta( $event->ID, static::$show_on_views, true ) );
+	}
+	/**
 	 * Retrieves event control meta.
 	 *
 	 * @since 1.1.0
@@ -207,15 +290,23 @@ class Event_Meta {
 	 * @return mixed|void
 	 */
 	public function get_meta( $event ) {
-		$data       = [];
-		$status     = $this->get_status( $event );
-		$reason     = null;
-		$is_online  = $this->is_online( $event );
-		$online_url = null;
+		$data               = [];
+		$status             = $this->get_status( $event );
+		$reason             = null;
+		$is_online          = $this->is_online( $event );
+		$online_url         = null;
+		$online_button_text = null;
+		$show_at_start      = null;
+		$show_on_event      = null;
+		$show_on_view       = null;
 
 		if ( ! empty( $status ) || ! empty( $is_online ) ) {
 			if ( $is_online ) {
 				$online_url = $this->get_online_url( $event );
+				$online_button_text = $this->get_online_button_text( $event );
+				$show_at_start      = $this->is_show_at_start( $event );
+				$show_on_event      = $this->is_show_on_event( $event );
+				$show_on_view       = $this->is_show_on_views( $event );
 			}
 
 			if ( 'canceled' === $status ) {
@@ -231,6 +322,10 @@ class Event_Meta {
 				'event_status_reason' => $reason,
 				'is_online'           => (bool) $is_online,
 				'online_url'          => $online_url,
+				'online_button_text'  => $online_button_text,
+				'show_at_start'       => $show_at_start,
+				'show_on_event'       => $show_on_event,
+				'show_on_view'        => $show_on_view,
 			];
 		}
 
