@@ -39,6 +39,7 @@ We're always interested in your feedback and our [Help Desk](https://support.the
 
 * Fix - Modify the location schema to always include a url when using VirtualLocation and add a filter `tribe_events_single_event_online_status` to be able to set any event as an online event. [EXT-164]
 * Tweak - Text changes to the Event Status Metabox UI [EXT-167]
+* Feature - Add online events indicator for The Events Calendar archive views.
 
 = [1.3.0] 2020-04-18 =
 
