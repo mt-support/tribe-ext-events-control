@@ -17,6 +17,7 @@
 
 namespace Tribe\Extensions\EventsControl;
 use Tribe__Template as Template;
+use Tribe__Events__Main as Events_Plugin;
 use WP_Post;
 
 /**
@@ -46,7 +47,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	protected function add_actions() {
 		add_action( 'add_meta_boxes', [ $this, 'action_add_metabox' ] );
 		add_action( 'init', [ $this, 'action_register_metabox_fields' ] );
-		add_action( 'save_post', [ $this, 'action_save_metabox' ], 15, 3 );
+		add_action( 'save_post_' . Events_Plugin::POSTTYPE, [ $this, 'action_save_metabox' ], 15, 3 );
 
 		add_action( 'tribe_template_before_include:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/title', [ $this, 'action_add_archive_control_markers' ], 15, 3 );
 		add_action( 'tribe_template_after_include:events/v2/month/calendar-body/day/calendar-events/calendar-event/tooltip/description', [ $this, 'action_add_archive_online_link' ], 15, 3 );
