@@ -11,7 +11,7 @@ namespace Tribe\Extensions\EventsControl;
  *
  * @link {INSERT_ARTICLE_LINK_HERE}
  *
- * @version 4.9.9
+ * @version TBD
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -20,26 +20,33 @@ namespace Tribe\Extensions\EventsControl;
 use Tribe__Date_Utils as Dates;
 use WP_Post;
 
-$status           = get_post_meta( $event->ID, Event_Meta::$key_status, true );
-$postponed_reason = get_post_meta( $event->ID, Event_Meta::$key_status_postponed_reason, true );
-
 // Don't print anything when status for this event is not
 if ( 'postponed' !== $status ) {
 	return;
 }
+
+$postponed_reason = get_post_meta( $event->ID, Event_Meta::$key_status_postponed_reason, true );
+
+if ( $postponed_reason ) {
+	$label = _x( 'Postponed', 'Text to display postponed on event single if there is a postponed reason.', 'tribe-ext-events-control' );
+} else {
+	$label = sprintf( _x( 'This %s has been postponed', 'Text to display postponed on event single if no postponed reason.', 'tribe-ext-events-control' ), tribe_get_event_label_singular() );
+}
+
+$label = apply_filters( 'tribe_ext_events_control_event_single_postponed_label', $label, $event->ID, $event );
 
 ?>
 <div class="tribe-ext-events-control-single-notice tribe-ext-events-control-single-notice--postponed">
 	<div class="tribe-ext-events-control-text">
 
 		<div class="tribe-ext-events-control-single-notice-header tribe-ext-events-control-text--red tribe-ext-events-control-text--bold tribe-ext-events-control-text--alert-icon">
-			<?php echo esc_html_x( 'Postponed', 'Text next to the date to display postponed', 'tribe-ext-events-control' ); ?>
+			<?php echo esc_html( $label ); ?>
 		</div>
 
 		<?php if ( $postponed_reason ) : ?>
-			<div class="tribe-ext-events-control-single-notice-description">
+			<p class="tribe-ext-events-control-single-notice-description">
 				<?php echo wp_kses_post( $postponed_reason ); ?>
-			</div>
+			</p>
 		<?php endif; ?>
 	</div>
 </div>

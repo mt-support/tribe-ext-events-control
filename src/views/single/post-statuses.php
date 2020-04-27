@@ -20,15 +20,15 @@ namespace Tribe\Extensions\EventsControl;
  */
 use WP_Post;
 
+$status = get_post_meta( $event->ID, Event_Meta::$key_status, true );
 
-// Dont print anything when there are no statuses for this event.
-if ( ! $event ) {
+if ( ! in_array( $status, [ 'canceled', 'postponed' ] ) ) {
 	return;
 }
 
 ?>
 <div class="tribe-common-b2 tribe-ext-events-control-status-single-container">
-	<?php $this->template( 'single/canceled-status' ); ?>
-	<?php $this->template( 'single/postponed-status' ); ?>
-	<?php $this->template( 'single/online-marker' ); ?>
+	<?php $this->template( 'single/canceled-status', [ 'event' => $event, 'status' => $status ] ); ?>
+	<?php $this->template( 'single/postponed-status', [ 'event' => $event, 'status' => $status ] ); ?>
+	<?php // $this->template( 'single/online-marker' ); ?>
 </div>
