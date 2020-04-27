@@ -37,10 +37,11 @@ We're always interested in your feedback and our [Help Desk](https://support.the
 
 = [1.4.0] TBD =
 
-* Tweak - Text changes to the Event Status Metabox UI. [EXT-167]
-* Tweak - Update status templates for canceled and postponed events on event single. [EXT-171]
 * Feature - Add online events indicator for The Events Calendar archive views. [EXT-166]
 * Feature - Add canceled and postponed labels for The Events Calendar archive views. [EXT-165]
+* Tweak - Text changes to the Event Status Metabox UI. [EXT-167]
+* Tweak - Update status templates for canceled and postponed events on event single. [EXT-171]
+* Fix - Modify the location schema to always include a url when using VirtualLocation and add a filter `tribe_events_single_event_online_status` to be able to set any event as an online event. [EXT-164]
 
 = [1.3.0] 2020-04-18 =
 
