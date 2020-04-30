@@ -1,0 +1,126 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: The Events Calendar Extension: Events Control\n"
+"POT-Creation-Date: 2020-04-30 18:03+0200\n"
+"PO-Revision-Date: 2020-04-30 18:03+0200\n"
+"Last-Translator: Andras Guseo <aguseo@gmail.com>\n"
+"Language-Team: Andras Guseo <aguseo@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: tribe-ext-events-control.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: src/Tribe/Metabox.php:55
+msgctxt "Meta box title for the Advanced Control"
+msgid "Events Advanced Control"
+msgstr ""
+
+#: src/admin-views/metabox/container.php:18
+msgctxt "Event status label the select field"
+msgid "Event Status:"
+msgstr ""
+
+#: src/admin-views/metabox/container.php:24
+msgctxt "Event status default option"
+msgid "Select Event status"
+msgstr ""
+
+#: src/admin-views/metabox/container.php:29
+msgctxt "Event status of being canceled in the select field"
+msgid "Canceled"
+msgstr ""
+
+#: src/admin-views/metabox/container.php:35
+msgctxt "Event status of being postponed in the select field"
+msgid "Postponed"
+msgstr ""
+
+#: src/admin-views/metabox/container.php:46
+msgctxt "Label for postponed reason field"
+msgid "Postponed Reason"
+msgstr ""
+
+#: src/admin-views/metabox/container.php:62
+msgctxt "Label for canceled reason field"
+msgid "Canceled Reason"
+msgstr ""
+
+#: src/admin-views/metabox/container.php:82
+msgctxt "Event State of being Online only checkbox label"
+msgid "Mark as an online event"
+msgstr ""
+
+#: src/admin-views/metabox/container.php:92
+msgctxt "Label for live stream URL field"
+msgid "Live Stream URL"
+msgstr ""
+
+#: src/views/canceled-status.php:33 src/views/single/canceled-status.php:36
+msgctxt "Text next to the date to display canceled"
+msgid "Canceled"
+msgstr ""
+
+#: src/views/online-link.php:24 src/views/single/online-marker.php:26
+msgctxt "Label for an online event link"
+msgid "Watch Now"
+msgstr ""
+
+#: src/views/online-marker.php:23
+msgctxt "Online label on list view"
+msgid "Livestream"
+msgstr ""
+
+#: src/views/postponed-status.php:33 src/views/single/postponed-status.php:36
+msgctxt "Text next to the date to display postponed"
+msgid "Postponed"
+msgstr ""
+
+#: src/views/single/online-link.php:33
+msgctxt "Label for a livestream link"
+msgid "Watch Now"
+msgstr ""
+
+#: src/views/single/online-marker.php:25
+msgctxt "Online label on single view"
+msgid "Livestream"
+msgstr ""
+
+#: tribe-ext-events-control.php:174
+#, php-format
+msgid ""
+"%s requires PHP version %s or newer to work. Please contact your website "
+"host and inquire about updating PHP."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "The Events Calendar Extension: Events Control"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://theeventscalendar.com/extensions/events-control/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Adds the ability to mark an event as an Online event and to change an "
+"event's status to Canceled or Postponed."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Modern Tribe, Inc."
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://m.tri.be/1971"
+msgstr ""
