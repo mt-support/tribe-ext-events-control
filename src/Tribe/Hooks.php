@@ -3,16 +3,16 @@
  * Handles hooking all the actions and filters used by the module.
  *
  * To remove a filter:
- * remove_filter( 'some_filter', [ tribe( Tribe\Extensions\EventsHappeningNow\Hooks::class ), 'some_filtering_method' ] );
- * remove_filter( 'some_filter', [ tribe( 'events-happening-now.views.filters' ), 'some_filtering_method' ] );
+ * remove_filter( 'some_filter', [ tribe( Tribe\Extensions\EventsControl\Hooks::class ), 'some_filtering_method' ] );
+ * remove_filter( 'some_filter', [ tribe( 'events-control.views.filters' ), 'some_filtering_method' ] );
  *
  * To remove an action:
- * remove_action( 'some_action', [ tribe( Tribe\Extensions\EventsHappeningNow\Hooks::class ), 'some_method' ] );
- * remove_action( 'some_action', [ tribe( 'events-happening-now.views.hooks' ), 'some_method' ] );
+ * remove_action( 'some_action', [ tribe( Tribe\Extensions\EventsControl\Hooks::class ), 'some_method' ] );
+ * remove_action( 'some_action', [ tribe( 'events-control.views.hooks' ), 'some_method' ] );
  *
  * @since 1.0.0
  *
- * @package Tribe\Extensions\EventsHappeningNow
+ * @package Tribe\Extensions\EventsControl
  */
 
 namespace Tribe\Extensions\EventsControl;
