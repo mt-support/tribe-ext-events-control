@@ -56,6 +56,8 @@ class Template_Modifications {
 		'week/grid-body/events-day/event/tooltip/title:status-label'                        => '/(<h3 class="tribe-events-pro-week-grid__event-tooltip-title tribe-common-h7">)/',
 		'week/grid-body/multiday-events-day/multiday-event:status-label'                    => '/(<h3 class="tribe-events-pro-week-grid__multiday-event-bar-title tribe-common-h8 tribe-common-h--alt">)/',
 		'week/mobile-events/day/event/title:status-label'                                   => '/(<h3 class="tribe-events-pro-week-mobile-events__event-title tribe-common-h6 tribe-common-h5--min-medium">)/',
+		// Widget
+		'widgets/widget-events-list/event/title:status-label'                               => '/(<h3 class="tribe-events-widget-events-list__event-title tribe-common-h7">)/',
 	];
 
 	/**
