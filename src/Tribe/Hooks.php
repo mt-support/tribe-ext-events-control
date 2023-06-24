@@ -114,6 +114,9 @@ class Hooks extends Service_Provider {
 		add_filter( 'tribe_template_html:events-pro/v2/week/grid-body/events-day/event/tooltip/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
 		add_filter( 'tribe_template_html:events-pro/v2/week/grid-body/multiday-events-day/multiday-event', [ $this, 'filter_insert_status_label' ], 15, 4 );
 		add_filter( 'tribe_template_html:events-pro/v2/week/mobile-events/day/event/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
+		
+		//Widget
+		add_filter( 'tribe_template_html:events/v2/widgets/widget-events-list/event/title', [ $this, 'filter_insert_status_label' ], 15, 4 );
 	}
 
 	/**
