@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       The Events Calendar Extension: Events Control
- * Plugin URI:        https://theeventscalendar.com/extensions/events-control/
+ * Plugin URI:        https://theeventscalendar.com/extensions/event-statuses/
  * GitHub Plugin URI: https://github.com/mt-support/tribe-ext-events-control
  * Description:       Adds the ability to mark an event as an Online event and to change an event's status to Canceled or Postponed.
  * Version:           1.4.1
