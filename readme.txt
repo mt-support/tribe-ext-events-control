@@ -35,7 +35,11 @@ We're always interested in your feedback and our [Help Desk](https://support.the
 
 == Changelog ==
 
-= [1.4.0] TBD =
+= [1.4.1] 2023-06-24 =
+
+* Fix - Update to use the new Service_Provider contract in common.
+
+= [1.4.0] 2023-06-24 =
 
 * Fix - Modify the location schema to always include a url when using VirtualLocation and add a filter `tribe_events_single_event_online_status` to be able to set any event as an online event. [EXT-164]
 * Tweak - Text changes to the Event Status Metabox UI [EXT-167]
