@@ -11,6 +11,7 @@
  */
 namespace Tribe\Extensions\EventsControl;
 
+use TEC\Common\Contracts\Service_Provider;
 use Tribe\Events\Views\V2\Assets as Event_Assets;
 use Tribe__Events__Templates;
 
@@ -21,7 +22,7 @@ use Tribe__Events__Templates;
  *
  * @package Tribe\Extensions\EventsControl
  */
-class Assets extends \tad_DI52_ServiceProvider {
+class Assets extends Service_Provider {
 
 	/**
 	 * Key for this group of assets.

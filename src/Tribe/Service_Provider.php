@@ -8,12 +8,14 @@
 
 namespace Tribe\Extensions\EventsControl;
 
+use TEC\Common\Contracts\Service_Provider as TEC_Service_Provider;
+
 /**
  * Class Service_Provider
  * @since   1.0.0
  * @package Tribe\Extensions\EventsHappeningNow
  */
-class Service_Provider extends \tad_DI52_ServiceProvider {
+class Service_Provider extends TEC_Service_Provider {
 
 	/**
 	 * Binds and sets up implementations.

@@ -16,6 +16,8 @@
  */
 
 namespace Tribe\Extensions\EventsControl;
+
+use TEC\Common\Contracts\Service_Provider;
 use Tribe__Template as Template;
 use Tribe__Events__Main as Events_Plugin;
 use WP_Post;
@@ -27,7 +29,7 @@ use WP_Post;
  *
  * @package Tribe\Extensions\EventsHappeningNow
  */
-class Hooks extends \tad_DI52_ServiceProvider {
+class Hooks extends Service_Provider {
 
 	/**
 	 * Binds and sets up implementations.
